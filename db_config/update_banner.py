@@ -25,7 +25,6 @@ def addBannerData(versionNumber, ssr, sr_list, start_date, end_date):
 # addBannerData("1.0", "Venti", ["Barbara", "Fischl", "Xiangling"], "2020-09-28", "2020-10-18")
 
 def showDatabase():
-    sr_list = pickle.dumps(sr_list)
     config = dotenv_values(".env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -35,14 +34,15 @@ def showDatabase():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM banner_data WHERE version_number = %s AND featured_5_star = %s AND featured_4_star = %s AND start_date = %s AND end_date = %s", (versionNumber, ssr, sr_list, start_date, end_date))
+    cursor.execute("SELECT * FROM banner_data")
     banners = cursor.fetchall()
     for banner in banners:
         print(banner)
 
 while True:
+    showDatabase()
     vn = str(input("Version No. : "))
-    ssr = str(input("SSR"))
+    ssr = str(input("SSR: "))
     sr_1 = str(input("SR_1: "))
     sr_2 = str(input("SR_2: "))
     sr_3 = str(input("SR_3: "))
