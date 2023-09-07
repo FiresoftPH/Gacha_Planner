@@ -2,8 +2,7 @@ import pickle
 import pymysql
 from dotenv import dotenv_values
 
-def addBannerData(versionNumber, ssr, sr_list, start_date, end_date):
-    sr_list = pickle.dumps(sr_list)
+def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
     config = dotenv_values(".env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -13,18 +12,20 @@ def addBannerData(versionNumber, ssr, sr_list, start_date, end_date):
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM banner_data WHERE version_number = %s AND featured_5_star = %s AND featured_4_star = %s AND start_date = %s AND end_date = %s", (versionNumber, ssr, sr_list, start_date, end_date))
+    cursor.execute("SELECT * FROM banner_data WHERE version = %s AND featured_5_star = %s AND start_date = %s AND end_date = %s"
+                   , (versionNumber, ssr, start_date, end_date))
     checkSimilarBanner = cursor.fetchall()
     if checkSimilarBanner != ():
         raise ValueError("Banner already exists, modify banner data instead")
     else:
-        cursor.execute("INSERT INTO banner_data (version_number, featured_5_star, featured_4_star, start_date, end_date) VALUES (%s, %s, %s, %s, %s)", (versionNumber, ssr, sr_list, start_date, end_date))
+        cursor.execute("INSERT INTO banner_data (version, featured_5_star, featured_4_star_1, featured_4_star_2, featured_4_star_3, start_date, end_date) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                       , (versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date))
         connection.commit()
         connection.close()
 
 # addBannerData("1.0", "Venti", ["Barbara", "Fischl", "Xiangling"], "2020-09-28", "2020-10-18")
 
-def showDatabase():
+def showBannerData():
     config = dotenv_values(".env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -38,9 +39,11 @@ def showDatabase():
     banners = cursor.fetchall()
     for banner in banners:
         print(banner)
+    
+    connection.close()
 
 while True:
-    showDatabase()
+    showBannerData()
     vn = str(input("Version No. : "))
     ssr = str(input("SSR: "))
     sr_1 = str(input("SR_1: "))
@@ -48,8 +51,9 @@ while True:
     sr_3 = str(input("SR_3: "))
     sd = str(input("Start Date: "))
     ed = str(input("End Date: "))
+    print("Inputs: ", vn,ssr, sr_1, sr_2, sr_3, sd, ed)
     confirm = int(input("Confirm? [1, 0]: "))
     if confirm == 1:
-        addBannerData(vn,ssr, [sr_1, sr_2, sr_3], sd, ed)
+        addBannerData(vn,ssr, sr_1, sr_2, sr_3, sd, ed)
     else:
         print("abort")
