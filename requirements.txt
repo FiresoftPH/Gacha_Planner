@@ -1,2 +1,4 @@
 pymysql
 dotenv
+flask
+flask_cors
