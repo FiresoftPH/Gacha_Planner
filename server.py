@@ -6,12 +6,14 @@ import json
 
 app = Flask(__name__)
 
+def authentication(username, password):
+    pass
+
 @app.route('/get/character-data')
 def getCharacterData():
     return json.dumps(db_config.character.sendCharacterData())
 
 @app.route('/calculate/banner-history', methods=["POST"])
-# @app.route('/calculate/banner-history')
 def recalculateBannerHistory():
     data = request.get_json()
     data = json.loads(data)

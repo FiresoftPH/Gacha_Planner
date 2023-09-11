@@ -100,3 +100,5 @@ def cli():
             addCharacterData(name, rarity, element, weapon, permanent)
         else:
             print("abort")
+
+# cli()
