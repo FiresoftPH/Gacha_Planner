@@ -4,7 +4,7 @@ from dotenv import dotenv_values
 from datetime import date
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
-    config = dotenv_values("db_config\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -27,7 +27,7 @@ def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
 # addBannerData("1.0", "Venti", ["Barbara", "Fischl", "Xiangling"], "2020-09-28", "2020-10-18")
 
 def showBannerData():
-    config = dotenv_values("db_config\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -44,7 +44,7 @@ def showBannerData():
     connection.close()
 
 def calculateBannerEstimationData(year, month, day, character_name):
-    config = dotenv_values("db_config\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -68,8 +68,10 @@ def calculateBannerEstimationData(year, month, day, character_name):
         except IndexError:
             # Calculate the number of patches that this character isnt rerun
             diff = date(year, month, day) - banners[index][3]
-            if diff.days < 0:
+            if diff.days < 21:
                 history_period.append(0)
+            # elif diff.days >= 21:
+            #     history_period.append(1)
             else:
                 history_period.append(diff.days // 42)
 

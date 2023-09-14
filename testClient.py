@@ -17,5 +17,20 @@ def calculateBannerEstimationData():
     else:
         print("Error: ", response.status_code)
 
-calculateBannerEstimationData()
+def auth():
+    response = requests.post(BASE_URL + "/auth/users", json=json.dumps({"username": "", "password": ""}))
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
+
+def register():
+    response = requests.post(BASE_URL + "/auth/signup", json=json.dumps({"name": "", "username": "", "password": ""}))
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
+
+# calculateBannerEstimationData()
 # getCharacterData()
+# auth()

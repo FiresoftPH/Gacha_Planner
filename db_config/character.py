@@ -5,7 +5,7 @@ import json
 import os
 
 def addCharacterData(name, rarity, element, weapon, permanent):
-    config = dotenv_values("db_config\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -24,7 +24,7 @@ def addCharacterData(name, rarity, element, weapon, permanent):
         connection.close()
 
 def showCharacterData():
-    config = dotenv_values("db_config\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -41,7 +41,7 @@ def showCharacterData():
     connection.close()
 
 def sendCharacterData():
-    config = dotenv_values("db_config\\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -50,18 +50,18 @@ def sendCharacterData():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM character_data")
+    cursor.execute("SELECT name, rerun_history FROM character_data WHERE rarity = %s AND permanent = %s AND name != %s", ("5 Stars", False, "Aloy"))
     banners = list(cursor.fetchall())
     for index in range(len(banners)):
         banners[index] = list(banners[index])
-        if banners[index][5] is not None:
-            banners[index][5] = pickle.loads(banners[index][5])
+        if banners[index][1] is not None:
+            banners[index][1] = pickle.loads(banners[index][1])
 
     connection.close()
     return banners
 
 def getCharacterNames():
-    config = dotenv_values("db_config\\.env")
+    config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
