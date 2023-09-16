@@ -20,14 +20,14 @@ class UserData:
         return self.data
     
     def updateUserInput(self, data):
-        if len(self.data) >= 5:
+        if len(self.data) >= self.limit:
             return False
         else:
             self.data.append({"input": data, "output": {}})
             return True
 
     def updateProgramData(self, data):
-        if len(self.data) >= 5:
+        if len(self.data) >= self.limit:
             return False
         else:
             self.data[len(self.data)].update({"output": data})
