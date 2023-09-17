@@ -2,6 +2,7 @@ import pickle
 import pymysql
 from dotenv import dotenv_values
 from datetime import date
+from math import ceil
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
     config = dotenv_values("db_config/.env")
@@ -63,7 +64,7 @@ def calculateBannerEstimationData(year, month, day, character_name):
             # Calculate the number of patches in each rerun
             diff = banners[index + 1][3] - banners[index][3]
             # print(diff.days // 42)
-            history_period.append(diff.days // 42)
+            history_period.append(ceil(diff.days / 42))
 
         except IndexError:
             # Calculate the number of patches that this character isnt rerun
@@ -73,7 +74,7 @@ def calculateBannerEstimationData(year, month, day, character_name):
             # elif diff.days >= 21:
             #     history_period.append(1)
             else:
-                history_period.append(diff.days // 42)
+                history_period.append(ceil(diff.days / 42))
 
     # print(history_period)
     cursor.execute("UPDATE character_data SET rerun_history = %s where name = %s", (pickle.dumps(history_period), character_name))

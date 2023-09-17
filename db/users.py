@@ -3,8 +3,10 @@ import pymysql
 import pickle
 from dotenv import dotenv_values
 
+DATA_LIMIT = 5
+
 class UserData:
-    def __init__(self):
+    def __init__(self, user_input = {}):
         # user_input = {"primogems": 0, 
         #               "genesis_crystals": 0,
         #               "fates": 0,
@@ -13,8 +15,7 @@ class UserData:
         #               "5_star_number": 1,
         #               "welkin": [0, 0],
         #               "bp": [0, 0]}
-        self.limit = 5
-        self.data = []
+        self.data = {"input": user_input, "output": {}}
 
     def getData(self):
         return self.data
@@ -23,14 +24,14 @@ class UserData:
         if len(self.data) >= self.limit:
             return False
         else:
-            self.data.append({"input": data, "output": {}})
+            self.data.update({"input": data, "output": {}})
             return True
 
-    def updateProgramData(self, data):
+    def updateProgramOutput(self, data):
         if len(self.data) >= self.limit:
             return False
         else:
-            self.data[len(self.data)].update({"output": data})
+            self.data.update({"output": data})
             return True
 
 def register(name, username, password):
@@ -73,7 +74,7 @@ def login(username, password):
         connection.close()
         return user_data[0]
     
-def savePlannerData(username, input_data, output_data):
+def savePlannerData(username, input_data, output_data, save_name):
     config = dotenv_values("db_config/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -84,9 +85,21 @@ def savePlannerData(username, input_data, output_data):
     )
     cursor = connection.cursor()
     data = UserData()
-    data.updateUserInput(input_data, output_data)
+    data.updateUserInput(input_data)
+    data.updateProgramOutput(output_data)
     pickled_data = pickle.dumps(data)
-    cursor.execute("UPDATE users SET saved_data = %s WHERE username = %s", (pickled_data, username))
+    cursor.execute("SELECT * user_data where username = %s", username)
+    global DATA_LIMIT
+    check_limit = cursor.fetchall()
+    if len(check_limit) > DATA_LIMIT:
+        connection.close()
+        return False
+    else:
+        cursor.execute("INSERT INTO user_data (username, saved_data_name, saved_data) VALUES (%s, %s, %s)", (username, save_name, pickled_data))
+        connection.commit()
+        connection.close()
+        return True
+
     
 # print(register("Furina", "furina", "1"))
 # print(login("furina", "13"))
