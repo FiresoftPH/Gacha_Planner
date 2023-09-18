@@ -5,7 +5,7 @@ from datetime import date
 from math import ceil
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -28,7 +28,7 @@ def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
 # addBannerData("1.0", "Venti", ["Barbara", "Fischl", "Xiangling"], "2020-09-28", "2020-10-18")
 
 def showBannerData():
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -45,7 +45,7 @@ def showBannerData():
     connection.close()
 
 def calculateBannerEstimationData(year, month, day, character_name):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -79,8 +79,6 @@ def calculateBannerEstimationData(year, month, day, character_name):
     # print(history_period)
     cursor.execute("UPDATE character_data SET rerun_history = %s where name = %s", (pickle.dumps(history_period), character_name))
     connection.commit()
-    cursor.execute("SELECT * from character_data where name = %s", character_name)
-    print(cursor.fetchall()[0])
 
 def cli():
     while True:

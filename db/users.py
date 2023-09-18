@@ -35,7 +35,7 @@ class UserData:
             return True
 
 def register(name, username, password):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -56,7 +56,7 @@ def register(name, username, password):
         return False
     
 def login(username, password):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -75,7 +75,7 @@ def login(username, password):
         return user_data[0]
     
 def savePlannerData(username, input_data, output_data, save_name):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),

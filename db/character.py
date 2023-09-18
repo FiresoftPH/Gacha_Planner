@@ -5,7 +5,7 @@ import json
 import os
 
 def addCharacterData(name, rarity, element, weapon, permanent):
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -24,7 +24,7 @@ def addCharacterData(name, rarity, element, weapon, permanent):
         connection.close()
 
 def showCharacterData():
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -41,7 +41,7 @@ def showCharacterData():
     connection.close()
 
 def sendCharacterData():
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),
@@ -56,12 +56,12 @@ def sendCharacterData():
         banners[index] = list(banners[index])
         if banners[index][1] is not None:
             banners[index][1] = pickle.loads(banners[index][1])
-
+    
     connection.close()
     return banners
 
 def getCharacterNames():
-    config = dotenv_values("db_config/.env")
+    config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
     port = int(config["PORT"]),

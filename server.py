@@ -7,6 +7,9 @@ import json
 
 app = Flask(__name__)
 
+def mockCalculator():
+    return {""}
+
 @app.route('/auth/signup', methods=["POST"])
 def register():
     data = request.get_json()
