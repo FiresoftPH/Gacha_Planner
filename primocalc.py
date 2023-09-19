@@ -1,22 +1,43 @@
 import datetime
+import threading
+import time
 
-currenttime = datetime.datetime.now()
 patchdates = {}
-currentpatch = 4
-nextpatch = 4.1
 nextpatchdate = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21) #this date here is when 4.1 half 1 ends (start of 4.1.2)
-half = 2
 
-for i in range(10):
-    if half == 1:
-        half = 2
-        patchdates[str(currentpatch)][str(half)] = nextpatchdate
-    elif half == 2:
-        half = 1
-        currentpatch += 0.1
-        currentpatch = round(currentpatch,2)
-        patchdates[str(currentpatch)] = {str(half): nextpatchdate}
-    nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
+def calendar(currentpatch,nextpatchdate):
+    global patchdates
+    while True:
+        currenttime = datetime.datetime.now()
+        if currenttime > nextpatchdate - datetime.timedelta(days=21):
+            nextpatchdate = currenttime + datetime.timedelta(days=21)
+            half = 1
+            patchdates = {}
+            currentpatch += 0.1
+            currentpatch = round(currentpatch,2)
+        if patchdates == {}:
+            half = 1
+            p = currentpatch
+            p += 0.1
+            p = round(p,2)
+            for i in range(10):
+                if half == 1:
+                    patchdates[str(p)] = {str(half): nextpatchdate}
+                    #patchdates[str(currentpatch)][str(half)] = nextpatchdate
+                    half = 2
+                elif half == 2:
+                    # half = 1
+                    # currentpatch += 0.1
+                    # currentpatch = round(currentpatch,2)
+                    patchdates[str(p)]["2"] = nextpatchdate
+                    p += 0.1
+                    p = round(p,2)
+                    half = 1
+                nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
+        time.sleep(1.0)
+
+calthread = threading.Thread(target=calendar,args = (4,nextpatchdate))
+calthread.start()
 
 print(patchdates)
 
@@ -107,7 +128,10 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
             extra = 0
 
         print(welkneed,"more welkin than planned",bpneed,"more battle passes (lv50) than planned","and an extra",extra,"primos")
-
+    else:
+        welkneed = 0
+        bpneed = 0
+    
     return primos4free,reqprimos,welkneed,bpneed
 
 def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates):
@@ -125,6 +149,7 @@ def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,
 
     worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
     bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
+    print(patchdates[targetpatch][half])
     timeremaining = patchdates[targetpatch][half] - currenttime
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
