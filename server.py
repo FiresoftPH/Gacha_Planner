@@ -35,9 +35,13 @@ def authentication():
     else:
         return json.dumps({"message": "Login Successfully"})
 
-@app.route('/get/character-data')
-def getCharacterData():
-    return json.dumps(db.character.sendCharacterData())
+@app.route('/get/rerun-history')
+def getCharacterRerunHistory():
+    return json.dumps(db.character.sendCharacterRerunHistory())
+
+@app.route('/get/recent-rerun-history')
+def getRecentRerunHistory():
+    return json.dumps(db.banner.sendRecentCharacterBanner())
 
 @app.route('/calculate/banner-history', methods=["POST"])
 def recalculateBannerHistory():
@@ -47,7 +51,7 @@ def recalculateBannerHistory():
     character_names = db.character.getCharacterNames()
     for name in character_names:
         db.banner.calculateBannerEstimationData(date[0], date[1], date[2], name)
-    return json.dumps(db.character.sendCharacterData())
+    return json.dumps(db.character.sendCharacterRerunHistory())
 
 @app.route('/planner/calculate', methods=["POST"])
 def calculatePlannerData():

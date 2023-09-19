@@ -40,7 +40,7 @@ def showCharacterData():
     
     connection.close()
 
-def sendCharacterData():
+def sendCharacterRerunHistory():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -53,11 +53,15 @@ def sendCharacterData():
     cursor.execute("SELECT name, rerun_history FROM character_data WHERE rarity = %s AND permanent = %s AND name != %s", ("5 Stars", False, "Aloy"))
     banners = list(cursor.fetchall())
     for index in range(len(banners)):
-        banners[index] = list(banners[index])
-        if banners[index][1] is not None:
-            banners[index][1] = pickle.loads(banners[index][1])
+        if banners[index][0] is not None:
+            banners[index] = {banners[index][0]: pickle.loads(banners[index][1])}
+        
+        # banners[index] = list(banners[index])
+        # if banners[index][0] is not None:
+        #     banners[index][0] = pickle.loads(banners[index][1])
     
     connection.close()
+    # print(banners)
     return banners
 
 def getCharacterNames():

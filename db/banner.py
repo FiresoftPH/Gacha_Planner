@@ -2,7 +2,8 @@ import pickle
 import pymysql
 from dotenv import dotenv_values
 from datetime import date
-from math import ceil
+from math import floor
+import json
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
     config = dotenv_values("db/.env")
@@ -64,7 +65,7 @@ def calculateBannerEstimationData(year, month, day, character_name):
             # Calculate the number of patches in each rerun
             diff = banners[index + 1][3] - banners[index][3]
             # print(diff.days // 42)
-            history_period.append(ceil(diff.days / 42))
+            history_period.append(floor(diff.days / 42))
 
         except IndexError:
             # Calculate the number of patches that this character isnt rerun
@@ -74,11 +75,31 @@ def calculateBannerEstimationData(year, month, day, character_name):
             # elif diff.days >= 21:
             #     history_period.append(1)
             else:
-                history_period.append(ceil(diff.days / 42))
+                history_period.append(floor(diff.days / 42))
 
     # print(history_period)
     cursor.execute("UPDATE character_data SET rerun_history = %s where name = %s", (pickle.dumps(history_period), character_name))
     connection.commit()
+
+def sendRecentCharacterBanner():
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("SELECT featured_5_star, MAX(version), MAX(start_date) FROM banner_data GROUP BY featured_5_star")
+    data = list(cursor.fetchall())
+    for index in range(len(data)):
+        # data[index] = list((data[index][0], data[index][1]))
+        data[index] = {data[index][0] : data[index][1]}
+
+    # print(json.dumps(data))
+    connection.close()
+    return data
 
 def cli():
     while True:
@@ -96,3 +117,5 @@ def cli():
             addBannerData(vn,ssr, sr_1, sr_2, sr_3, sd, ed)
         else:
             print("abort")
+
+# sendRecentCharacterBanner()
