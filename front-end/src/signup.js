@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./signup.css"
 import { useNavigate } from 'react-router-dom';
+import myImage from './wisher_header.png';
 
 export default function SignupComp() {
   const navigate = useNavigate();
@@ -13,11 +14,20 @@ export default function SignupComp() {
         <div className='form-container'>
         <SignUpForm></SignUpForm>
         </div> 
+
         <div className="signupform-section">
-          <p className="signup-header-text">Wisher Planner</p>
-          <p className="signup-welcome-text">New Here?</p>
-          <button onClick={navigateToDestination} className="toLogin-page">Login</button>
+          <h2 className="signup-header-text">
+            <img className="login-header-image" src={myImage} alt="Wisher" />
+          </h2>
+          <form className='test-login'>
+            <p className="signup-welcome-text">New Here?</p>
+            <div>
+            <button onClick={navigateToDestination} className="toLogin-page">Login</button>
+            </div>
+
+          </form>
         </div>
+
     </div>
     );
 }

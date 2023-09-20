@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./login.css"
 import { useNavigate } from 'react-router-dom';
-import myImage from './primoPic.png';
+import myImage from './wisher_header.png';
 export default function LoginComp() {
   
   const navigate = useNavigate();
@@ -15,14 +15,21 @@ export default function LoginComp() {
         <LoginForm></LoginForm>
         </div>
 
-        <div className="loginform-section2">
-          
-          <p className="login-header-text">Wisher Planner</p>
-      
-          <p className="login-welcome-text">Welcome back</p>
-          <button onClick={navigateToDestination} className="toSignup-page">Sign up</button>
+
+        <div className='loginform-section2'>
+          <h2 className="login-header-text">
+            <img className="login-header-image" src={myImage} alt="Wisher" />
+          </h2>
+          <div className='test-login'>
+            <p className="login-welcome-text">Welcome back</p>
+            <div>
+            <button onClick={navigateToDestination} className="toSignup-page">Sign up</button>
+            </div>
+
+          </div>
         </div>
         
+
     </div>
     );
 }
