@@ -2,11 +2,10 @@ import datetime
 import threading
 import time
 
-patchdates = {}
-nextpatchdate = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21) #this date here is when 4.1 half 1 ends (start of 4.1.2)
 
 def calendar(currentpatch,nextpatchdate):
     global patchdates
+    patchdates = {}
     while True:
         currenttime = datetime.datetime.now()
         if currenttime > nextpatchdate - datetime.timedelta(days=21):
@@ -36,33 +35,33 @@ def calendar(currentpatch,nextpatchdate):
                 nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
         time.sleep(1.0)
 
-calthread = threading.Thread(target=calendar,args = (4,nextpatchdate))
-calthread.start()
+# calthread = threading.Thread(target=calendar,args = (4,datetime.datetime(2023,9,27,3)))
+# calthread.start()
 
-print(patchdates)
+# print(patchdates)
 
-print("welcome to gacha calc, input your shit")
-primos = int(input("current primos: "))
-crystals = int(input("CRYSTALLIZED: "))
-fates = int(input("fates: "))
-pity = int(input("pity your down bad souls: "))
-guarantee = input("guarenteed? (y/n) ")
-targetpatch = input("where is your WAIFU: ")
-half = input("half: ")
-fivestars = int(input("5 stars: "))
-havewelk = input("have wekin? (y/n) ")
-havebp = input("have bp? (y/n) ")
+# print("welcome to gacha calc, input your shit")
+# primos = int(input("current primos: "))
+# crystals = int(input("CRYSTALLIZED: "))
+# fates = int(input("fates: "))
+# pity = int(input("pity your down bad souls: "))
+# guarantee = input("guarenteed? (y/n) ")
+# targetpatch = input("where is your WAIFU: ")
+# half = input("half: ")
+# fivestars = int(input("5 stars: "))
+# havewelk = input("have wekin? (y/n) ")
+# havebp = input("have bp? (y/n) ")
 
 
 def worsecase(fivestars,guarantee):
     primoneed = 0
     for i in range(fivestars):
-        if guarantee == 'y':
+        if guarantee == True:
             primoneed += 90*160
-            guarantee = 'n'
+            guarantee = False
         else:
             primoneed += 180*160
-            guarantee = 'n'
+            guarantee = True
     return primoneed
 
 
@@ -80,7 +79,7 @@ def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target):
     patch2targ = (target[0] - currentpatch)*10
     patch2targ = round(patch2targ,2)
 
-    if havewelk == "y":
+    if havewelk == True:
         # 1 welkin = 30days
         if welkin < days:
             primos4free += welk*welkin
@@ -92,7 +91,7 @@ def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target):
         else:
             primos4free += welk*days
    
-    elif havebp == "y":
+    elif havebp == True:
         # 1 bp round = patchround
         # 4 fates 680 primos per patch
         if bp < 50:
@@ -113,12 +112,12 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
         print("you will need an extra", reqprimos - primos4free)
         welkneed = 1
         bpneed = 0
-        if havewelk == 'n' or days-welkin > 0:
+        if havewelk == False or days-welkin > 0:
             while primos4free < reqprimos and (welkneed*30) <= days-welkin:
                 primos4free += welk*30
                 welkneed += 1
 
-        if havebp == 'n' or bpplan < patch2targ:
+        if havebp == False or bpplan < patch2targ:
             while primos4free < reqprimos and bpneed+bpplan < patch2targ:
                 primos4free += (4*160)+680
                 bpneed += 1
@@ -134,26 +133,20 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
     
     return primos4free,reqprimos,welkneed,bpneed
 
-def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates):
+def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,welkin,bp,welkinplan,bpplan,patchdates,fiveorprimos):
     currenttime = datetime.datetime.now()
-    welkin = 0
-    bp = 0
-    welkinplan = 0
-    bpplan = 0
-    if havewelk == 'y':
-        welkin = int(input("welkin days left "))
-        welkinplan = int(input("how many more welks u buying "))
-    if havebp == 'y':
-        bp = int(input("bplevel "))
-        bpplan = int(input("bp to buy "))
-
+   
+    
     worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
     bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
     print(patchdates[targetpatch][half])
     timeremaining = patchdates[targetpatch][half] - currenttime
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
+    currenttotal = primos+crystals
     primos4free = accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target)
+    primosmade = primos4free - currenttotal
+    fates4free = primos4free//160
 
     print("\n")
     print("days remaining", days)
@@ -166,7 +159,7 @@ def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,
     possible,worsereq,worsewelk,worsebp = worseplan[0],worseplan[1],worseplan[2],worseplan[3]
     print("god bless ya gambling addict")
 
-    return primos4free,possible,bestreq,bestwelk,bestbp,worsereq,worsewelk,worsebp
+    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,worsereq,worsewelk,worsebp
 
 
 print(calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates))
