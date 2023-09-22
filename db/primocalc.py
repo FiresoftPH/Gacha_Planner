@@ -133,12 +133,10 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
     
     return primos4free,reqprimos,welkneed,bpneed
 
-def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,welkin,bp,welkinplan,bpplan,patchdates,fiveorprimos):
+def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,patchdates,fiveorprimos,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.datetime.now()
    
-    
-    worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
-    bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
+    #calculates requirements for 5 star planning
     print(patchdates[targetpatch][half])
     timeremaining = patchdates[targetpatch][half] - currenttime
     days = timeremaining.days
@@ -148,18 +146,35 @@ def calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,
     primosmade = primos4free - currenttotal
     fates4free = primos4free//160
 
+    # print("\n")
+    # print("days remaining", days)
+    # print("primos you can make by the end of target patch half", primos4free)
+    # print("god bless ya gambling addict")
+
+    if fiveorprimos == 0:
+        worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
+        bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
+        #print("best case primos needed", bestprimos)
+        bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkinplan,bpplan,target)
+        #print("worse case primos needed", worseprimos)
+        worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkinplan,bpplan,target)
+        possible,bestreq,bestwelk,bestbp = bestplan[0],bestplan[1],bestplan[2],bestplan[3]
+        possible,worsereq,worsewelk,worsebp = worseplan[0],worseplan[1],worseplan[2],worseplan[3]
+        primoreqreq,planwelk,planbp = None,None,None
+
+    elif fiveorprimos == 1:
+        primoplan = plan(days,primos4free,primowant,havewelk,havebp,welkinplan,bpplan,target)
+        possible,primoreqreq,planwelk,planbp = primoplan[0],primoplan[1],primoplan[2],primoplan[3]
+        bestreq,bestwelk,bestbp = None,None,None
+        worsereq,worsewelk,worsebp = None,None,None
+
+
     print("\n")
     print("days remaining", days)
     print("primos you can make by the end of target patch half", primos4free)
-    print("best case primos needed", bestprimos)
-    bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkinplan,bpplan,target)
-    print("worse case primos needed", worseprimos)
-    worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkinplan,bpplan,target)
-    possible,bestreq,bestwelk,bestbp = bestplan[0],bestplan[1],bestplan[2],bestplan[3]
-    possible,worsereq,worsewelk,worsebp = worseplan[0],worseplan[1],worseplan[2],worseplan[3]
     print("god bless ya gambling addict")
 
-    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,worsereq,worsewelk,worsebp
+    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,worsereq,worsewelk,worsebp.primoreqreq,planwelk,planbp
 
 
 print(calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates))
