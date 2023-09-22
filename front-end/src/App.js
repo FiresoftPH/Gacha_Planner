@@ -1,7 +1,7 @@
-import HomeElement from './home_page';
+import HomeElement from './YourPlannerPage/home_page';
 import './App.css';
-import LoginComp from './login'
-import SignupComp from './signup';
+import LoginComp from './LoginComponent/login'
+import SignupComp from './SignupComponent/signup';
 import AppRouter from './Router';
 
 function App() {

@@ -71,6 +71,7 @@ input[type="password"] {
   border: 1px solid #000000;
   border-radius: 10px;
   height: 60px;
+  font-size: 35px
 }
 input::placeholder {
   font-size: 40px; /* Adjust the font size to your desired value */

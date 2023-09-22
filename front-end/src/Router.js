@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginComp from './login';
-import SignUpComp from './signup';
+import LoginComp from './LoginComponent/login';
+import SignUpComp from './SignupComponent/signup';
+import HomeElement from './YourPlannerPage/home_page'
 
 function AppRouter() {
   return (
@@ -9,6 +10,7 @@ function AppRouter() {
       <Routes>
         <Route path="/login" element={<LoginComp/>} />
         <Route path="/signup" element={<SignUpComp/>} />
+        <Route path="/yourplanner" element={<HomeElement/>} />
       </Routes>
     </Router>
   );
