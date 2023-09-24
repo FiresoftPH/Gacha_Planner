@@ -25,6 +25,7 @@ margin-left: 0%;
 height: 95%;
 width: 100%;
 text-align: center;
+vertical-align: bottom;
 
 }
 .form-header{
@@ -50,6 +51,7 @@ color: #292C43
   max-width: calc(100vh-60px);
   border-radius: 5px;
   background-color: #B4D8FF;
+  vertical-align: bottom;
 }
 
 
@@ -63,15 +65,13 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-input[type="password"] {
-  width: 700px;
-  padding: 1%;
-  margin-top: 0px;
-  border: 1px solid #000000;
+.login-username-input,.login-password-input{
+  width: 70%;
+  padding: 2%;
+  margin-bottom: 5%;
+  border-style:none;
   border-radius: 10px;
-  height: 60px;
-  font-size: 35px
+  font-size: 35px;
 }
 input::placeholder {
   font-size: 40px; /* Adjust the font size to your desired value */
@@ -85,7 +85,7 @@ button:hover {
   
   position: relative;
   width: 60%;
-  margin-top: 31%;
+  margin-top: 36%;
   background-color: #292c43;
   color: #B4D8FF;
   border: none;

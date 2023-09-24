@@ -61,6 +61,7 @@ function LoginForm() {
         <form onSubmit={handleSubmit}>
           <div className="loginform-group">
             <input
+              className="login-username-input"
               placeholder="username"
               type="text"
               id="username"
@@ -73,6 +74,7 @@ function LoginForm() {
           <div className="loginform-group">
           
             <input
+              className="login-password-input"
               placeholder="password"
               type="password"
               id="password"

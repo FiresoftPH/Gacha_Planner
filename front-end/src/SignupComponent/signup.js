@@ -73,6 +73,7 @@ function SignUpForm() {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
+            className="signup-input"
             placeholder="username"
             type="text"
             id="username"
@@ -84,6 +85,7 @@ function SignUpForm() {
         </div>
         <div className="form-group">
           <input
+            className="signup-input"
             placeholder="password"
             type={showPassword ? 'text' : 'password'}
             id="password"
@@ -102,6 +104,7 @@ function SignUpForm() {
         </div>
         <div className="form-group">
           <input
+            className="signup-input"
             placeholder="confirm password"
             type={showPassword ? 'text' : 'password'}
             id="confirmPassword"
