@@ -4,6 +4,7 @@
     padding-top: 160px;
     padding-bottom: 0px;
     height:100vh;
+    overflow-y: auto;
 }
 .banner-header{
     background-color: #292C43;
@@ -71,6 +72,10 @@
 }
 .planner-button:hover{
     opacity: 0.8;
+    
+}
+.banner-character-button:hover{
+    background-color: #FFD643;
 }
 
 .banner-user-profile-container{
@@ -86,7 +91,7 @@
 
 .banner-body{
     display:grid;
-    grid-template-rows: 30% 50% 1fr;
+    grid-template-rows: 500px 900px;
     width: 100%;
     height: 100vh;
     border-style: none;
@@ -96,7 +101,7 @@
 }
 
     .banner-body-header{
-        border-bottom: solid;
+        border-bottom: none;
         border-color: black;
         color:white;
         font-size: 35px;
@@ -119,20 +124,23 @@
         .character-list{
             color: white;
             font-size: 30px;
+            margin-left: 8%;
         }
         .character-info{
             color: white;
             font-size: 30px;
+            
         }
 
 
     .horizontal-scrolling-box {
         width: 900px; /* Set the desired width for your scrolling box */
-        height: 100px; /* Set the desired height for your scrolling box */
+        height: 300px; /* Set the desired height for your scrolling box */
         overflow-x: auto; /* Enable horizontal scrolling */
         white-space: nowrap; /* Prevent content from wrapping to the next line */
-        border: 1px solid #ccc; /* Add a border for styling */
+        border: 1px none #ccc; /* Add a border for styling */
         padding: 10px; /* Add padding as needed */
+        
       }
       
       .content {
@@ -159,3 +167,31 @@
       .horizontal-scrolling-box::-webkit-scrollbar-thumb:hover {
         background-color: #555; /* Set the thumb color on hover */
       }
+
+.banner-info-container{
+border-radius: 20px;
+background-color: #444A6C;
+width:80%;
+height:60%;
+padding-top: 5%;
+}
+.banner-info-pictext{
+    margin-left: 5%;
+}
+.banner-character-info-text{
+display: inline-block;
+}
+.banner-info-pic{
+background-color: #D8D8D8;
+border-radius: 10px;
+margin-right: 2.3%;
+}
+.banner-character-list-container{
+    margin-top: 9%;
+    margin-left: 0;
+    margin-right: 5%;
+}
+
+.timeline-pic{
+    width:1900px;
+}

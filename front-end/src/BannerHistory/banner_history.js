@@ -2,29 +2,40 @@ import { useState } from 'react';
 import './banner_history.css'
 import headerIcon from './Profile.png'
 import myPic from './wisher_header.png'
+import EulaPic from './Eula.png'
+import EulaInfo from './EulaInfo.png'
 import { useNavigate } from 'react-router-dom';
+import { characterList } from './characters_info';
+import TimeLine from './timeline.png'
 
 export default function BannerHistory(){
-    const navigate = useNavigate();
 
+
+    const [index, setIndex] = useState(0);
+
+    
+
+    const handleClick = (newState) => {
+        setIndex(newState);
+    };
+
+    const navigate = useNavigate();
     const navigateToDestination = () => {
         navigate('/yourplanner');
       };  
     const HorizontalScrollGrid = () => {
     return (
-        <div className="horizontal-scrolling-box">
+    <div className="horizontal-scrolling-box">
         <div className="content">
           {/* Your content goes here */}
-          <div className="item">Item 1</div>
-          <div className="item">Item 2</div>
-          <div className="item">Item 3</div>
+          <img className='timeline-pic' src={TimeLine} alt="Wisher" />
           {/* Add more content as needed */}
         </div>
       </div>
     );
     };
 
-
+    let character = characterList[index];
 
     return(
     <div className='banner-page'>
@@ -50,8 +61,29 @@ export default function BannerHistory(){
                 </div>
             </div>
             <div className='banner-characters-section'>
-                <div className='character-list'>character list</div>
-                <div className='character-info'>character info</div>
+                <div className='character-list'>
+                    <p>Genshin Impact Character List</p>
+                    <div className='banner-character-list-container'>
+                        <button className='banner-character-button' onClick={() => handleClick(1)}><img src={EulaPic}></img></button>
+                        <button onClick={() => handleClick(2)}>Button</button>
+                        <button onClick={() => handleClick(3)}>Button</button>
+                        <button onClick={() => handleClick(2)}>Button</button>
+                    </div>
+                </div>
+                <div className='character-info'>
+                    <p>Character info</p>
+                    <div className='banner-info-container'>
+                        <div className='banner-info-pictext'>
+                            <img className='banner-info-pic' src={character.Source} alt={character.alt}></img>
+                            <div className='banner-character-info-text'>
+                                <p>{character.name}</p>
+                                <p>{character.Elemental}</p>
+                                <p>{character.First_banner_date}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
                 
             </div>
         </div>
