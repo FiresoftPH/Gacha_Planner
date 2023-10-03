@@ -17,18 +17,19 @@ class UserData:
         #               "bp": [0, 0]}
         self.data = {"input": user_input, "output": {}}
 
+
     def getData(self):
         return self.data
     
     def updateUserInput(self, data):
-        if len(self.data) >= self.limit:
+        if len(self.data) >= DATA_LIMIT:
             return False
         else:
             self.data.update({"input": data, "output": {}})
             return True
 
     def updateProgramOutput(self, data):
-        if len(self.data) >= self.limit:
+        if len(self.data) >= DATA_LIMIT:
             return False
         else:
             self.data.update({"output": data})

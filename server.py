@@ -3,12 +3,10 @@ from flask_cors import CORS
 import db.character
 import db.banner
 import db.users
+import db.primocalc
 import json
 
 app = Flask(__name__)
-
-def mockCalculator():
-    return {""}
 
 @app.route('/auth/signup', methods=["POST"])
 def register():
@@ -22,6 +20,14 @@ def register():
         return json.dumps({"message": "Sign Up Successfully"})
     else:
         return json.dumps({"error": "Use login instead"})
+
+@app.route('/calulate/validbanner', methods=["POST"])  
+def checkValidDate():
+    data = request.json()
+    data = json.loads(data)
+    current_date = data['current_date']
+    versions = db.banner.checkValidInputBanner(current_date)
+    return json.dumps({"load": versions})
     
 @app.route('/auth/users', methods=["POST"])
 def authentication():
@@ -55,7 +61,26 @@ def recalculateBannerHistory():
 
 @app.route('/planner/calculate', methods=["POST"])
 def calculatePlannerData():
-    data = data['input']
+    data = request.get_json()
+    data = json.loads(data)
+    primos = data['primogems']
+    crystals = data['crystals']
+    fates = data['fates']
+    pity = data['pity']
+    targetpatch = data['targetpatch']
+    half = data['half']
+    fiveorprimos = data['fiveorprimos']
+    havewelk = data["havewelkin"]
+    havebp = data["havebp"]
+    welkin = data["days"]
+    bp = data["bp"]
+    welkinplan = data["welkinplan"]
+    bpplan = data["bpplan"]
+    patchdates = data[""]
+
+    db.primocalc.calculations(primos, crystals, fates,pity,
+                              havewelk, havebp, welkin, bp, welkinplan, bpplan, patchdates, fiveorprimos,
+                              guarantee=None, targetpatch=None, half=None, fivestars=None, primowant=0)
 
 @app.route('/planner/store-data', methods=["POST"])
 def savePlannerData():
