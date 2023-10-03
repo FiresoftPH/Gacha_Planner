@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './banner_history.css'
-import headerIcon from './Profile.png'
-import myPic from './wisher_header.png'
-import EulaPic from './Eula.png'
-import EulaInfo from './EulaInfo.png'
+import headerIcon from '../../Pictures/Profile.png'
+import myPic from '../../Pictures/wisher_header.png'
+import EulaPic from '../../Pictures/Eula.png'
 import { useNavigate } from 'react-router-dom';
 import { characterList } from './characters_info';
-import TimeLine from './timeline.png'
+import TimeLine from '../../Pictures/timeline.png'
+import Topbar from '../TopBarComponent/Topbar';
 
 export default function BannerHistory(){
 
@@ -39,17 +39,7 @@ export default function BannerHistory(){
 
     return(
     <div className='banner-page'>
-        <div className='banner-header'>
-            <div className="banner-header-pic-container">
-                <img className='banner-header-pic' src={myPic}></img>
-            </div>
-            <button className='planner-button'> Gacha Planner</button>
-            <button className='banner-button'>Banner History</button>
-            <button onClick={navigateToDestination} className='yourplanner-button'>Your Planner</button>
-            <div className='banner-user-profile-container'>
-            <img className="banner-user-profile" src={headerIcon} alt="Wisher" />
-            </div>
-        </div>
+        <Topbar/>
 
         <div className='banner-body'>
             <div className='banner-timeline'>

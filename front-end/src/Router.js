@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginComp from './LoginComponent/login';
-import SignUpComp from './SignupComponent/signup';
-import HomeElement from './YourPlannerPage/home_page'
-import BannerHistory from './BannerHistory/banner_history';
+import LoginComp from './Components/LoginComponent/login';
+import SignUpComp from './Components/SignupComponent/signup';
+import HomeElement from './Components/YourPlannerPage/yourplanner'
+import BannerHistory from './Components/BannerHistory/banner_history';
 
 function AppRouter() {
   return (

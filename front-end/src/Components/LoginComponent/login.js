@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./login.css"
 import { useNavigate } from 'react-router-dom';
-import myImage from './wisher_header.png';
+import myImage from '../../Pictures/wisher_header.png';
 export default function LoginComp() {
   
   const navigate = useNavigate();

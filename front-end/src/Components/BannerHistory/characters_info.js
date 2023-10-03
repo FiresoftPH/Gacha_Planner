@@ -1,4 +1,4 @@
-import EulaInfo from './EulaInfo.png'
+import EulaInfo from '../../Pictures/EulaInfo.png'
 export const characterList = [{
     name: '',
     description: '',
