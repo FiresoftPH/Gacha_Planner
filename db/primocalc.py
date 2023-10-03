@@ -13,9 +13,10 @@ import time
 """
 def calendar involves a while True loop that constantly checks current time
 and updates current patch if current time exceeds the date of the next patch
+unused but not deleting just in case
 
 """
-def calendar(currentpatch,nextpatchdate):
+def calendarupdates(currentpatch,nextpatchdate):
     global patchdates
     patchdates = {}
     while True:
@@ -46,6 +47,36 @@ def calendar(currentpatch,nextpatchdate):
                     half = 1
                 nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
         time.sleep(1.0)
+"""
+def calendar recieves float for the current patch and generates a dict of 
+dates for end of patch half for the next 5 patches
+
+"""
+def calendar(currentpatch):
+    half = 1
+    currentpatch += 0.1
+    currentpatch = round(currentpatch,2)
+    p = currentpatch
+    fourone = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21)
+    while currentpatch > 4.1:
+        nextpatchdate = fourone + datetime.timedelta(days=42) 
+        currentpatch -= 0.1
+        currentpatch = round(currentpatch,2)
+    patchdates = {}
+    for i in range(10):
+        if half == 1:
+            patchdates[str(p)] = {"1": nextpatchdate}
+            #patchdates[str(currentpatch)][str(half)] = nextpatchdate
+            half = 2
+        elif half == 2:
+            #patchdates[str(p)]["2"] = nextpatchdate
+            patchdates[str(p)]["2"] = nextpatchdate
+            p += 0.1
+            p = round(p,2)
+            half = 1
+        nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
+
+    return patchdates
 
 """ 
 
@@ -204,9 +235,9 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 
 """
 
-def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,patchdates,fiveorprimos,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.datetime.now()
-   
+    patchdates = calendar(currentpatch)
     #calculates requirements for 5 star planning
     print(patchdates[targetpatch][half])
     timeremaining = patchdates[targetpatch][half] - currenttime
@@ -281,3 +312,4 @@ I LOVE BEER
 """
 
 print(calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates))
+print(calendar(4.1))
