@@ -2,7 +2,8 @@
 primocalc.py
 calculates resources needed for pulling a 5 star by the end of a certain patch based on resource inputs
 
-created by Thanakrit Paisal, around mid september 2023
+created by Thanakrit Paisal, around mid september 2023 (A++ sally)
+
 """
 
 import datetime
@@ -177,25 +178,29 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
         welkneed = 0
         bpneed = 0
     
-    return primos4free,reqprimos,welkneed,bpneed
+    return primos4free,reqprimos,welkneed,bpneed, extra
 
 """
 main function for calculations, uses all the other functions above
 recieves the inputs from ruj's frontend
 
-primos = current primos user has
-crystals = current genesis crystals user has
-fates = current fates user has
-pity = pity, self explanitory
-havewelk = do they have welkin
-havebp = do they have battle pass (FORTNITE!!!!!!!)
-welkin = days remaining for their welkins
-bp = current bp level
-welkinplan = welkins user plan to purchase
-bpplan = bp (by patch) users plan to buy, calculations assume users is able to get to lv50 by end end of patch half
-patchdates = recieves patch calendar from def calendar (5 patches from current, can be changed if you want)
+primos = integer current primos user has
+crystals = integer current genesis crystals user has
+fates = integer current fates user has
+pity = integer pity
+havewelk = boolean do they have welkin
+havebp = boolean do they have battle pass (FORTNITE!!!!!!!)
+welkin = integer days remaining for their welkins
+bp = integer current bp level
+welkinplan = integer for how many welkins user plan to purchase
+bpplan = interger for bp (by patch) users plan to buy, calculations assume users is able to get to lv50 by end end of patch half
+patchdates = python dict recieves patch calendar from def calendar (5 patches from current, can be changed if you want)
 fiveorprimos = input for this parameter must be 0 or 1 (sorry ruj my miaumiau) 0 being users want to calculate for target character, 1 is if user wants to calculate for just primos
-guarantee = input must be True or False in python boolean
+guarantee = input must be True or False in python boolean (sorry ruj my miaumiau) defaults to None if user decides to calculate for primos instead of 5 stars
+targetpatch = recives float value of a patch ranging from current patch to the next 5 patches (e.g. 4.1, 4.2, 4.5) (changable if needed) defaults to None if user wants to calc for primos
+half = recives integer 1 or 2, this parameter and targetpatch will be used to retrieve dates from def calendar, defaluts to None (wait a minute it doesn't have to)
+fivestars = recieves integer of the number of 5 stars needed (how many C for target character) defaluts to None if user want to calculate for primos
+primowant = integer for how many primos the user wants to have, defaults to 0 if user choose to calculate for 5 stars
 
 """
 
@@ -224,21 +229,55 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
         bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkinplan,bpplan,target)
         #print("worse case primos needed", worseprimos)
         worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkinplan,bpplan,target)
-        possible,bestreq,bestwelk,bestbp = bestplan[0],bestplan[1],bestplan[2],bestplan[3]
-        possible,worsereq,worsewelk,worsebp = worseplan[0],worseplan[1],worseplan[2],worseplan[3]
-        primoreqreq,planwelk,planbp = None,None,None
+        possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
+        possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
+        primoreq,planwelk,planbp = None,None,None
 
     elif fiveorprimos == 1:
         primoplan = plan(days,primos4free,primowant,havewelk,havebp,welkinplan,bpplan,target)
-        possible,primoreqreq,planwelk,planbp = primoplan[0],primoplan[1],primoplan[2],primoplan[3]
+        possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
         bestreq,bestwelk,bestbp = None,None,None
         worsereq,worsewelk,worsebp = None,None,None
 
-    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,worsereq,worsewelk,worsebp.primoreqreq,planwelk,planbp
+    """
+    return values
 
+    currenttotal = integer of primos + crystals
+    primosmade = integer amount of primos that user will generate by end of patch half
+    fates4free = integer number of total fates converted from total primos user will have by end of patch
+    target = array of [float patch, int half]
+    primos4free = integer number of total primos user will make by end of patch half
+    possible = integer number of total primo user could make by end of patch half if they follow the plan
+
+    **** the values under here is returned if user chooses to calculate for 5 stars. returns None if other option is selected ****
+    bestreq = integer best case primos required
+    bestwelk = integer of how many welkin user has to buy for best case requirements (0 if none)
+    bestbp = integer of how many bp user has to buy for best case requirements (0 if none)
+    bestextra = extra primos user need to PAY for best case
+    worsereq = integer worse case primos required
+    worsewelk = integer of how many welkin user has to buy for worse case requirements (0 if none)
+    worsebp = integer of how many bp user has to buy for worse case requirements (0 if none)
+    worseextra = extra primos user need to PAY for best case
+
+    ****the values under here is returned if user chooses to calculate for specified primos. returns None if other option is selected ****
+    primoreq = integer number of primos user want
+    planwelk = integer number for number of welkin user has to buy
+    planbp = integer number for number of bp user has to buy
+    planextra = extra primos needed to reach target primos
+
+    """
+    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,bestextra,worsereq,worsewelk,worsebp,worseextra,primoreq,planwelk,planbp,planextra
+
+
+"""
+
+def calculations is the only function you have to call once user hits calculate. although def calendar must also be running constantly
+
+I LOVE HU TAO
+I LOVE FURINA
+I LOVE VENTI
+I LOVE BEER
+
+"""
 
 print(calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates))
-
-
-#bp is 40 days 
-#bp gets fates every lv10 except lv50 gets 680 primos
