@@ -111,12 +111,13 @@ kenshiro moment
 """
 def worsecase(fivestars,guarantee):
     primoneed = 0
-    for i in range(fivestars):
+    while fivestars > 0:
         if guarantee == True:
             primoneed += 90*160
             guarantee = False
+            fivestars -= 1
         else:
-            primoneed += 180*160
+            primoneed += 90*160
             guarantee = True
     return primoneed
 
@@ -185,6 +186,7 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
     currentpatch = 4.0
     patch2targ = (target[0] - currentpatch)*10
     patch2targ = round(patch2targ,2)
+    extra = 0
 
     if primos4free < reqprimos:
         print("you will need an extra", reqprimos - primos4free)
@@ -230,7 +232,7 @@ fiveorprimos = input for this parameter must be 0 or 1 (sorry ruj my miaumiau) 0
 guarantee = input must be True or False in python boolean (sorry ruj my miaumiau) defaults to None if user decides to calculate for primos instead of 5 stars
 targetpatch = recives float value of a patch ranging from current patch to the next 5 patches (e.g. 4.1, 4.2, 4.5) (changable if needed) defaults to None if user wants to calc for primos
 half = recives integer 1 or 2, this parameter and targetpatch will be used to retrieve dates from def calendar, defaluts to None (wait a minute it doesn't have to)
-fivestars = recieves integer of the number of 5 stars needed (how many C for target character) defaluts to None if user want to calculate for primos
+fivestars = recieves integer of the number of 5 stars needed (how many C for target character) (your C + 1) defaluts to None if user want to calculate for primos
 primowant = integer for how many primos the user wants to have, defaults to 0 if user choose to calculate for 5 stars
 
 """
@@ -238,9 +240,10 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.datetime.now()
     patchdates = calendar(currentpatch)
+    #print(patchdates)
     #calculates requirements for 5 star planning
-    print(patchdates[targetpatch][half])
-    timeremaining = patchdates[targetpatch][half] - currenttime
+    #print(patchdates[str(targetpatch)][str(half)])
+    timeremaining = patchdates[str(targetpatch)][str(half)] - currenttime
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
     currenttotal = primos+crystals
@@ -262,7 +265,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
         worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkinplan,bpplan,target)
         possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
         possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
-        primoreq,planwelk,planbp = None,None,None
+        primoreq,planwelk,planbp,planextra = None,None,None,None
 
     elif fiveorprimos == 1:
         primoplan = plan(days,primos4free,primowant,havewelk,havebp,welkinplan,bpplan,target)
@@ -297,7 +300,24 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
     planextra = extra primos needed to reach target primos
 
     """
-    return currenttotal,primosmade,fates4free,target,primos4free,possible,bestreq,bestwelk,bestbp,bestextra,worsereq,worsewelk,worsebp,worseextra,primoreq,planwelk,planbp,planextra
+    return {"currenttotal": currenttotal, 
+            "primosmade": primosmade, 
+            "fates4free": fates4free,
+            "target": target, 
+            "primos4free": primos4free, 
+            "possible": possible, 
+            "bestreq": bestreq,
+            "bestwelk": bestwelk,
+            "bestbp": bestbp,
+            "bestextra": bestextra,
+            "worsereq": worsereq,
+            "worsewelk": worsewelk,
+            "worsebp": worsebp,
+            "worseextra": worseextra,
+            "primoreq": primoreq,
+            "planwelk": planwelk,
+            "planbp": planbp,
+            "planextra": planextra}
 
 
 """
@@ -311,5 +331,7 @@ I LOVE BEER
 
 """
 
-print(calculations(primos,crystals,fates,pity,targetpatch,half,fivestars,havewelk,havebp,patchdates))
-print(calendar(4.1))
+
+#def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
+#print(calendar(4.1))
