@@ -21,15 +21,15 @@ const navigateToLogin = () => {
 
 const navigate = useNavigate();
 return(
-<div className='banner-header'>
-    <div className="banner-header-pic-container">
-        <img className='banner-header-pic' src={myPic}></img>
+<div className='topbar-header'>
+    <div className="topbar-header-pic-container">
+        <img className='topbar-header-pic' src={myPic}></img>
     </div>
-    <button className='planner-button'> Gacha Planner</button>
-    <button onClick={navigateToDestination2} className='banner-button'>Banner History</button>
-    <button onClick={navigateToDestination} className='yourplanner-button'>Your Planner</button>
-    <div className='banner-user-profile-container'>
-        <button className='navigate-to-login' onClick={navigateToLogin}><img className="banner-user-profile" src={headerIcon} alt="Wisher" /></button>
+    <button className='topbar-button'>Gacha Planner</button>
+    <button onClick={navigateToDestination2} className='topbar-button'>Banner History</button>
+    <button onClick={navigateToDestination} className='topbar-button'>Your Planner</button>
+    <div className='topbar-user-profile-container'>
+        <button className='topbar-navigate-to-login' onClick={navigateToLogin}><img className="topbar-user-profile" src={headerIcon} alt="Wisher" /></button>
     </div>
 </div>);
 

@@ -1,4 +1,4 @@
-.planner-header{
+.topbar-header{
     background-color: #292C43;
     position: fixed;
     top:0px;
@@ -10,20 +10,19 @@
     flex-direction: row;
 }
 
-.yourplanner-header-pic-container{
+.topbar-header-pic-container{
     color: #516CC4;
     font-size: 40px;
     font-weight: bold;
     width:1200px;
     
 }
-.yourplanner-header-pic{
+.topbar-header-pic{
     margin-top: 8px;
     margin-left: 10px;
     width: 250px;
 }
-.planner-button{
-
+.topbar-button{
     background-color: #292C43;
     font-size: 22px;
     font-weight: bold;
@@ -33,11 +32,11 @@
     border-style: none;
 
 }
-.planner-button:hover{
+.topbar-button:hover{
     opacity: 0.8;
 }
 
-.banner-button{
+.topbar-button{
     margin-top: 0px;
     background-color: #292C43;
     font-size: 22px;
@@ -49,11 +48,11 @@
 
 }
 
-.banner-button:hover{
+.topbar-button:hover{
     opacity: 0.8;
 }
 
-.yourplanner-button{
+.topbar-button{
     margin-top: 0px;
     background-color: #292C43;
     font-size: 22px;
@@ -69,10 +68,10 @@
     width: 5%;
 }
 
-.yourplanner-user-profile{
+.topbar-user-profile{
     width: 45px;
 }
-.navigate-to-login{
+.topbar-navigate-to-login{
     border-radius: 100px;
     background-color: #292C43;
     border-style: none;

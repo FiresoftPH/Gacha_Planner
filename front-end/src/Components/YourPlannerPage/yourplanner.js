@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './yourplanner.css'
-import headerIcon from '../../Pictures/Profile.png'
-import myPic from '../../Pictures/wisher_header.png'
+
 import pic1 from '../../Pictures/progresspic1.png'
 import pic2 from '../../Pictures/progresspic2.png'
 import pic3 from '../../Pictures/progresspic3.png'
