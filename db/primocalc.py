@@ -9,6 +9,7 @@ created by Thanakrit Paisal, around mid september 2023 (A++ sally)
 import datetime
 import threading
 import time
+import math
 
 """
 def calendar involves a while True loop that constantly checks current time
@@ -52,18 +53,21 @@ def calendar recieves float for the current patch and generates a dict of
 dates for end of patch half for the next 5 patches
 
 """
-def calendar(currentpatch):
+def calendar(currentpatch,date):
     half = 1
     currentpatch += 0.1
     currentpatch = round(currentpatch,2)
     p = currentpatch
-    fourone = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21)
-    while currentpatch > 4.1:
-        nextpatchdate = fourone + datetime.timedelta(days=42) 
-        currentpatch -= 0.1
-        currentpatch = round(currentpatch,2)
+    nextpatchdate = date + datetime.timedelta(days=21)
+    #fourone = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21)
+    # while currentpatch > 4.1:
+    #     nextpatchdate = fourone + datetime.timedelta(days=42) 
+    #     currentpatch -= 0.1
+    #     currentpatch = round(currentpatch,2)
     patchdates = {}
-    for i in range(10):
+    for i in range(20):
+        if str(p)[-1] == "8":
+            p = float(math.floor(p+1))
         if half == 1:
             patchdates[str(p)] = {"1": nextpatchdate}
             #patchdates[str(currentpatch)][str(half)] = nextpatchdate
@@ -333,5 +337,5 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-# print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
-# print(calendar(4.1))
+## print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
+ print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
