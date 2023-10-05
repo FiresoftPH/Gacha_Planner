@@ -1,3 +1,12 @@
+"""
+server.py
+
+This script creates all the private REST API endpoints for the gacha planner.
+Created by Pattarapark Chutisamoot around mid-september
+
+"""
+
+
 from flask import Flask, request
 from flask_cors import CORS
 import db.character
@@ -59,6 +68,13 @@ def recalculateBannerHistory():
         db.banner.calculateBannerEstimationData(date[0], date[1], date[2], name)
     return json.dumps(db.character.sendCharacterRerunHistory())
 
+@app.route('/planner/checkvalidpatch', methods=["POST"])
+def checkValidInputBanner():
+    data = request.get_json()
+    currentdate = data["currentdate"]
+    possible_banners = db.banner.checkValidInputBanner(currentdate)
+    return json.dumps(possible_banners)
+
 @app.route('/planner/calculate', methods=["POST"])
 def calculatePlannerData():
     data = request.get_json()
@@ -66,23 +82,32 @@ def calculatePlannerData():
     primos = data['primogems']
     crystals = data['crystals']
     fates = data['fates']
+    guarantee = data["guarantee"]
     pity = data['pity']
     targetpatch = data['targetpatch']
     half = data['half']
     fiveorprimos = data['fiveorprimos']
     havewelk = data["havewelkin"]
     havebp = data["havebp"]
-    welkin = data["days"]
+    welkin = data["welkindays"]
     bp = data["bp"]
     welkinplan = data["welkinplan"]
     bpplan = data["bpplan"]
-    patchdates = data[""]
+    currentdate = data["currentdate"]
+    fivestars = data["fivestars"]
+    primowant = data["primowant"]
 
-    db.primocalc.calculations(primos, crystals, fates,pity,
-                              havewelk, havebp, welkin, bp, welkinplan, bpplan, patchdates, fiveorprimos,
-                              guarantee=None, targetpatch=None, half=None, fivestars=None, primowant=0)
+    possible_banners = db.banner.checkValidInputBanner(currentdate)
+    currentpatch = float(possible_banners[0][0])
+    # print(currentpatch)
 
-@app.route('/planner/store-data', methods=["POST"])
+    calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkin, bp, welkinplan, bpplan,
+                                                    fiveorprimos, currentpatch, guarantee, targetpatch, 
+                                                    half, fivestars, primowant)
+    
+    return json.dumps(calculation_results)
+
+@app.route('/planner/save-data', methods=["POST"])
 def savePlannerData():
     data = request.get_json()
     data = json.loads(data)
@@ -90,9 +115,9 @@ def savePlannerData():
     input_data = data["input"]
     output_data = data["output"]
     save_name = data["save_name"]
-    check = db.users.savePlannerData(username, input_data, output_data, save_name)
-    if check == False:
-        return json.dumps({"error": "Data limit reached"})
+    check_operation = db.users.savePlannerData(username, input_data, output_data, save_name)
+    if check_operation == False:
+        return json.dumps({"error": "Data limit reached or user doesn't exists"})
     else:
         return json.dumps({"message": "Saved Successfully"})
 

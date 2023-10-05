@@ -333,5 +333,5 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
-#print(calendar(4.1))
+# print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
+# print(calendar(4.1))
