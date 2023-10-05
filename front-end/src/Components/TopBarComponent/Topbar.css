@@ -62,6 +62,18 @@
     border-style: none;
     width: 15%;
 }
+.topbar-button-clicked{
+    margin-top: 0px;
+    background-color: #292C43;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    border-style: none;
+    border-bottom: solid;
+    border-bottom-width: 5px;
+    width: 15%;
+}
 .topbar-user-profile-container{
     margin-top: 0.5%;
     margin-left: 0;
