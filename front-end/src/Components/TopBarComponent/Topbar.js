@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Topbar(){
 
+const navigateToGachaPlanner = () => {
+    navigate('/');
+    };
+
 const navigateToDestination = () => {
     navigate('/yourplanner');
     };  
@@ -25,7 +29,7 @@ return(
     <div className="topbar-header-pic-container">
         <img className='topbar-header-pic' src={myPic}></img>
     </div>
-    <button className='topbar-button'>Gacha Planner</button>
+    <button onClick={navigateToGachaPlanner} className='planner-button'> Gacha Planner</button>
     <button onClick={navigateToDestination2} className='topbar-button'>Banner History</button>
     <button onClick={navigateToDestination} className='topbar-button'>Your Planner</button>
     <div className='topbar-user-profile-container'>

@@ -1,0 +1,25 @@
+.overlay{
+    /* position: absolute; */
+    background-color: darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.saved-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.saved-list-group{
+    width: 100%;
+    height: 100%;
+    background-color: aliceblue;
+}
+
+.overlay .save-btn{
+    width: 50px;
+    align-self: end;
+}

@@ -1,0 +1,112 @@
+.gachaPlanner-result-container{
+    display: flex;
+    background-color: blue;
+    /* height: 200px; */
+    width: 800px;
+    /* align-self: flex-start; */
+    /* align-content: start; */
+    /* justify-content: center; */
+    flex-direction: column;
+    border-radius: 25px;
+}
+
+    .gachaPlanner-result-group{
+        display: flex;
+        background-color: antiquewhite;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .gachaPlanner-result-group label{
+        display: inline-block;
+        color:blueviolet;
+    }
+
+    .symbol-container{
+        display: flex;
+        background-color:blueviolet;
+        flex-direction: row;
+        align-self: center;
+        gap: 75px;
+    }
+
+    .info{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .circle-container{
+        background-color: #0c0f1d;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .circle-container img {
+            max-width: 100%; /* Ensure the image doesn't exceed the circular container */
+            max-height: 100%; /* Ensure the image doesn't exceed the circular container */
+            width: auto;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .symbol-name{
+            background-color: chartreuse;
+            border-radius: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            font-size: 1.0rem
+        }
+
+        .symbol-info{
+            font-size: 1.5rem;
+            font-weight:900;
+        }
+
+        .save-button{
+            height: 50px;
+            display: flex;
+            background-color: brown;
+            border-radius: 25px 25px 0px 0px;
+            border-color: #0c0f1d;
+            padding: 15px;
+            border: none;
+            border-block-end: solid;
+            align-items: center;
+        }
+
+        .suggestion-button.inactive{
+            height: 50px;
+            display: flex;
+            background-color: brown;
+            border-radius: 0px 0px 25px 25px;
+            border-color: #0c0f1d;
+            padding: 15px;
+            border: none;
+            border-block-start: solid;
+            align-items: center;
+        }
+
+        .suggestion-button.active{
+            height: 50px;
+            display: flex;
+            background-color: brown;
+            border-radius: 0px;
+            border-color: #0c0f1d;
+            padding: 15px;
+            border: none;
+            border-block-start: solid;
+            border-block-end: solid;
+            align-items: center;
+        }
+        
+        .informationText{
+            height: 100px;
+        }
