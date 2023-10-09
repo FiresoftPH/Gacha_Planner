@@ -1,4 +1,6 @@
 import EulaInfo from '../../Pictures/EulaInfo.png'
+import EulaPic from '../../Pictures/Eula.png'
+
 export const characterList = [{
     name: '',
     description: '',
@@ -10,7 +12,8 @@ export const characterList = [{
     First_banner_date: 'First banner Date: 10/10/2068',
     Last_patch_rerun:'1.5 First half',
     Source: EulaInfo,
-    alt:'hiiiiiiiiii'
+    alt:'hiiiiiiiiii',
+    src:EulaPic
 
   },
   {

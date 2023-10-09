@@ -33,8 +33,8 @@ return(
         <img className='topbar-header-pic' src={myPic}></img>
     </div>
     <button className='topbar-button'>Gacha Planner</button>
-    <button onClick={navigateToDestination2}  className={`button ${buttonBannerHistory}`}>Banner History</button>
-    <button onClick={navigateToDestination} className={`button ${buttonYourplanner}`}>Your Planner</button>
+    <button onClick={navigateToDestination2}  className={buttonBannerHistory}>Banner History</button>
+    <button onClick={navigateToDestination} className={buttonYourplanner}>Your Planner</button>
     <div className='topbar-user-profile-container'>
         <button className='topbar-navigate-to-login' onClick={navigateToLogin}><img className="topbar-user-profile" src={headerIcon} alt="Wisher" /></button>
     </div>
