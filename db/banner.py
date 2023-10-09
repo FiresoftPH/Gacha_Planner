@@ -5,6 +5,14 @@ from datetime import date
 from math import floor
 import json
 
+"""
+TO DO LIST:
+1. Input date to patch number as float for calculator 
+2. Finish saving algorithms
+3. Look into something about first half of the banner
+
+"""
+
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
@@ -111,10 +119,22 @@ def checkValidInputBanner(current_date):
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ", current_date)
+    cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
     data = cursor.fetchall()
     connection.close()
     return data
+
+def getCurrentPatchFromDate():
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
 
 def cli():
     while True:
@@ -134,3 +154,5 @@ def cli():
             print("abort")
 
 # sendRecentCharacterBanner()
+# cli()
+# print(checkValidInputBanner(current_date="2023-08-01"))
