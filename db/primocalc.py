@@ -241,9 +241,9 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 
 """
 
-def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.datetime.now()
-    patchdates = calendar(currentpatch)
+    patchdates = calendar(currentpatch,date)
     #print(patchdates)
     #calculates requirements for 5 star planning
     #print(patchdates[str(targetpatch)][str(half)])
