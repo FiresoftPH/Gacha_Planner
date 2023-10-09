@@ -1,6 +1,6 @@
 .topbar-header{
     background-color: #292C43;
-    /* position: fixed; */
+    position: fixed;
     top:0px;
     left:0px;
     right:0px;
@@ -8,6 +8,7 @@
     padding-left: 20px;
     display: flex;
     flex-direction: row;
+    z-index: 2;
 }
 
 .topbar-header-pic-container{

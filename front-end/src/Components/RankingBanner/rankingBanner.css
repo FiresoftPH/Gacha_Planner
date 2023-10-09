@@ -17,6 +17,7 @@ th {
     padding: 10px;
     padding-bottom: 25px;
     position: relative;
+    z-index: 1;
 }
 
 .text-ranking{
