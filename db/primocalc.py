@@ -257,6 +257,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
     fates4free = primos4free//160
 
     # print("\n")
+    #i lofdgdfgd
     # print("days remaining", days)
     # print("primos you can make by the end of target patch half", primos4free)
     # print("god bless ya gambling addict")
