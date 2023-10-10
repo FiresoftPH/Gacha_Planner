@@ -4,7 +4,7 @@ import EulaPic from '../../Pictures/Eula.png'
 import EulaInfo from '../../Pictures/EulaInfo.png'
 import { characterList } from './characters_info';
 import TimeLine from '../../Pictures/timeline.png'
-import Topbar from '../TopBarComponent/Topbar';
+import Topbar from '../../Components/TopBarComponent/Topbar';
 import './timeline.css'
 
 export default function BannerHistory(){

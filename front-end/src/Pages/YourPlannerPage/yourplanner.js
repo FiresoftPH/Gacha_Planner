@@ -4,7 +4,7 @@ import './yourplanner.css'
 import pic1 from '../../Pictures/progresspic1.png'
 import pic2 from '../../Pictures/progresspic2.png'
 import pic3 from '../../Pictures/progresspic3.png'
-import Topbar from '../TopBarComponent/Topbar';
+import Topbar from '../../Components/TopBarComponent/Topbar';
 
 export default function HomeElement(){
     const [primogems, setPrimogems] = useState('');

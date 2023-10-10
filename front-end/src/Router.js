@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import GachaPlanner from './Components/GachaPlanner/gachaPlanner';
-import LoginComp from './Components/LoginComponent/login';
-import SignUpComp from './Components/SignupComponent/signup';
-import HomeElement from './Components/YourPlannerPage/yourplanner'
-import BannerHistory from './Components/BannerHistory/banner_history';
+import GachaPlanner from './Pages/GachaPlanner/gachaPlanner';
+import LoginComp from './Pages/LoginComponent/login';
+import SignUpComp from './Pages/SignupComponent/signup';
+import HomeElement from './Pages/YourPlannerPage/yourplanner'
+import BannerHistory from './Pages/BannerHistory/banner_history';
 
 function AppRouter() {
   return (
