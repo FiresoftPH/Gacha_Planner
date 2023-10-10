@@ -1,4 +1,4 @@
 pymysql
-python3-dotenv
+python-dotenv
 flask
 flask_cors
