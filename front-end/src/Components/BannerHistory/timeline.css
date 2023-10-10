@@ -1,9 +1,15 @@
+
+.banner-timeline-container{
+  width: 1500px; /* Set the desired width for your scrolling box */
+  height: 300px; 
+}
 .timeline-component {
     position: relative;
-    width: 870px;
+    width: 180px;
     height: 399px;
-    left:20px;
+    left:50px;
     display: inline-block;
+    top:75px;
   }
 
   /* Line 5 */
@@ -19,7 +25,7 @@
   }
   .line-horizontal {
     position: absolute;
-    width: 100px;
+    width: 170px;
     height: 0px;
     left: 70px;
     top: 40px;
@@ -39,28 +45,16 @@
   }
 
   /* Component 25 */
-  .component-25 {
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    left: 20px;
-    top: 160px;
-  }
+
   .timeline-component2{
     position: relative;
-    width: 180px;
-    height: 75px;
-    left: 180px;
-    top: 160px;
+    width: 170px;
+    height: 399px;
+    left:50px;
     display: inline-block;
+    top:75px;
   }
-  .rectangle-container{
-    position: absolute;
-    width: 75px;
-    height: 75px;
-    left: 5px;
-    top: -20px;   
-  }
+
   .component-11 {
     position: relative;
     width: 50px;
@@ -72,10 +66,11 @@
   /* Ellipse 8 */
   .ellipse-8 {
     position: absolute;
+    width: 75px;
+    height: 75px;
     left: 0%;
-    right: 0%;
+    right: 29.29%;
     top: 0%;
-    bottom: 0%;
     background: #00FFA3;
     border-radius:100px;
 
@@ -83,10 +78,9 @@
   
   .rectangle-58 {
     position: absolute;
-    left: 0%;
+    left: 6%;
     right: 29.29%;
-    top: 50%;
-    bottom: -20.71%;
+    top: 20%;
     background: #00FFA3;
     transform: rotate(-45deg);
     width: 60px;
@@ -124,4 +118,24 @@
     align-items: center;
     text-align: center;
     color: #000000;
+  }
+.img-test-container1{
+  position: absolute;
+  top:-184px;
+}
+.img-test-container2{
+  position: absolute;
+  top:150px;
+  left: -40px;
+}
+  .img-test{
+    width:120px;
+    background-color: #D9D9D9;
+    border-radius: 10px;
+
+  }
+
+  .element1,.element2{
+    position:relative;
+    top:200px;
   }

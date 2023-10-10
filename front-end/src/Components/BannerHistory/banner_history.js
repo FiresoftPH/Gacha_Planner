@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './banner_history.css'
 import EulaPic from '../../Pictures/Eula.png'
+import EulaInfo from '../../Pictures/EulaInfo.png'
 import { characterList } from './characters_info';
 import TimeLine from '../../Pictures/timeline.png'
 import Topbar from '../TopBarComponent/Topbar';
@@ -43,7 +44,13 @@ export default function BannerHistory(){
                     <div className='banner-character-list-container'>
                     
                     <div className="vertical-scrolling-box">
-                        <div><button className='banner-character-button' onClick={() => handleClick(1)}><img src={EulaPic}></img></button></div>
+                        <div>
+                            <button className='banner-character-button' onClick={() => handleClick(1)}><img className='banner-character-img' src={EulaInfo}></img></button>
+                            <div className='banner-character-detail'>
+                                <p className='banner-character-detail-text'>hi</p>
+                                <p className='banner-character-detail-text'>yo</p>
+                            </div>
+                        </div>
                         <div><button onClick={() => handleClick(2)}>Button</button></div>
                         <div><button onClick={() => handleClick(3)}>Button</button></div>
                         <div><button onClick={() => handleClick(2)}>Button</button></div>
@@ -90,45 +97,55 @@ export default function BannerHistory(){
 function Timeline() {
     
     return (
-    <div>
-      <TimelineElement patch={1.0}/>
-      <TimelineElement patch={2.0}/>
-      <TimelineElement patch={3.0}/>
-      <TimelineElement patch={4.0}/>
+    <div className='banner-timeline-container'>
+      <TimelineComponent patch={1.0}/>
+      <TimeLinecomponent2 p={1.1}></TimeLinecomponent2>
+
+
     </div>
     );
   }
   
-  function TimelineElement({patch}){
+  function TimelineComponent({patch}){
     return(
     <div className="timeline-component">
-        <div className="component-25">
+        <div className='element1'>
             <div className="vertical-line"></div>
+            <div className='img-test-container1'>
+                <img className='img-test' src={EulaInfo}></img>
+            </div>
+            
             <div className="vertical-line2"></div>
+            <div className='img-test-container2'>
+                <img className='img-test' src={EulaInfo}></img>
+            </div>
             <div className="line-horizontal"></div>
             <div className="ellipse-8">
                 <div className="ellipse-text">{patch}</div>
             </div>
         </div>
-        <TimeLinecomponent2 p={patch+0.1}/>
-        <TimeLinecomponent2 p={patch+0.2}/>
-        <TimeLinecomponent2 p={patch+0.3}/>
-        <TimeLinecomponent2 p={patch+0.4}/>
-      </div>
+    </div>
     );
   }
 
   function TimeLinecomponent2({p}){
     return(
     <div className="timeline-component2">
-        <div className="vertical-line"></div>
-        <div className="vertical-line2"></div>
-        <div className="line-horizontal"></div>
-        <div className="rectangle-container">
+        <div className='element2'>
+            <div className="vertical-line"></div>
+            <div className='img-test-container1'>
+                <img className='img-test' src={EulaInfo}></img>
+            </div>
+            <div className="vertical-line2"></div>
+            <div className='img-test-container2'>
+                <img className='img-test' src={EulaInfo}></img>
+            </div>
+            <div className="line-horizontal"></div>
             <div className="rectangle-58">
                 <span className="rectangle-text">{p}</span>
             </div>
         </div>
+        
 
     </div>
     

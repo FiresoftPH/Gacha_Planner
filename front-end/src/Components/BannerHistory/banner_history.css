@@ -72,10 +72,22 @@
 }
 .planner-button:hover{
     opacity: 0.8;
-    
+   
+}
+.banner-character-img{
+    width: 170px;
 }
 .banner-character-button:hover{
     background-color: #FFD643;
+}
+
+.banner-character-detail{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.banner-character-detail-text{
+    margin: 0px;
 }
 
 .banner-user-profile-container{
@@ -135,7 +147,7 @@
 
     .horizontal-scrolling-box {
         width: 1500px; /* Set the desired width for your scrolling box */
-        height: 490px; /* Set the desired height for your scrolling box */
+        height: 500px; /* Set the desired height for your scrolling box */
         overflow-x: auto; /* Enable horizontal scrolling */
         white-space: nowrap; /* Prevent content from wrapping to the next line */
         border: 1px none #ccc; /* Add a border for styling */
