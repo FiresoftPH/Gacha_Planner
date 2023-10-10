@@ -339,5 +339,5 @@ I LOVE BEER
 
 
 #def def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-print(calculations(11347,120,80,0,True,True,46,25,3,2,0,4.1,datetime.date(2023,10,17),False,4.2,1,2,0))
+# print(calculations(11347,120,80,0,True,True,46,25,3,2,0,4.1,datetime.date(2023,10,17),False,4.2,1,2,0))
 # print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
