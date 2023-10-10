@@ -79,7 +79,7 @@ def calendar(currentpatch,date):
             p = round(p,2)
             half = 1
         nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
-
+    print(patchdates)
     return patchdates
 
 """ 
@@ -144,13 +144,13 @@ for how many of these they are going to buy)
 it calculates and returns amounts of primos user will generate by end of patch half
 """
 
-def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target):
+def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target,currentpatch):
     dailies = 60
     welk = 90
-    currentpatch = 4.0
     primos4free = days*dailies
     patch2targ = (target[0] - currentpatch)*10
     patch2targ = round(patch2targ,2)
+    print(patch2targ)
 
     if havewelk == True:
         # 1 welkin = 30days
@@ -164,7 +164,7 @@ def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target):
         else:
             primos4free += welk*days
    
-    elif havebp == True:
+    if havebp == True:
         # 1 bp round = patchround
         # 4 fates 680 primos per patch
         if bp < 50:
@@ -173,7 +173,7 @@ def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target):
             primos4free += (target[0] - currentpatch)*((4*160)+680)
         if bpplan <= patch2targ:
             primos4free += bpplan*((4*160)+680)
-    return primos4free
+    return int(primos4free)
 
 """
 def plan takes required primos from def calculations 
@@ -185,7 +185,7 @@ returns primos generated, required primos, extra welkins and bp needed
 
 """
 
-def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
+def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,target):
     welk = 90
     currentpatch = 4.0
     patch2targ = (target[0] - currentpatch)*10
@@ -194,9 +194,9 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
 
     if primos4free < reqprimos:
         print("you will need an extra", reqprimos - primos4free)
-        welkneed = 1
+        welkneed = 0
         bpneed = 0
-        if havewelk == False or days-welkin > 0:
+        if havewelk == False or days-(welkin+(welkinplan*30)) > 0:
             while primos4free < reqprimos and (welkneed*30) <= days-welkin:
                 primos4free += welk*30
                 welkneed += 1
@@ -214,8 +214,9 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,bpplan,target):
     else:
         welkneed = 0
         bpneed = 0
+        extra = 0
     
-    return primos4free,reqprimos,welkneed,bpneed, extra
+    return primos4free,reqprimos,welkneed,bpneed,extra
 
 """
 main function for calculations, uses all the other functions above
@@ -251,8 +252,8 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
     currenttotal = primos+crystals
-    primos4free = accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target)
-    primosmade = primos4free - currenttotal
+    primosmade = accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target,currentpatch)
+    primos4free = currenttotal+primosmade
     fates4free = primos4free//160
 
     # print("\n")
@@ -264,9 +265,9 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
         worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
         bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
         #print("best case primos needed", bestprimos)
-        bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkinplan,bpplan,target)
+        bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         #print("worse case primos needed", worseprimos)
-        worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkinplan,bpplan,target)
+        worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
         possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
         primoreq,planwelk,planbp,planextra = None,None,None,None
@@ -336,6 +337,6 @@ I LOVE BEER
 """
 
 
-#def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch=4.1,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-## print(calculations(9422,120,74,0,True,True,52,16,3,10,0,4.1,False,4.2,1,2))
+#def def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+print(calculations(11347,120,80,0,True,True,46,25,3,2,0,4.1,datetime.date(2023,10,17),False,4.2,1,2,0))
 # print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
