@@ -1,0 +1,27 @@
+.character-info{
+    color: white;
+    font-size: 30px;
+    
+}
+.banner-info-container{
+    border-radius: 20px;
+    background-color: #444A6C;
+    width:80%;
+    height:60%;
+    padding-top: 5%;
+}
+
+.banner-info-pictext{
+    margin-left: 5%;
+}
+
+.banner-info-pic{
+    background-color: #D8D8D8;
+    border-radius: 10px;
+    margin-right: 2.3%;
+}
+
+
+.banner-character-info-text{
+    display: inline-block;
+    }
