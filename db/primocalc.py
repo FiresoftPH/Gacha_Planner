@@ -242,7 +242,7 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 """
 
 def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-    currenttime = datetime.datetime.now()
+    currenttime = datetime.date.today()
     patchdates = calendar(currentpatch,date)
     #print(patchdates)
     #calculates requirements for 5 star planning

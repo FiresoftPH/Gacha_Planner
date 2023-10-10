@@ -124,7 +124,7 @@ def checkValidInputBanner(current_date):
     connection.close()
     return data
 
-def getCurrentPatchFromDate():
+def getCurrentPatchFromDate(date):
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],

@@ -14,6 +14,7 @@ import db.banner
 import db.users
 import db.primocalc
 import json
+import datetime
 
 app = Flask(__name__)
 
@@ -93,16 +94,18 @@ def calculatePlannerData():
     bp = data["bp"]
     welkinplan = data["welkinplan"]
     bpplan = data["bpplan"]
-    currentdate = data["currentdate"]
     fivestars = data["fivestars"]
     primowant = data["primowant"]
 
+    currentdate = datetime.date.today()
+
     possible_banners = db.banner.checkValidInputBanner(currentdate)
     currentpatch = float(possible_banners[0][0])
+    currentpatch_date = possible_banners[0][1]
     # print(currentpatch)
 
     calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkin, bp, welkinplan, bpplan,
-                                                    fiveorprimos, currentpatch, guarantee, targetpatch, 
+                                                    fiveorprimos, currentpatch, currentpatch_date, guarantee, targetpatch, 
                                                     half, fivestars, primowant)
     
     return json.dumps(calculation_results)

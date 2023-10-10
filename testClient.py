@@ -1,5 +1,6 @@
 import requests
 import json
+import datetime
 
 BASE_URL = "http://localhost:5000"
 
@@ -40,9 +41,9 @@ def register():
 
 def calculations():
     load = {
-        "primogems": 9600,
+        "primogems": 11347,
         "crystals": 120,
-        "fates": 79,
+        "fates": 80,
         "guarantee": False,
         "pity": 0,
         "targetpatch": 4.2,
@@ -50,11 +51,10 @@ def calculations():
         "fiveorprimos": 0,
         "havewelkin": True, 
         "havebp": True,
-        "welkindays": 51,
+        "welkindays": 46,
         "bp": True,
         "welkinplan": 3,
         "bpplan": 2,
-        "currentdate": "2023-10-05",
         "fivestars": 2,
         "primowant": 0
     }
