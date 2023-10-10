@@ -1,4 +1,4 @@
-import { useNavigate, useState } from 'react';
+import { useState } from 'react';
 import './resultPlanner.css'
 import targetPic from '../../Pictures/targetSymbol.png'
 import primogmPic from '../../Pictures/primogemSymbol.png'
