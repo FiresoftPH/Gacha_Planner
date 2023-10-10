@@ -101,7 +101,7 @@ def calculatePlannerData():
 
     possible_banners = db.banner.checkValidInputBanner(currentdate)
     currentpatch = float(possible_banners[0][0])
-    currentpatch_date = possible_banners[0][1]
+    currentpatch_date = possible_banners[0][2]
     # print(currentpatch)
 
     calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkin, bp, welkinplan, bpplan,
@@ -123,6 +123,17 @@ def savePlannerData():
         return json.dumps({"error": "Data limit reached or user doesn't exists"})
     else:
         return json.dumps({"message": "Saved Successfully"})
+
+@app.route('/planner/fetch-data', methods=["POST"])
+def fetchPlannerData():
+    data = request.get_json()
+    data = json.loads(data)
+    username = data["username"]
+    user_data = db.users.fetchUserData(username)
+    if user_data == False:
+        return json.dumps({"error": "No saved data found"})
+    else:
+        return json.dumps(user_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -52,7 +52,7 @@ def calculations():
         "havewelkin": True, 
         "havebp": True,
         "welkindays": 46,
-        "bp": True,
+        "bp": 25,
         "welkinplan": 3,
         "bpplan": 2,
         "fivestars": 2,
@@ -71,7 +71,7 @@ def saveData(user_input, program_output):
         "username": "furina",
         "input": user_input,
         "output": program_output,
-        "save_name": "Furinamains"
+        "save_name": "Furinamains-2"
     }
     response = requests.post(BASE_URL + "/planner/save-data", json=json.dumps(load))
     if response.status_code == 200:
@@ -79,11 +79,23 @@ def saveData(user_input, program_output):
     else:
         print("Error: ", response.status_code)
 
+def loadData():
+    load = {
+        "username":"furina"
+    }
+    response = requests.post(BASE_URL + "/planner/fetch-data", json=json.dumps(load))
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error", response.status_code)
+
 # calculateBannerEstimationData()
 # getCharacterRerunHistory()
 # getRecentRerunHistory()
 # getCharacterRerunHistory()
 # auth()
 
-user_input, program_output = calculations()
-saveData(user_input, program_output)
+# user_input, program_output = calculations()
+# saveData(user_input, program_output)
+
+loadData()

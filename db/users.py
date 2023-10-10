@@ -89,10 +89,11 @@ def savePlannerData(username, input_data, output_data, save_name):
         data.updateUserInput(input_data)
         data.updateProgramOutput(output_data)
         pickled_data = pickle.dumps(data)
-        cursor.execute("SELECT * FROM user_data where username = %s", username)
+        cursor.execute("SELECT username, saved_data_name FROM user_data where username = %s", username)
         global DATA_LIMIT
         check_limit = cursor.fetchall()
-        if len(check_limit) >= DATA_LIMIT:
+        print(check_limit)
+        if len(check_limit) >= DATA_LIMIT or (username, save_name) in check_limit:
             connection.close()
             return False
         else:
@@ -112,8 +113,14 @@ def fetchUserData(username):
     )
     cursor = connection.cursor()
     cursor.execute("SELECT saved_data_name, saved_data FROM user_data WHERE username = %s", username)
-    saved_data = cursor.fetchall()
-    return saved_data
+    saved_datas = list(cursor.fetchall())
+    if saved_datas == []:
+        return False
+    else:
+        for count in range(len(saved_datas)):
+            saved_datas[count] = [saved_datas[count][0], pickle.loads(saved_datas[count][1]).getData()]
+
+        return saved_datas
     
 def checkUserExists(username):
     config = dotenv_values("db/.env")
