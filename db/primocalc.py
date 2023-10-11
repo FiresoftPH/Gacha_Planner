@@ -1,6 +1,7 @@
 """
 primocalc.py
 calculates resources needed for pulling a 5 star by the end of a certain patch based on resource inputs
+track progess based on original plans
 
 created by Thanakrit Paisal, around mid september 2023 (A++ sally)
 
@@ -173,7 +174,8 @@ def accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target,currentpa
             primos4free += (target[0] - currentpatch)*((4*160)+680)
         if bpplan <= patch2targ:
             primos4free += bpplan*((4*160)+680)
-    return int(primos4free)
+    
+    return primos4free
 
 """
 def plan takes required primos from def calculations 
@@ -242,39 +244,34 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 
 """
 
-def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.date.today()
     patchdates = calendar(currentpatch,date)
     #print(patchdates)
     #calculates requirements for 5 star planning
     #print(patchdates[str(targetpatch)][str(half)])
-    timeremaining = patchdates[str(targetpatch)][str(half)] - currenttime
+    patchend = patchdates[str(targetpatch)][str(half)]
+    timeremaining = patchend - currenttime
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
     currenttotal = primos+crystals
     primosmade = accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target,currentpatch)
-    primos4free = currenttotal+primosmade
+    primos4free = currenttotal+primosmade+(fates*160)
     fates4free = primos4free//160
-
-    # print("\n")
-    #i lofdgdfgd
-    # print("days remaining", days)
-    # print("primos you can make by the end of target patch half", primos4free)
-    # print("god bless ya gambling addict")
 
     if fiveorprimos == 0:
         worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
         bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
         #print("best case primos needed", bestprimos)
-        bestplan = plan(days,primos4free,bestprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
+        bestplan = plan(days,primosmade,bestprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         #print("worse case primos needed", worseprimos)
-        worseplan = plan(days,primos4free,worseprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
+        worseplan = plan(days,primosmade,worseprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
         possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
         primoreq,planwelk,planbp,planextra = None,None,None,None
 
     elif fiveorprimos == 1:
-        primoplan = plan(days,primos4free,primowant,havewelk,havebp,welkinplan,bpplan,target)
+        primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
         bestreq,bestwelk,bestbp = None,None,None
         worsereq,worsewelk,worsebp = None,None,None
@@ -286,7 +283,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
     primosmade = integer amount of primos that user will generate by end of patch half
     fates4free = integer number of total fates converted from total primos user will have by end of patch
     target = array of [float patch, int half]
-    primos4free = integer number of total primos user will make by end of patch half
+    primos4free = integer number of total primos user will have by end of patch half
     possible = integer number of total primo user could make by end of patch half if they follow the plan
 
     **** the values under here is returned if user chooses to calculate for 5 stars. returns None if other option is selected ****
@@ -309,9 +306,11 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
     return {"currenttotal": currenttotal, 
             "primosmade": primosmade, 
             "fates4free": fates4free,
-            "target": target, 
+            "target": target,
+            "patchend": patchend, 
+            "fiveorprimos" : fiveorprimos,
             "primos4free": primos4free, 
-            "possible": possible, 
+            "possible": possible,
             "bestreq": bestreq,
             "bestwelk": bestwelk,
             "bestbp": bestbp,
@@ -327,6 +326,78 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan
 
 
 """
+!! READ ME !!
+
+changes on def calculations
+
+input:
+    parameters welkin and bp now defaults to 0 if user doesn't have welk or bp (test case fix)
+
+output:
+    these are added cuz they will be used in def progress
+    patchend = final date of target, date format
+    fiveorprimos = (0,1) used to determine what progress to track
+
+"""
+
+
+"""
+def progress calculates the % progress from the difference of (total amount of resources generated by end date with current plan - the previous total generated) / the extra needed resources
+for best case, worse case, so specific amount of primos
+
+***************************************
+new inputs from user
+    primos = int current amount of primos
+    crystals = int current crystals
+    fates = int current fates
+    havewelk = user may have bought themselves some welk after the previous plan, boolean
+    havebp = user may have bought themselves some welk after the previous plan, boolean
+    welkdays = welkin days remaining defaults to 0 if user didn't have welks, int
+    bplvl = current bp level, defaults to 0 if user didn't have bp, int
+    welkinplan = how many more wekin user want to buy, defaults to 0, int
+    bpplan = how many more bp user want to buy, defaults to 0, int
+
+***************************************
+inputs from database/previous plan
+    prevaccumulate = corresponds to output primos4free from def calculations
+    fiveorprimos = corresponds to fiveorprimos from def calculations
+    currentpatch = from db
+    target = corresponds to target from def calculations
+    patchend = corresponds to patchend from def calculations 
+    bestprimos = corresponds to bestreq from def calculations
+    worseprimos = corresponds to worsereq from def calculations
+    primosneed = corresponds to primosreq from def calculations
+
+***************************************
+
+"""
+def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
+    days = patchend - datetime.date.today()
+    days = days.days
+    currentresources = primos+crystals+(fates*160)
+    primos4free = accumulate(days,havewelk,havebp,welkdays,welkinplan,bplvl,bpplan,target,currentpatch) + currentresources
+    primos4free = round(primos4free,2)
+    if fiveorprimos == 0:
+        primoprogress = 0
+        bestprogress = ((primos4free-prevaccumulate)/(bestprimos-prevaccumulate))*100
+        worseprogress = ((primos4free-prevaccumulate)/(worseprimos-prevaccumulate))*100
+        if bestprogress > 100:
+            bestprogress = 100
+        if worseprogress > 100:
+            worseprogress = 100
+    elif fiveorprimos == 1:
+        primoprogress = ((primos4free-prevaccumulate)/(primosneed-prevaccumulate))*100
+        bestprogress = 0
+        worseprogress = 0
+        if primoprogress > 100:
+            primoprogress = 100
+
+    return {"bestprogess": round(bestprogress,2),
+            "worseprogress": round(worseprogress,2),
+            "primoprogress": round(primoprogress,2)}
+
+
+"""
 
 def calculations is the only function you have to call once user hits calculate. although def calendar must also be running constantly
 
@@ -338,6 +409,9 @@ I LOVE BEER
 """
 
 
-#def def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+# def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
 # print(calculations(11347,120,80,0,True,True,46,25,3,2,0,4.1,datetime.date(2023,10,17),False,4.2,1,2,0))
-# print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
+#print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
+
+#def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
+print(progress(1500,0,5,3000,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
