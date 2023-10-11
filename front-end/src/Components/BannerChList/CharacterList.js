@@ -1,6 +1,6 @@
 import EulaPic from '../../Pictures/Eula.png'
 import EulaInfo from '../../Pictures/EulaInfo.png'
-import BannerHistory from '../../Pages/BannerHistory/banner_history'
+
 import "./CharacterList.css"
 export default function CharacterList({handleClick}){
     return(

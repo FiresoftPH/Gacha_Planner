@@ -1,4 +1,4 @@
-.home-page{
+.yourplanner-page-container{
     
     background-color: #0C0F1D;
     padding-top: 160px;
@@ -18,64 +18,3 @@
     border-color: aqua;
     margin-top: 0px;
 }
-.yourplanner-progress-tracking{
-    position: relative;
-    border-style: none;
-    border-radius: 10px;
-    background-color: #444A6C;
-    border-color: red;
-    margin-left: 12.5%;
-    width: 1000px;
-
-
-}
-    .yourplanner-body-header{
-        border-bottom: solid;
-        border-color: black;
-        color:white;
-        font-size: 35px;
-        font-weight: bold;
-        height: 80px;
-        
-    }
-    .yourplanner-body-header-text{
-        margin-top: 25px;
-        margin-left: 30px;
-    }
-
-    .yourplanner-input-container{
-        margin-bottom: 20px;
-    }
-    .yourplanner-input-text{
-        color: white;
-        font-size: 32px;
-        margin-left: 10px;
-        display: inline;
-    }
-
-    .planner-input-boxes{
-        display: inline;
-        border-radius: 10px;
-        height: 35px;
-        width:120px;
-        font-size: 32px;
-        margin-left: 1.5%;
-    }
-
-    .planner-progress-button{
-        position: absolute;
-        color:white;
-        margin-top: 0.5%;
-        font-size: 24px;
-        left:50%;
-        height: 55px;
-        width: 141px;
-        border-style: none;
-        border-radius: 15px;
-        background-color: #516CC4;
-    }
-
-    .yourplanner-pic{
-        height:30px;
-        margin-top: 0px;
-    }

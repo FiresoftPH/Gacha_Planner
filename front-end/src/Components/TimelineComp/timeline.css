@@ -79,13 +79,13 @@
   .rectangle-58 {
     position: absolute;
     left: 6%;
-    right: 29.29%;
-    top: 20%;
+    top: 5%;
     background: #00FFA3;
     transform: rotate(-45deg);
     width: 60px;
     height: 60px;
   }
+  
 
   /* 1.0 */
   .ellipse-text {
@@ -138,4 +138,6 @@
   .element1,.element2{
     position:relative;
     top:200px;
+    height: 250px;
+    width: 150px;
   }
