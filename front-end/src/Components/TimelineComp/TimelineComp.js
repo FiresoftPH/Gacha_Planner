@@ -1,12 +1,13 @@
 import EulaInfo from '../../Pictures/EulaInfo.png'
 
-export default function Timeline() {
+
+export default function Timeline({img_url}) {
     
     return (
     <div className="horizontal-scrolling-box">
         <div className="content">
             <div className='banner-timeline-container'>
-                <TimelineComponent patch={1.0}/>
+                <TimelineComponent imgUrl={EulaInfo} patch={1.0}/>
                 <TimeLinecomponent2 p={1.1}></TimeLinecomponent2>
 
 
@@ -18,13 +19,13 @@ export default function Timeline() {
     );
   }
   
-  function TimelineComponent({patch}){
+  function TimelineComponent({imgUrl,patch}){
     return(
     <div className="timeline-component">
         <div className='element1'>
             <div className="vertical-line"></div>
             <div className='img-test-container1'>
-                <img className='img-test' src={EulaInfo}></img>
+                <img className='img-test' src={imgUrl}></img>
             </div>
             
             <div className="vertical-line2"></div>

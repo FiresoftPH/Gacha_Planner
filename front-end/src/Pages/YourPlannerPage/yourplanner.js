@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import './yourplanner.css'
 
-import pic1 from '../../Pictures/progresspic1.png'
-import pic2 from '../../Pictures/progresspic2.png'
-import pic3 from '../../Pictures/progresspic3.png'
 import Topbar from '../../Components/TopBarComponent/Topbar';
+import ProgressTracking from '../../Components/ProgressTrack/ProgressTracking';
 
-export default function HomeElement(){
+export default function YourPlanner(){
     const [primogems, setPrimogems] = useState('');
     const [Genesis, setGenesis] = useState('');
     const [Interwined, setInterwined] = useState('');
@@ -17,7 +15,6 @@ export default function HomeElement(){
         // Handle the form submission, e.g., send data to a server or perform an action
         console.log(`Primogems: ${primogems}, GenesisCrystals: ${Genesis},InterwinedCrystals: ${Interwined}`);
       };
-
 
       const handlePrimosChange = (event) => {
         setPrimogems(event.target.value);
@@ -32,58 +29,12 @@ export default function HomeElement(){
       };
 
     return(
-    <div className='home-page'>
+    <div className='yourplanner-page-container'>
         <Topbar></Topbar>
-
         <div className='yourplanner-body'>
-            <div className='yourplanner-progress-tracking'>
-                <div className='yourplanner-body-header'>
-                    <p className='yourplanner-body-header-text'>Progress Tracking</p>
-                </div>
-                <div className='yourplanner-body-input'>
-                    <div className='yourplanner-input-container'>
-                        <img className='yourplanner-pic' src={pic1}></img>
-                        <p className='yourplanner-input-text'>How many primogem you have?</p>
-                        <input
-                            className='planner-input-boxes'
-                            type="text"
-                            id="primogems"
-                            value={primogems}
-                            onChange={handlePrimosChange}
-                        />
-                    </div>
-                    
-                    <div className='yourplanner-input-container' >
-                    <img className='yourplanner-pic' src={pic2}></img>
-                    <p className='yourplanner-input-text'>How many Genesis crystals you have?</p>
-                    <input
-                            className='planner-input-boxes'
-                            type="text"
-                            id="Genesis"
-                            value={Genesis}
-                            onChange={handleGenesisChange}
-                        />
-                    </div>
-                    
-                    <div className='yourplanner-input-container'>
-                    <img className='yourplanner-pic' src={pic3}></img>
-                    <p className='yourplanner-input-text'>How many Interwined crystals you have?</p>
-                    <input
-                            className='planner-input-boxes'
-                            type="text"
-                            id="Interwined"
-                            value={Interwined}
-                            onChange={handleInterwinedChange}
-                        />
-                    </div>
-                    
-                    <button className='planner-progress-button' onClick={handleSubmit}>Confirm</button>
-                </div>
-            </div>
-            <div className='Focalors-plan'>
-                lol
-            </div>
+            <ProgressTracking primo={primogems} genesis={Genesis} interwined={Interwined} handlePrimosChange={handlePrimosChange} handleGenesisChange={handleGenesisChange} handleInterwinedChange={handleInterwinedChange} handleSubmit={handleSubmit}></ProgressTracking>
         </div>
     </div>
     );
 }
+

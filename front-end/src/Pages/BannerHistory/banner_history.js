@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import './banner_history.css'
 import EulaPic from '../../Pictures/Eula.png'
 import EulaInfo from '../../Pictures/EulaInfo.png'
@@ -7,13 +7,24 @@ import Topbar from '../../Components/TopBarComponent/Topbar';
 import '../../Components/TimelineComp/timeline.css'
 import CharacterInfo from '../../Components/BannerCharacterInfo/CharacterInfo';
 import CharacterList from '../../Components/BannerChList/CharacterList';
+import axios from 'axios'
+
+
+const baseUrl = 'https://pokeapi.co/api/v2/pokemon/2'
 
 export default function BannerHistory(){
+
+
+
+    
 
     const [index, setIndex] = useState(0);
     const handleClick = (newState) => {
         setIndex(newState);
     };
+
+
+    
 
     return(
     <div className='banner-page'>
@@ -22,6 +33,7 @@ export default function BannerHistory(){
             <div className='banner-timeline'>
                 <div className='banner-body-header'>
                     <p className='banner-body-header-text'>Timeline Banner History</p>
+                    
                     <Timeline></Timeline>
                 </div>
             </div>
