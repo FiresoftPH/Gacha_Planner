@@ -18,7 +18,7 @@ import datetime
 
 app = Flask(__name__)
 
-@app.route('/auth/signup', methods=["POST"])
+@app.route('/api/auth/signup', methods=["POST"])
 def register():
     data = request.get_json()
     data = json.loads(data)
@@ -31,7 +31,7 @@ def register():
     else:
         return json.dumps({"error": "Use login instead"})
 
-@app.route('/calulate/validbanner', methods=["POST"])  
+@app.route('/api/calulate/validbanner', methods=["POST"])  
 def checkValidDate():
     data = request.json()
     data = json.loads(data)
@@ -39,7 +39,7 @@ def checkValidDate():
     versions = db.banner.checkValidInputBanner(current_date)
     return json.dumps({"load": versions})
     
-@app.route('/auth/users', methods=["POST"])
+@app.route('/api/auth/users', methods=["POST"])
 def authentication():
     data = request.get_json()
     data = json.loads(data)
@@ -51,15 +51,15 @@ def authentication():
     else:
         return json.dumps({"message": "Login Successfully"})
 
-@app.route('/get/rerun-history')
+@app.route('/api/get/rerun-history')
 def getCharacterRerunHistory():
     return json.dumps(db.character.sendCharacterRerunHistory())
 
-@app.route('/get/recent-rerun-history')
+@app.route('/api/get/recent-rerun-history')
 def getRecentRerunHistory():
     return json.dumps(db.banner.sendRecentCharacterBanner())
 
-@app.route('/calculate/banner-history', methods=["POST"])
+@app.route('/api/calculate/banner-history', methods=["POST"])
 def recalculateBannerHistory():
     data = request.get_json()
     data = json.loads(data)
@@ -69,14 +69,14 @@ def recalculateBannerHistory():
         db.banner.calculateBannerEstimationData(date[0], date[1], date[2], name)
     return json.dumps(db.character.sendCharacterRerunHistory())
 
-@app.route('/planner/checkvalidpatch', methods=["POST"])
+@app.route('/api/planner/checkvalidpatch', methods=["POST"])
 def checkValidInputBanner():
     data = request.get_json()
     currentdate = data["currentdate"]
     possible_banners = db.banner.checkValidInputBanner(currentdate)
     return json.dumps(possible_banners)
 
-@app.route('/planner/calculate', methods=["POST"])
+@app.route('/api/planner/calculate', methods=["POST"])
 def calculatePlannerData():
     data = request.get_json()
     data = json.loads(data)
@@ -110,7 +110,7 @@ def calculatePlannerData():
     
     return json.dumps(calculation_results)
 
-@app.route('/planner/save-data', methods=["POST"])
+@app.route('/api/planner/save-data', methods=["POST"])
 def savePlannerData():
     data = request.get_json()
     data = json.loads(data)
@@ -124,7 +124,7 @@ def savePlannerData():
     else:
         return json.dumps({"message": "Saved Successfully"})
 
-@app.route('/planner/fetch-data', methods=["POST"])
+@app.route('/api/planner/fetch-data', methods=["POST"])
 def fetchPlannerData():
     data = request.get_json()
     data = json.loads(data)
@@ -137,4 +137,4 @@ def fetchPlannerData():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    CORS(app, ['http://localhost'])
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
