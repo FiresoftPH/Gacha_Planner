@@ -3,7 +3,7 @@ import './resultPlanner.css'
 import targetPic from '../../Pictures/targetSymbol.png'
 import primogmPic from '../../Pictures/primogemSymbol.png'
 import genesisPic from '../../Pictures/genesiscrystalSymbol.png'
-import Overlay  from '../Overlay/overlay';
+import SaveDropdown from '../SaveDropdown/saveDropdown.js'
 
 function ResultPlanner(){
     const [showSuggestion, setShowSuggestion] = useState(false);
@@ -13,7 +13,7 @@ function ResultPlanner(){
         setShowSuggestion(!showSuggestion);
     };
     
-    const saveClick = () => {
+    const saveClick = () => {   
         setShowSaveList(!showSaveList);
         console.log("yay");
     };
@@ -25,8 +25,8 @@ function ResultPlanner(){
             onClick={saveClick}
             >Current Plan
         </button> 
-        <Overlay trigger={showSaveList}>
-        </Overlay>
+        <SaveDropdown trigger={showSaveList}>
+        </SaveDropdown>
         <div className='symbol-container'>
             <div className='info'>
                 <div className="circle-container">
