@@ -1,0 +1,41 @@
+.gachaPlanner-form-container{
+    display: flex;
+    background-color: blue;
+    width: 800px;
+    /* align-self: flex-start;
+    align-content: start;
+    justify-content: center; */
+    flex-direction: column;
+    border-radius: 25px;
+}
+
+.gachaPlanner-header{
+    height: 50px;
+    display: flex;
+    background-color: brown;
+    border-radius: 25px 25px 0px 0px;
+    border-color: #0c0f1d;
+    padding: 15px;
+    align-items: center;
+    border-block-end: solid;
+    box-sizing: border-box;
+}
+
+.gachaPlanner-form-group{
+    display: flex;
+    background-color: antiquewhite;
+    padding: 15px;
+    gap: 15px;
+}
+
+.gachaPlanner-form-group label{
+    display: inline-block;
+    color:blueviolet;
+}
+
+.gachaPlanner-confirm-btn{  
+    height: 10;
+    width: 30;
+    margin: 15px;
+    align-self: center;
+}

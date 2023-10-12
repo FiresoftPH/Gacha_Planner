@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './inputPlanner.css'
 
-function InputPlanner(){
+function InputPlanner({ onClick }){
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [welkinShowForm, setwelkinShowForm] = useState(false);
     const [bpShowForm, setbpShowForm] = useState(false);
@@ -125,7 +125,7 @@ function InputPlanner(){
             <button 
                 className='gachaPlanner-confirm-btn'
                 type='submit'
-                onClick={confirmClick}
+                onClick={onClick}
                 >Confirm
             </button>
         </form>
