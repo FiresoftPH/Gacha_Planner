@@ -7,16 +7,14 @@ import Topbar from '../../Components/TopBarComponent/Topbar';
 import '../../Components/TimelineComp/timeline.css'
 import CharacterInfo from '../../Components/BannerCharacterInfo/CharacterInfo';
 import CharacterList from '../../Components/BannerChList/CharacterList';
+import BannerChBoxElement from '../../Components/BannerChList/BannerChBox';
 import axios from 'axios'
 
 
-const baseUrl = 'https://pokeapi.co/api/v2/pokemon/2'
+
 
 export default function BannerHistory(){
 
-
-
-    
 
     const [index, setIndex] = useState(0);
     const handleClick = (newState) => {
@@ -24,9 +22,41 @@ export default function BannerHistory(){
     };
 
 
-    
+    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
+    axios.defaults.withCredentials = true;
 
+
+    const [post,setPost] = useState(null);
+    axios.get('/api/get/recent-rerun-history')
+    .then(response => {
+    // Handle the response
+    
+    setPost(response.data)
+    
+    
+        })
+    .catch(error => {
+    // Handle errors
+    
+  });
+ 
+  
+  if (!post) return null;
+    
+    post.forEach(item => {
+    for (const key in item) {
+        const value = item[key];
+       // console.log(`Key: ${key}, Value: ${value}`);
+    }
+    });
+
+    const results = post.map(item => {
+        const keyValuePairs = Object.entries(item);
+        return keyValuePairs.map(([key, value]) => `Key: ${key}, Value: ${value}`);
+      });
+      
     return(
+        
     <div className='banner-page'>
         
         <div className='banner-body'>
@@ -38,7 +68,23 @@ export default function BannerHistory(){
                 </div>
             </div>
             <div className='banner-characters-section'>
-                <CharacterList handleClick={handleClick}/>
+                <div className='character-list'>
+                    <p>Genshin Impact Character List</p>
+                    <div className='banner-character-list-container'>
+        
+                    <div className="vertical-scrolling-box">
+                        <div className='character-position'>
+                            {results.map((keyValuePairs, index) => (
+                            <div key={index}>
+                            {keyValuePairs.map(([key, value]) => (
+                            <BannerChBoxElement key={key} handleClick={handleClick} chName={key} lastPatch={value}/>
+                                ))}
+                        </div>
+                        ))}
+                    </div>
+                    </div>
+                    </div>
+                </div>
                 <CharacterInfo props_index={index}/>
             </div>
         </div>
@@ -46,4 +92,6 @@ export default function BannerHistory(){
     </div>
     );
 }
+
+
 
