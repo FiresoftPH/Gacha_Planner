@@ -2,7 +2,7 @@ import requests
 import json
 import datetime
 
-BASE_URL = "http://localhost:5000"
+BASE_URL = "http://localhost:5000/api"
 
 def getRecentRerunHistory():
     response = requests.get(BASE_URL + "/get/recent-rerun-history")

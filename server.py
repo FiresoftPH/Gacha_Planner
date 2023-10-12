@@ -126,7 +126,7 @@ def savePlannerData():
     else:
         return json.dumps({"message": "Saved Successfully"})
 
-@app.route('/api/planner/fetch-data', methods=["POST"])
+@app.route('/api/user/fetch-data', methods=["POST"])
 def fetchPlannerData():
     data = request.get_json()
     data = json.loads(data)
@@ -136,6 +136,19 @@ def fetchPlannerData():
         return json.dumps({"error": "No saved data found"})
     else:
         return json.dumps(user_data)
+    
+@app.route('/api/planner/calculate-progress', methods=["POST"])
+def calculateProgress():
+    data = request.get_json()
+    data = json.loads(data)
+    username = data["username"]
+    save_name = data["save_name"]
+    user_data = db.users.fetchUserData(username)
+    if user_data == False:
+        return json.dumps({"error": "No saved data found"})
+    else:
+        return json.dumps(user_data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
