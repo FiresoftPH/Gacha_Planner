@@ -7,7 +7,7 @@ Created by Pattarapark Chutisamoot around mid-september
 """
 
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import db.character
 import db.banner
@@ -29,9 +29,9 @@ def register():
     password = data['password']
     validation = db.users.register(name, username, password)
     if validation == True:
-        return json.dumps({"message": "Sign Up Successfully"})
+        return jsonify({"message": "Sign Up Successfully"})
     else:
-        return json.dumps({"error": "Use login instead"})
+        return jsonify({"error": "Use login instead"})
 
 @app.route('/api/calulate/validbanner', methods=["POST"])  
 def checkValidDate():
@@ -39,7 +39,7 @@ def checkValidDate():
     data = json.loads(data)
     current_date = data['current_date']
     versions = db.banner.checkValidInputBanner(current_date)
-    return json.dumps({"load": versions})
+    return jsonify({"load": versions})
     
 @app.route('/api/auth/users', methods=["POST"])
 def authentication():
@@ -49,17 +49,17 @@ def authentication():
     password = data['password']
     auth = db.users.login(username, password)
     if auth == False:
-        return json.dumps({"error": "Wrong Password"})
+        return jsonify({"error": "Wrong Password"})
     else:
-        return json.dumps({"message": "Login Successfully"})
+        return jsonify({"message": "Login Successfully"})
 
 @app.route('/api/get/rerun-history')
 def getCharacterRerunHistory():
-    return json.dumps(db.character.sendCharacterRerunHistory())
+    return jsonify(db.character.sendCharacterRerunHistory())
 
 @app.route('/api/get/recent-rerun-history')
 def getRecentRerunHistory():
-    return json.dumps(db.banner.sendRecentCharacterBanner())
+    return jsonify(db.banner.sendRecentCharacterBanner())
 
 @app.route('/api/calculate/banner-history', methods=["POST"])
 def recalculateBannerHistory():
@@ -69,14 +69,14 @@ def recalculateBannerHistory():
     character_names = db.character.getCharacterNames()
     for name in character_names:
         db.banner.calculateBannerEstimationData(date[0], date[1], date[2], name)
-    return json.dumps(db.character.sendCharacterRerunHistory())
+    return jsonify(db.character.sendCharacterRerunHistory())
 
 @app.route('/api/planner/checkvalidpatch', methods=["POST"])
 def checkValidInputBanner():
     data = request.get_json()
     currentdate = data["currentdate"]
     possible_banners = db.banner.checkValidInputBanner(currentdate)
-    return json.dumps(possible_banners)
+    return jsonify(possible_banners)
 
 @app.route('/api/planner/calculate', methods=["POST"])
 def calculatePlannerData():
@@ -106,11 +106,12 @@ def calculatePlannerData():
     currentpatch_date = possible_banners[0][2]
     # print(currentpatch)
 
-    calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkin, bp, welkinplan, bpplan,
-                                                    fiveorprimos, currentpatch, currentpatch_date, guarantee, targetpatch, 
+    calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkinplan, bpplan,
+                                                    fiveorprimos, currentpatch, currentpatch_date, welkin, bp, guarantee, targetpatch, 
                                                     half, fivestars, primowant)
     
-    return json.dumps(calculation_results)
+    print("Lol: ", type(calculation_results))
+    return jsonify(calculation_results)
 
 @app.route('/api/planner/save-data', methods=["POST"])
 def savePlannerData():
@@ -122,9 +123,9 @@ def savePlannerData():
     save_name = data["save_name"]
     check_operation = db.users.savePlannerData(username, input_data, output_data, save_name)
     if check_operation == False:
-        return json.dumps({"error": "Data limit reached or user doesn't exists"})
+        return jsonify({"error": "Data limit reached or user doesn't exists"})
     else:
-        return json.dumps({"message": "Saved Successfully"})
+        return jsonify({"message": "Saved Successfully"})
 
 @app.route('/api/user/fetch-data', methods=["POST"])
 def fetchPlannerData():
@@ -133,9 +134,9 @@ def fetchPlannerData():
     username = data["username"]
     user_data = db.users.fetchUserData(username)
     if user_data == False:
-        return json.dumps({"error": "No saved data found"})
+        return jsonify({"error": "No saved data found"})
     else:
-        return json.dumps(user_data)
+        return jsonify(user_data)
     
 @app.route('/api/planner/calculate-progress', methods=["POST"])
 def calculateProgress():
@@ -145,9 +146,9 @@ def calculateProgress():
     save_name = data["save_name"]
     user_data = db.users.fetchUserData(username)
     if user_data == False:
-        return json.dumps({"error": "No saved data found"})
+        return jsonify({"error": "No saved data found"})
     else:
-        return json.dumps(user_data)
+        return jsonify(user_data)
 
 
 if __name__ == '__main__':

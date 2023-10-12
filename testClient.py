@@ -5,7 +5,7 @@ import datetime
 BASE_URL = "http://localhost:5000/api"
 
 def getRecentRerunHistory():
-    response = requests.get(BASE_URL + "/get/recent-rerun-history")
+    response = requests.get(BASE_URL + "get/recent-rerun-history")
     if response.status_code == 200:
         print(response.json())
     else:
@@ -95,7 +95,9 @@ def loadData():
 # getCharacterRerunHistory()
 # auth()
 
+calculations()
+
 # user_input, program_output = calculations()
 # saveData(user_input, program_output)
 
-loadData()
+# loadData()
