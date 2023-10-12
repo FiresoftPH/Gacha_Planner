@@ -18,6 +18,8 @@ import datetime
 
 app = Flask(__name__)
 
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
+
 @app.route('/api/auth/signup', methods=["POST"])
 def register():
     data = request.get_json()
@@ -137,4 +139,3 @@ def fetchPlannerData():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
