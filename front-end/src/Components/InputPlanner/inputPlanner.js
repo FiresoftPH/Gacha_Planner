@@ -4,8 +4,11 @@ import './inputPlanner.css'
 function InputPlanner({ onClick }){
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [welkinShowForm, setwelkinShowForm] = useState(false);
-    const [bpShowForm, setbpShowForm] = useState(false);
-    const [showResult, setShowResult] = useState(false);
+    const [bpShowForm, setbpShowForm] = useState(false); 
+
+    const [primogem, setPrimogem] = useState('');
+    const [genesisCrystal, setGenesysCrystal] = useState('');
+    const [interwinedFate, setInterwinedFate] = useState('');
 
     const planCheckboxChange = (checkboxValue) => {
         if (selectedCheckbox === checkboxValue) {
@@ -16,7 +19,12 @@ function InputPlanner({ onClick }){
           setSelectedCheckbox(checkboxValue);
         }
     };
-
+    
+    const handlSubmit = (e) => {
+        e.preventDefault()
+        const userInput = { primogem, genesisCrystal, interwinedFate, selectedCheckbox, welkinShowForm, bpShowForm}
+        console.log(userInput)
+    }
     const welkinCheckboxChange = () => {
     setwelkinShowForm(!welkinShowForm);
     };
@@ -25,23 +33,24 @@ function InputPlanner({ onClick }){
     setbpShowForm(!bpShowForm);
     };
 
-    const confirmClick = () => {
-    setShowResult(true);
-    };
-    
     return(
-        <form className='gachaPlanner-form-container'>
+        <form className='gachaPlanner-form-container' onSubmit={handlSubmit}>
             <div className='gachaPlanner-header'>Gacha Planner</div>
             <div className="gachaPlanner-form-group">
                 <label>How many Primogems you have?</label>
                 <input 
                     type='number'
+                    value={primogem}
+                    onChange={(e) => setPrimogem(e.target.value)}
                     required
-                />            
+                />    
+                <label>{primogem}</label>        
             </div>
             <div className="gachaPlanner-form-group">
                 <label>How many Genesis crystals you have?:</label>
                 <input 
+                    value={genesisCrystal}
+                    onChange={(e) => setGenesysCrystal(e.target.value)}
                     type='number'
                     required
                 />             
@@ -49,26 +58,28 @@ function InputPlanner({ onClick }){
             <div className="gachaPlanner-form-group">
                 <label>How many Interwined Fate you have</label>
                 <input 
+                    value={interwinedFate}
+                    onChange={(e) => setInterwinedFate(e.target.value)}
                     type='number'
                     required/>
             </div>
             <div className="gachaPlanner-form-group">
                 <label>Which patch do you planned to use your savings?</label>
                 <select>
-                    <option value="mario">mario</option>
-                    <option value="yoshi">yoshi</option>
+                    <option value="Fonta">mario</option>
+                    <option value="Furina">yoshi</option>
                 </select>
             </div>
             <div className="gachaPlanner-form-group">
                 <label>Do you want to plan for 5 Star characters</label>
                 <input 
                     type='checkbox' 
-                    // value={first} 
                     checked={selectedCheckbox === 'checkbox1'}
+                    // value={'1'}
                     onChange={()=>planCheckboxChange("checkbox1")}/> First
                 <input 
                     type='checkbox' 
-                    // value={second}
+                    // value={'2'}
                     checked={selectedCheckbox === 'checkbox2'}
                     onChange={()=>planCheckboxChange("checkbox2")}/> Second
             </div>

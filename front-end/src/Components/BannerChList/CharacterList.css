@@ -1,22 +1,5 @@
-.character-list{
-    color: white;
-    font-size: 30px;
-    margin-left: 8%;
-}
-.banner-character-list-container{
-    margin-top: 9%;
-    margin-left: 0;
-    margin-right: 5%;
-    height:60%;
-}
-.vertical-scrolling-box{
-    display:grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    height: 90%;
-    width: 100%;  
-    overflow-y: auto;
 
-}
+
 .banner-character-button:hover{
     background-color: #FFD643;
 }
@@ -32,7 +15,7 @@
 .banner-character-detail-text{
     margin: 0px;
     background-color: #0C0F1D;
-   
+    color: white;
     height: 23px;
     font-size: 20px;
     text-align: center;
@@ -52,4 +35,8 @@
     width: 190px;
     background-color: white;
     color: black;
+}
+
+.banner-ch-container{
+    margin-bottom: 10px;
 }

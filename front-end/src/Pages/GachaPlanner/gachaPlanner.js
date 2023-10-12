@@ -9,7 +9,7 @@ function GachaPlanner() {
     const [showResultCompo, setShowResultCompo] = useState(false);
 
     const handleConfirmClick = () => {
-        setShowResultCompo(!showResultCompo);
+        setShowResultCompo(true);
     };
     return (
         <div className='gachaPlanner-page'>
