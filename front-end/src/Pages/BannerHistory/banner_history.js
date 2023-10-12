@@ -43,17 +43,16 @@ export default function BannerHistory(){
   
   if (!post) return null;
     
-    post.forEach(item => {
-    for (const key in item) {
-        const value = item[key];
-       // console.log(`Key: ${key}, Value: ${value}`);
-    }
-    });
 
     const results = post.map(item => {
         const keyValuePairs = Object.entries(item);
-        return keyValuePairs.map(([key, value]) => `Key: ${key}, Value: ${value}`);
-      });
+        keyValuePairs.forEach(([key, value]) => {
+            console.log(`Key: ${key}, Value: ${value}`);
+          });
+        return keyValuePairs.map(([key, value]) => (<BannerChBoxElement handleClick={handleClick} chName={key} lastPatch={value}></BannerChBoxElement>
+        ));  
+    });
+      
       
     return(
         
@@ -72,17 +71,11 @@ export default function BannerHistory(){
                     <p>Genshin Impact Character List</p>
                     <div className='banner-character-list-container'>
         
-                    <div className="vertical-scrolling-box">
-                        <div className='character-position'>
-                            {results.map((keyValuePairs, index) => (
-                            <div key={index}>
-                            {keyValuePairs.map(([key, value]) => (
-                            <BannerChBoxElement key={key} handleClick={handleClick} chName={key} lastPatch={value}/>
-                                ))}
+                        <div className="vertical-scrolling-box">
+                            <div className='character-position'>
+                                {results}
                         </div>
-                        ))}
-                    </div>
-                    </div>
+                        </div>
                     </div>
                 </div>
                 <CharacterInfo props_index={index}/>
