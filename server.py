@@ -137,4 +137,4 @@ def fetchPlannerData():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
+    CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
