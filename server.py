@@ -51,7 +51,7 @@ def authentication():
     else:
         return jsonify({"message": "Login Successfully"})
 
-@app.route('/api/get/rerun-history')
+@app.route('/api/get/rerun-ranking')
 def getCharacterRerunHistory():
     return jsonify(db.character.sendCharacterRerunHistory())
 

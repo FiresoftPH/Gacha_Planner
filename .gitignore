@@ -3,3 +3,4 @@ db_config/.env
 db/.env
 db_config/.env
 node_modules
+db/__pycache__
