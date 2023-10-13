@@ -33,11 +33,9 @@ def register():
     else:
         return jsonify({"error": "Use login instead"})
 
-@app.route('/api/calulate/validbanner', methods=["POST"])  
-def checkValidDate():
-    data = request.json()
-    # data = json.loads(data)
-    current_date = data['current_date']
+@app.route('/api/planner/calulate/validbanner')
+def checkValidBanner():
+    current_date = datetime.date.today()
     versions = db.banner.checkValidInputBanner(current_date)
     return jsonify({"load": versions})
     

@@ -111,7 +111,7 @@ def checkValidInputBanner(current_date):
     cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
     data = cursor.fetchall()
     connection.close()
-    return data
+    return data[0][0]
 
 def input_cli():
     while True:

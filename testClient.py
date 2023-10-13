@@ -82,4 +82,13 @@ def loadData():
     else:
         print("Error", response.status_code)
 
-calculations()
+def validBanner():
+    response = requests.get(BASE_URL + "/planner/calulate/validbanner")
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
+    
+
+# calculations()
+validBanner()
