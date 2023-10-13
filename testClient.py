@@ -90,5 +90,5 @@ def validBanner():
         print("Error: ", response.status_code)
     
 
-# calculations()
-validBanner()
+calculations()
+# validBanner()
