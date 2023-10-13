@@ -76,7 +76,7 @@ def checkValidInputBanner():
 @app.route('/api/planner/calculate', methods=["POST"])
 def calculatePlannerData():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     primos = data['primogems']
     crystals = data['crystals']
     fates = data['fates']

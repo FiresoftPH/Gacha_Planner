@@ -27,9 +27,10 @@ function InputPlanner({ onClick }){
     
     const handlSubmit = async (e) => {
         e.preventDefault();
-        const userInput = {"primogems": primogem,
-        "crystals": genesisCrystal,
-        "fates": interwinedFate,
+        const userInput = {
+        "primogems": 11347,
+        "crystals": 120,
+        "fates": 80,
         "guarantee": false,
         "pity": 0,
         "targetpatch": 4.2,
@@ -47,7 +48,7 @@ function InputPlanner({ onClick }){
         console.log(userInput);
         try {
             const response = await axios.post('/api/planner/calculate', userInput);
-                console.log(response.data);
+            console.log(response.data);
             // setPosts(allPosts);
             } catch (err) {
                 console.error('Error saving data:', err);
