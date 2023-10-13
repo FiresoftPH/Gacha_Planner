@@ -60,11 +60,6 @@ def calendar(currentpatch,date):
     currentpatch = round(currentpatch,2)
     p = currentpatch
     nextpatchdate = date + datetime.timedelta(days=21)
-    #fourone = datetime.datetime(2023,9,27,3) + datetime.timedelta(days=21)
-    # while currentpatch > 4.1:
-    #     nextpatchdate = fourone + datetime.timedelta(days=42) 
-    #     currentpatch -= 0.1
-    #     currentpatch = round(currentpatch,2)
     patchdates = {}
     for i in range(20):
         if str(p)[-1] == "8":
@@ -80,8 +75,37 @@ def calendar(currentpatch,date):
             p = round(p,2)
             half = 1
         nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
-    print(patchdates)
+    #print(patchdates)
     return patchdates
+
+print(calendar)
+
+
+"""
+def getcurrent return the current patch and half by calculating the date difference between today and the latest data in database
+inputs float patch and sql date
+outputs list [float patch, int half]
+"""
+def getcurrent(patch,date):
+    today = datetime.date.today()
+    half = 1
+    while (today-date).days > 21:
+        if half == 1:
+            half = 2
+        else:
+            half = 1
+            if str(patch)[-1] == "8":
+                 patch = float(math.floor(patch+1))
+            else:
+                patch += 0.1
+                patch = round(patch,2)
+        date = date + datetime.timedelta(days=21)
+
+    return [patch,half]
+
+print(getcurrent(4.1,datetime.date(2023,9,27)))      
+        
+
 
 """ 
 
