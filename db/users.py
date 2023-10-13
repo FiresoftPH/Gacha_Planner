@@ -141,8 +141,4 @@ def checkUserExists(username):
     else:
         connection.close()
         return True
-    
-# print(register("Furina", "furina", "12345"))
-# print(login("Furina", "12345"))
-# print(checkUserExists("Furina"))
 

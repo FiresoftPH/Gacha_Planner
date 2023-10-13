@@ -18,22 +18,15 @@ def getCharacterRerunHistory():
     else:
         print("Error: ", response.status_code)
 
-def calculateBannerEstimationData():
-    response = requests.post(BASE_URL + "/calculate/banner-history", json=json.dumps({"date": [2023, 10, 5], "ehe": "bruh"}))
-    if response.status_code == 200:
-        print(response.json())
-    else:
-        print("Error: ", response.status_code)
-
 def auth():
-    response = requests.post(BASE_URL + "/auth/users", json=json.dumps({"username": "", "password": ""}))
+    response = requests.post(BASE_URL + "/auth/users", json=json.dumps({"username": "furina", "password": "12345"}))
     if response.status_code == 200:
         print(response.json())
     else:
         print("Error: ", response.status_code)
 
 def register():
-    response = requests.post(BASE_URL + "/auth/signup", json=json.dumps({"name": "", "username": "", "password": ""}))
+    response = requests.post(BASE_URL + "/auth/signup", json={"name": "", "username": "", "password": ""})
     if response.status_code == 200:
         print(response.json())
     else:
@@ -68,10 +61,10 @@ def calculations():
 
 def saveData(user_input, program_output):
     load = {
-        "username": "furina",
+        "username": "Hu Tao",
         "input": user_input,
         "output": program_output,
-        "save_name": "Furinamains-2"
+        "save_name": "save_name"
     }
     response = requests.post(BASE_URL + "/planner/save-data", json=json.dumps(load))
     if response.status_code == 200:
@@ -89,15 +82,4 @@ def loadData():
     else:
         print("Error", response.status_code)
 
-# calculateBannerEstimationData()
-# getCharacterRerunHistory()
-# getRecentRerunHistory()
-# getCharacterRerunHistory()
-# auth()
-
 calculations()
-
-# user_input, program_output = calculations()
-# saveData(user_input, program_output)
-
-# loadData()

@@ -23,7 +23,7 @@ CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_
 @app.route('/api/auth/signup', methods=["POST"])
 def register():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     name = data['name']
     username = data['username']
     password = data['password']
@@ -36,7 +36,7 @@ def register():
 @app.route('/api/calulate/validbanner', methods=["POST"])  
 def checkValidDate():
     data = request.json()
-    data = json.loads(data)
+    # data = json.loads(data)
     current_date = data['current_date']
     versions = db.banner.checkValidInputBanner(current_date)
     return jsonify({"load": versions})
@@ -44,7 +44,7 @@ def checkValidDate():
 @app.route('/api/auth/users', methods=["POST"])
 def authentication():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     username = data['username']
     password = data['password']
     auth = db.users.login(username, password)
@@ -61,15 +61,12 @@ def getCharacterRerunHistory():
 def getRecentRerunHistory():
     return jsonify(db.banner.sendRecentCharacterBanner())
 
-@app.route('/api/calculate/banner-history', methods=["POST"])
-def recalculateBannerHistory():
-    data = request.get_json()
-    data = json.loads(data)
-    date = data["date"]
-    character_names = db.character.getCharacterNames()
-    for name in character_names:
-        db.banner.calculateBannerEstimationData(date[0], date[1], date[2], name)
-    return jsonify(db.character.sendCharacterRerunHistory())
+# @app.route('/api/calculate/banner-history', methods=["GET"])
+# def recalculateBannerHistory():
+#     character_names = db.character.getCharacterNames()
+#     for name in character_names:
+#         db.banner.calculateBannerEstimationData(name)
+#     return jsonify(db.character.sendCharacterRerunHistory())
 
 @app.route('/api/planner/checkvalidpatch', methods=["POST"])
 def checkValidInputBanner():
@@ -81,7 +78,7 @@ def checkValidInputBanner():
 @app.route('/api/planner/calculate', methods=["POST"])
 def calculatePlannerData():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     primos = data['primogems']
     crystals = data['crystals']
     fates = data['fates']
@@ -110,13 +107,13 @@ def calculatePlannerData():
                                                     fiveorprimos, currentpatch, currentpatch_date, welkin, bp, guarantee, targetpatch, 
                                                     half, fivestars, primowant)
     
-    print("Lol: ", type(calculation_results))
+    # print("Lol: ", type(calculation_results))
     return jsonify(calculation_results)
 
 @app.route('/api/planner/save-data', methods=["POST"])
 def savePlannerData():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     username = data["username"]
     input_data = data["input"]
     output_data = data["output"]
@@ -130,7 +127,7 @@ def savePlannerData():
 @app.route('/api/user/fetch-data', methods=["POST"])
 def fetchPlannerData():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     username = data["username"]
     user_data = db.users.fetchUserData(username)
     if user_data == False:
@@ -141,7 +138,7 @@ def fetchPlannerData():
 @app.route('/api/planner/calculate-progress', methods=["POST"])
 def calculateProgress():
     data = request.get_json()
-    data = json.loads(data)
+    # data = json.loads(data)
     username = data["username"]
     save_name = data["save_name"]
     user_data = db.users.fetchUserData(username)

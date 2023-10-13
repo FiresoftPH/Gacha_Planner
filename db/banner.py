@@ -3,15 +3,6 @@ import pymysql
 from dotenv import dotenv_values
 from datetime import date
 from math import floor
-import json
-
-"""
-TO DO LIST:
-1. Input date to patch number as float for calculator 
-2. Finish saving algorithms
-3. Look into something about first half of the banner
-
-"""
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
     config = dotenv_values("db/.env")
@@ -34,8 +25,6 @@ def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
         connection.commit()
         connection.close()
 
-# addBannerData("1.0", "Venti", ["Barbara", "Fischl", "Xiangling"], "2020-09-28", "2020-10-18")
-
 def showBannerData():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
@@ -53,7 +42,7 @@ def showBannerData():
     
     connection.close()
 
-def calculateBannerEstimationData(year, month, day, character_name):
+def calculateBannerEstimationData(character_name):
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -77,7 +66,7 @@ def calculateBannerEstimationData(year, month, day, character_name):
 
         except IndexError:
             # Calculate the number of patches that this character isnt rerun
-            diff = date(year, month, day) - banners[index][3]
+            diff = date.today() - banners[index][3]
             if diff.days < 21:
                 history_period.append(0)
             # elif diff.days >= 21:
@@ -124,19 +113,7 @@ def checkValidInputBanner(current_date):
     connection.close()
     return data
 
-def getCurrentPatchFromDate(date):
-    config = dotenv_values("db/.env")
-    connection = pymysql.connect(
-    host = config["HOST"],
-    port = int(config["PORT"]),
-    user = config["USERNAME"],
-    password = config["PASSWORD"],
-    database = config["DATABASE"]
-    )
-    cursor = connection.cursor()
-    cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
-
-def cli():
+def input_cli():
     while True:
         showBannerData()
         vn = str(input("Version No. : "))
@@ -153,6 +130,11 @@ def cli():
         else:
             print("abort")
 
-# sendRecentCharacterBanner()
-# cli()
-# print(checkValidInputBanner(current_date="2023-08-01"))
+def runRecalculationScript():
+    import character
+    character_names = character.getCharacterNames()
+    for name in character_names:
+        calculateBannerEstimationData(name)
+
+    print(character.sendCharacterRerunHistory())
+# runRecalculationScript()
