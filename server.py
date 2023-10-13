@@ -57,7 +57,7 @@ def getCharacterRerunHistory():
 
 @app.route('/api/get/recent-rerun-history')
 def getRecentRerunHistory():
-    return jsonify(db.banner.sendRecentCharacterBanner())
+    return jsonify(db.banner.getRecentCharacterBanner())
 
 # @app.route('/api/calculate/banner-history', methods=["GET"])
 # def recalculateBannerHistory():

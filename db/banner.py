@@ -78,7 +78,7 @@ def calculateBannerEstimationData(character_name):
     cursor.execute("UPDATE character_data SET rerun_history = %s where name = %s", (pickle.dumps(history_period), character_name))
     connection.commit()
 
-def sendRecentCharacterBanner():
+def getRecentCharacterBanner():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -90,13 +90,14 @@ def sendRecentCharacterBanner():
     cursor = connection.cursor()
     cursor.execute("SELECT featured_5_star, MAX(version), MAX(start_date) FROM banner_data GROUP BY featured_5_star")
     data = list(cursor.fetchall())
+    formatted_data = {}
     for index in range(len(data)):
         # data[index] = list((data[index][0], data[index][1]))
-        data[index] = {data[index][0] : data[index][1]}
+        formatted_data.update({data[index][0] : data[index][1]})
 
     # print(json.dumps(data))
     connection.close()
-    return data
+    return formatted_data
 
 def checkValidInputBanner(current_date):
     config = dotenv_values("db/.env")
@@ -130,11 +131,25 @@ def input_cli():
         else:
             print("abort")
 
+def addingNewColumn(column_name):
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("SELECT version, featured_5_star, start_date, ")
+
 def runRecalculationScript():
     import character
     character_names = character.getCharacterNames()
     for name in character_names:
         calculateBannerEstimationData(name)
 
-    print(character.sendCharacterRerunHistory())
+    print(character.getCharacterRerunHistory())
 # runRecalculationScript()
+
+print(getRecentCharacterBanner())
