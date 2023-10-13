@@ -53,7 +53,7 @@ def authentication():
 
 @app.route('/api/get/rerun-ranking')
 def getCharacterRerunHistory():
-    return jsonify(db.character.sendCharacterRerunHistory())
+    return jsonify(db.character.getCharacterRerunHistory())
 
 @app.route('/api/get/recent-rerun-history')
 def getRecentRerunHistory():

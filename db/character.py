@@ -1,8 +1,7 @@
 import pickle
 import pymysql
 from dotenv import dotenv_values
-import json
-import os
+from datetime import date
 
 def addCharacterData(name, rarity, element, weapon, permanent):
     config = dotenv_values("db/.env")
@@ -40,7 +39,7 @@ def showCharacterData():
     
     connection.close()
 
-def sendCharacterRerunHistory():
+def getCharacterRerunHistory():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -52,9 +51,10 @@ def sendCharacterRerunHistory():
     cursor = connection.cursor()
     cursor.execute("SELECT name, rerun_history FROM character_data WHERE rarity = %s AND permanent = %s AND name != %s", ("5 Stars", False, "Aloy"))
     banners = list(cursor.fetchall())
+    formatted_banners = {}
     for index in range(len(banners)):
         if banners[index][0] is not None:
-            banners[index] = {banners[index][0]: pickle.loads(banners[index][1])}
+            formatted_banners.update({banners[index][0]: pickle.loads(banners[index][1])})
         
         # banners[index] = list(banners[index])
         # if banners[index][0] is not None:
@@ -62,7 +62,7 @@ def sendCharacterRerunHistory():
     
     connection.close()
     # print(banners)
-    return banners
+    return formatted_banners
 
 def getCharacterNames():
     config = dotenv_values("db/.env")
@@ -81,6 +81,30 @@ def getCharacterNames():
     connection.close()
     return names
 
+def getAllCharacterData():
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("SELECT b.featured_5_star, c.element, c.weapon, b.version, b.start_date, c.rerun_history FROM banner_data b, character_data c WHERE c.name = b.featured_5_star order by b.start_date")
+    banner_history = cursor.fetchall()
+    banner_history = list(banner_history)
+    for index in range(len(banner_history)):
+        banner_history[index] = list(banner_history[index])
+        banner_history[index][5] = pickle.loads(banner_history[index][5])
+        banner_history[index][4] = date.isoformat(banner_history[index][4])
+
+    return banner_history
+
+temp = {
+    "Albedo": ['Geo', 'Sword', [['1.2', '2020-12-23'], ["2.3", "2021-06-17"]], [8, 7, 8]],
+    "Alhaitham": []
+}
 def cli():
     while True:
         showCharacterData()
@@ -105,4 +129,5 @@ def cli():
         else:
             print("abort")
 
-# cli()
+# print(getAllCharacterData())
+print(getCharacterRerunHistory())
