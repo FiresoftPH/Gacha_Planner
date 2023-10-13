@@ -152,4 +152,4 @@ def runRecalculationScript():
     print(character.getCharacterRerunHistory())
 # runRecalculationScript()
 
-print(getRecentCharacterBanner())
+# print(getRecentCharacterBanner())

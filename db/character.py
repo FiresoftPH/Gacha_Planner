@@ -130,4 +130,4 @@ def cli():
             print("abort")
 
 # print(getAllCharacterData())
-print(getCharacterRerunHistory())
+# print(getCharacterRerunHistory())
