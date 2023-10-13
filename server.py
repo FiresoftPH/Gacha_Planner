@@ -6,6 +6,14 @@ Created by Pattarapark Chutisamoot around mid-september
 
 """
 
+"""
+WORKING IN PROGRESS
+
+1. Big Data for Banner History Page including half patches indicator
+2. Database modifications to include half patches.
+3. Banner History sort for backend
+
+"""
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -33,11 +41,12 @@ def register():
     else:
         return jsonify({"error": "Use login instead"})
 
-@app.route('/api/planner/calulate/validbanner')
+@app.route('/api/planner/check-valid-banner')
 def checkValidBanner():
-    current_date = datetime.date.today()
-    versions = db.banner.checkValidInputBanner(current_date)
-    return jsonify({"load": versions})
+    version = db.banner.checkValidInputBanner()
+    full_version = db.primocalc.getcurrent(version[0][0], version[0][2])
+    full_version[0] = str(full_version[0])
+    return jsonify({"load": full_version})
     
 @app.route('/api/auth/users', methods=["POST"])
 def authentication():

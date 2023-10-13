@@ -99,7 +99,7 @@ def getRecentCharacterBanner():
     connection.close()
     return formatted_data
 
-def checkValidInputBanner(current_date):
+def checkValidInputBanner():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -109,6 +109,7 @@ def checkValidInputBanner(current_date):
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
+    current_date = date.today()
     cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
     data = cursor.fetchall()
     connection.close()

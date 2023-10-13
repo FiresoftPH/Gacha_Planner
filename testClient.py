@@ -4,6 +4,19 @@ import datetime
 
 BASE_URL = "http://localhost:5000/api"
 
+"""
+These functions are used to as a reference to use the API endpoints.
+
+HTTP GET endpoints will use request.get()
+
+HTTP POST endpoints will use request.post()
+
+For post requests, look at the json load attach in the function.
+
+Ex: json=json.dumps({"username": "furina", "password": "12345"}), the load is {"username": "furina", "password": "12345"}.
+
+For all of the request, try running them alongside server.py to see expected output.
+"""
 def getRecentRerunHistory():
     response = requests.get(BASE_URL + "get/recent-rerun-history")
     if response.status_code == 200:
@@ -83,12 +96,12 @@ def loadData():
         print("Error", response.status_code)
 
 def validBanner():
-    response = requests.get(BASE_URL + "/planner/calulate/validbanner")
+    response = requests.get(BASE_URL + "/planner/check-valid-banner")
     if response.status_code == 200:
         print(response.json())
     else:
         print("Error: ", response.status_code)
     
 
-calculations()
-# validBanner()
+# calculations()
+validBanner()

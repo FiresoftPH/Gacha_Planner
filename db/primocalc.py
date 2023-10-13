@@ -61,7 +61,7 @@ def calendar(currentpatch,date):
     p = currentpatch
     nextpatchdate = date + datetime.timedelta(days=21)
     patchdates = {}
-    for i in range(20):
+    for i in range(70):
         if str(p)[-1] == "8":
             p = float(math.floor(p+1))
         if half == 1:
@@ -88,7 +88,7 @@ outputs list [float patch, int half]
 """
 def getcurrent(patch,date):
     today = datetime.date.today()
-    half = 1
+    half = 2
     while (today-date).days > 21:
         if half == 1:
             half = 2
@@ -103,7 +103,7 @@ def getcurrent(patch,date):
 
     return [patch,half]
 
-print(getcurrent(4.1,datetime.date(2023,9,27)))      
+print(getcurrent(4.1,datetime.date(2023,9,27)))
         
 
 

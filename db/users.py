@@ -141,4 +141,3 @@ def checkUserExists(username):
     else:
         connection.close()
         return True
-
