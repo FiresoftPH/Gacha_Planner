@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import './inputPlanner.css'
+import axios from 'axios'
+
 
 function InputPlanner({ onClick }){
+    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
+    axios.defaults.withCredentials = true;
+
     const [selectedCheckbox, setSelectedCheckbox] = useState(null);
     const [welkinShowForm, setwelkinShowForm] = useState(false);
     const [bpShowForm, setbpShowForm] = useState(false); 
@@ -20,11 +25,35 @@ function InputPlanner({ onClick }){
         }
     };
     
-    const handlSubmit = (e) => {
-        e.preventDefault()
-        const userInput = { primogem, genesisCrystal, interwinedFate, selectedCheckbox, welkinShowForm, bpShowForm}
-        console.log(userInput)
-    }
+    const handlSubmit = async (e) => {
+        e.preventDefault();
+        const userInput = {"primogems": primogem,
+        "crystals": genesisCrystal,
+        "fates": interwinedFate,
+        "guarantee": false,
+        "pity": 0,
+        "targetpatch": 4.2,
+        "half": 1,
+        "fiveorprimos": 0,
+        "havewelkin": true, 
+        "havebp": true,
+        "welkindays": 46,
+        "bp": 25,
+        "welkinplan": 3,
+        "bpplan": 2,
+        "fivestars": 2,
+        "primowant": 0
+        };
+        console.log(userInput);
+        try {
+            const response = await axios.post('/api/planner/calculate', userInput);
+                console.log(response.data);
+            // setPosts(allPosts);
+            } catch (err) {
+                console.error('Error saving data:', err);
+            }
+            }
+
     const welkinCheckboxChange = () => {
     setwelkinShowForm(!welkinShowForm);
     };
