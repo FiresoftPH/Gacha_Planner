@@ -71,9 +71,10 @@ def getRecentRerunHistory():
 
 @app.route('/api/get/all-banner-data')
 def getAllCharacterBannerData():
-    character_names = db.character.getCharacterNames()
-    for name in character_names:
-        db.banner.calculateBannerEstimationData(name)
+    # Uncomment these lines to recalculate the rankings.
+    # character_names = db.character.getCharacterNames()
+    # for name in character_names:
+    #     db.banner.calculateBannerEstimationData(name)
     return jsonify(db.character.getAllCharacterData())
 
 # @app.route('/api/calculate/banner-history', methods=["GET"])

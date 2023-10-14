@@ -88,12 +88,12 @@ def getRecentCharacterBanner():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT featured_5_star, MAX(version), MAX(start_date) FROM banner_data GROUP BY featured_5_star order by start_date")
+    cursor.execute("SELECT b.featured_5_star, MAX(b.version), MAX(b.start_date), MAX(b.version_half) FROM banner_data b INNER JOIN character_data c WHERE c.name = b.featured_5_star and c.permanent = 0 GROUP BY b.featured_5_star ORDER BY MAX(b.start_date)")
     data = list(cursor.fetchall())
     formatted_data = {}
     for index in range(len(data)):
         # data[index] = list((data[index][0], data[index][1]))
-        formatted_data.update({data[index][0] : data[index][1]})
+        formatted_data.update({data[index][0] : [data[index][1], data[index][3]]})
 
     # print(json.dumps(data))
     connection.close()

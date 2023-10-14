@@ -19,7 +19,7 @@ Ex: json=json.dumps({"username": "furina", "password": "12345"}), the load is {"
 For all of the request, try running them alongside server.py to see expected output.
 """
 def getRecentRerunHistory():
-    response = requests.get(BASE_URL + "get/recent-rerun-history")
+    response = requests.get(BASE_URL + "/get/recent-rerun-history")
     if response.status_code == 200:
         print(response.json())
     else:
@@ -134,3 +134,4 @@ def getAllCharacterData():
 # currentpatch = float(currentpatch_data[0][0])
 # currentpatch_enddate = currentpatch_data[0][2]
 # getRerunRanking()
+getRecentRerunHistory()
