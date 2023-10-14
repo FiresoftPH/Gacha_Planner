@@ -88,7 +88,7 @@ def getRecentCharacterBanner():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT featured_5_star, MAX(version), MAX(start_date) FROM banner_data GROUP BY featured_5_star")
+    cursor.execute("SELECT featured_5_star, MAX(version), MAX(start_date) FROM banner_data GROUP BY featured_5_star order by start_date")
     data = list(cursor.fetchall())
     formatted_data = {}
     for index in range(len(data)):
@@ -132,7 +132,7 @@ def input_cli():
         else:
             print("abort")
 
-def addingNewColumn(column_name):
+def addingNewColumn():
     config = dotenv_values("db/.env")
     connection = pymysql.connect(
     host = config["HOST"],
@@ -142,7 +142,36 @@ def addingNewColumn(column_name):
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT version, featured_5_star, start_date, ")
+    cursor.execute("SELECT * FROM banner_data ORDER BY start_date")
+    banners = cursor.fetchall()
+    for banner in banners:
+        print(banner)
+        half = int(input("Half? (3 for skip): "))
+        if half not in [1, 2]:
+            break
+        cursor.execute("UPDATE banner_data SET version_half = %s WHERE version = %s AND featured_5_star = %s", (half, banner[0], banner[1]))
+        connection.commit()
+    
+    connection.close()
+
+def getRerunRanking():
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("SELECT b.featured_5_star, MAX(b.version), MAX(b.start_date), c.rerun_history FROM banner_data b INNER JOIN character_data c WHERE c.name = b.featured_5_star and c.permanent = 0 GROUP BY b.featured_5_star ORDER BY MAX(b.start_date) limit 5;")
+    rankings = cursor.fetchall()
+    formatted_ranking = {}
+    for ranking in rankings:
+        rerun_history = pickle.loads(ranking[3])
+        formatted_ranking.update({ranking[0]: [ranking[1], rerun_history[len(rerun_history) - 1]]})
+
+    return formatted_ranking
 
 def runRecalculationScript():
     import character
@@ -150,8 +179,11 @@ def runRecalculationScript():
     for name in character_names:
         calculateBannerEstimationData(name)
 
-    print(character.getCharacterRerunHistory())
+    # print(character.getCharacterRerunHistory())
 # runRecalculationScript()
 
 # print(getRecentCharacterBanner())
 # print(checkValidInputBanner()[0][0])
+# print(getRerunRanking())
+
+# addingNewColumn()
