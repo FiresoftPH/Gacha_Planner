@@ -5,9 +5,12 @@ import primogmPic from '../../Pictures/primogemSymbol.png'
 import genesisPic from '../../Pictures/genesiscrystalSymbol.png'
 import SaveDropdown from '../SaveDropdown/saveDropdown.js'
 
-function ResultPlanner(){
+function ResultPlanner( props ){
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [showSaveList, setShowSaveList] = useState(false);
+    
+    const planData = props.userInput;
+    console.log( props.userInput );
 
     const suggestionClick = () => {
         setShowSuggestion(!showSuggestion);
@@ -38,7 +41,7 @@ function ResultPlanner(){
             </div>
             <div className='info'>
                 <div className="circle-container">
-                    <img src={primogmPic}></img>        
+                    <img src={primogmPic}></img>
                 </div>
                 <div className='symbol-name'>Target Patch</div>
                 <div className='symbol-info'>4.0</div>
