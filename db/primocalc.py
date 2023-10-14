@@ -296,6 +296,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
 
     elif fiveorprimos == 1:
         #def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,target):
+        primowant = primowant -  primos - crystals
         primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
         bestreq,bestwelk,bestbp,bestextra = None,None,None,None
@@ -336,15 +337,15 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
             "fiveorprimos" : fiveorprimos,
             "primos4free": primos4free, 
             "possible": possible,
-            "bestreq": bestreq,
+            "bestreq": bestreq-primosmade,
             "bestwelk": bestwelk,
             "bestbp": bestbp,
             "bestextra": bestextra,
-            "worsereq": worsereq,
+            "worsereq": worsereq-primosmade,
             "worsewelk": worsewelk,
             "worsebp": worsebp,
             "worseextra": worseextra,
-            "primoreq": primoreq,
+            "primoreq": primoreq-primosmade,
             "planwelk": planwelk,
             "planbp": planbp,
             "planextra": planextra}
@@ -397,7 +398,7 @@ inputs from database/previous plan
 ***************************************
 
 """
-def progress(primos,crystals,fates,prevaccumulate,primosmade,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
+def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
     days = patchend - datetime.date.today()
     days = days.days
     currentresources = primos+crystals+(fates*160)
@@ -406,21 +407,15 @@ def progress(primos,crystals,fates,prevaccumulate,primosmade,fiveorprimos,havewe
     fates4free = primos4free//160
     moreprimos = primos4free-prevaccumulate
     if fiveorprimos == 0:
-        bestreq = bestprimos-primosmade
-        worsereq = worseprimos-primosmade
-        primoreq = 0
         primoprogress = 0
-        bestprogress = (moreprimos/bestreq)*100
-        worseprogress = (moreprimos/worsereq)*100
+        bestprogress = (moreprimos/bestprimos)*100
+        worseprogress = (moreprimos/worseprimos)*100
         if bestprogress > 100:
             bestprogress = 100
         if worseprogress > 100:
             worseprogress = 100
     elif fiveorprimos == 1:
-        primoreq = primosneed-prevaccumulate
-        bestreq = 0
-        worsereq = 0
-        primoprogress = (moreprimos/primoreq)*100
+        primoprogress = (moreprimos/primosneed)*100
         bestprogress = 0
         worseprogress = 0
         if primoprogress > 100:
@@ -431,19 +426,13 @@ def progress(primos,crystals,fates,prevaccumulate,primosmade,fiveorprimos,havewe
     bestprogess = float % of progress for best case rounded to 2 decimal places
     worseprogess = float % of progress for worse case rounded to 2 decimal places
     primoprogess = float % of progress for specific primos rounded to 2 decimal places
-    bestreq = int the extra primo user have to find for best case from the original plan
-    worsereq = int the extra primo user have to find for worse case from the original plan
-    primoreq = int the extra primo user have to find for specific case from the original plan
     moreprimos = int the amount of primos (current primos + primos made by welkin/bp) user has made more than their privious plan
     fates4free = int primos users has converted to fates
-    
+
     """
     return {"bestprogess": round(bestprogress,2),
             "worseprogress": round(worseprogress,2),
             "primoprogress": round(primoprogress,2),
-            "bestreq": bestreq,
-            "worsereq": worsereq,
-            "primoreq": primoreq,
             "moreprimos": moreprimos,
             "fates4free": fates4free }
 
@@ -461,8 +450,8 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-print(calculations(11347,120,80,0,True,True,3,2,1,4.1,datetime.date(2023,10,17),32,11,False,4.2,1,0,100000))
+#print(calculations(11347,120,80,0,True,True,3,2,1,4.1,datetime.date(2023,10,17),32,11,False,4.2,1,0,100000))
 #print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
 
-#def progress(primos,crystals,fates,prevaccumulate,primosmade,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
-# print(progress(1500,0,5,3000,2500,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
+#def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
+print(progress(1500,0,5,3000,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
