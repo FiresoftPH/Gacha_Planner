@@ -7,18 +7,22 @@ function InputPlanner({ onClick }){
     axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
     axios.defaults.withCredentials = true;
 
-    const [selectedCheckbox, setSelectedCheckbox] = useState(null);
+    const [primogemInput, setPrimogem] = useState('');
+    const [genesisCrystalInput, setGenesysCrystal] = useState('');
+    const [interwinedFateInput, setInterwinedFate] = useState('');
+    const [selectedCheckbox, setSelectedCheckbox] = useState('');
+    const [pityCount, setPityCount] = useState('');
+    const [guaranteeCheck, setGuaranteeCheck] = useState(false);
+    const [howManyFive, setHowManyFive] = useState('');
+    const [howManyPrimo, setHowManyPrimo] = useState('');
+
     const [welkinShowForm, setwelkinShowForm] = useState(false);
     const [bpShowForm, setbpShowForm] = useState(false); 
-
-    const [primogem, setPrimogem] = useState('');
-    const [genesisCrystal, setGenesysCrystal] = useState('');
-    const [interwinedFate, setInterwinedFate] = useState('');
 
     const planCheckboxChange = (checkboxValue) => {
         if (selectedCheckbox === checkboxValue) {
           // Uncheck the checkbox if it's already selected
-          setSelectedCheckbox(null);
+          setSelectedCheckbox('');
         } else {
           // Check the selected checkbox
           setSelectedCheckbox(checkboxValue);
@@ -28,14 +32,14 @@ function InputPlanner({ onClick }){
     const handlSubmit = async (e) => {
         e.preventDefault();
         const userInput = {
-        "primogems": 11347,
-        "crystals": 120,
-        "fates": 80,
-        "guarantee": false,
-        "pity": 0,
+        "primogems": parseInt(primogemInput),
+        "crystals": parseInt(genesisCrystalInput),
+        "fates": parseInt(interwinedFateInput),
+        "guarantee": guaranteeCheck,
+        "pity": parseInt(pityCount),
         "targetpatch": 4.2,
         "half": 1,
-        "fiveorprimos": 0,
+        "fiveorprimos": parseInt(selectedCheckbox),
         "havewelkin": true, 
         "havebp": true,
         "welkindays": 46,
@@ -46,6 +50,7 @@ function InputPlanner({ onClick }){
         "primowant": 0
         };
         console.log(userInput);
+        console.log(guaranteeCheck);
         try {
             const response = await axios.post('/api/planner/calculate', userInput);
             console.log(response.data);
@@ -70,16 +75,16 @@ function InputPlanner({ onClick }){
                 <label>How many Primogems you have?</label>
                 <input 
                     type='number'
-                    value={primogem}
+                    value={primogemInput}
                     onChange={(e) => setPrimogem(e.target.value)}
                     required
                 />    
-                <label>{primogem}</label>        
+                <label>{primogemInput}</label>        
             </div>
             <div className="gachaPlanner-form-group">
                 <label>How many Genesis crystals you have?:</label>
                 <input 
-                    value={genesisCrystal}
+                    value={genesisCrystalInput}
                     onChange={(e) => setGenesysCrystal(e.target.value)}
                     type='number'
                     required
@@ -88,7 +93,7 @@ function InputPlanner({ onClick }){
             <div className="gachaPlanner-form-group">
                 <label>How many Interwined Fate you have</label>
                 <input 
-                    value={interwinedFate}
+                    value={interwinedFateInput}
                     onChange={(e) => setInterwinedFate(e.target.value)}
                     type='number'
                     required/>
@@ -104,29 +109,54 @@ function InputPlanner({ onClick }){
                 <label>Do you want to plan for 5 Star characters</label>
                 <input 
                     type='checkbox' 
-                    checked={selectedCheckbox === 'checkbox1'}
-                    // value={'1'}
-                    onChange={()=>planCheckboxChange("checkbox1")}/> First
+                    checked={selectedCheckbox === '0'}
+                    value={'0'}
+                    onChange={(e)=>planCheckboxChange(e.target.value)}/>
+                <label>or Primogems</label>
                 <input 
                     type='checkbox' 
-                    // value={'2'}
-                    checked={selectedCheckbox === 'checkbox2'}
-                    onChange={()=>planCheckboxChange("checkbox2")}/> Second
+                    value={'1'}
+                    checked={selectedCheckbox === '1'}
+                    onChange={(e)=>planCheckboxChange(e.target.value)}/>
             </div>
-            {selectedCheckbox === 'checkbox1' && (
+            {selectedCheckbox === '0' && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input for Checkbox 1:</label>
-                    <input type="text"/>
+                    <label>What is your pity count?</label>
+                    <input 
+                        type="number"
+                        value={pityCount}
+                        onChange={(e) => setPityCount(e.target.value)}
+                    />
+                    <label>with Guarantee</label>
+                    <input 
+                        type="checkbox"
+                        checked={guaranteeCheck}
+                        onChange={(e) => setGuaranteeCheck(e.target.checked)}
+                    />
                 </div>
             )}
-            {selectedCheckbox === 'checkbox2' && (
+            {selectedCheckbox === '0' && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input for Checkbox 2:</label>
-                    <input type="text"/>
+                    <label>How many 5 Star you wanted?</label>
+                    <input 
+                        type="number"
+                        value={howManyFive}
+                        onChange={(e) => setHowManyFive(e.target.value)}
+                    />
+                </div>
+            )}
+            {selectedCheckbox === '1' && (
+                <div className="gachaPlanner-form-group">
+                    <label>How many Primogems you want?</label>
+                    <input 
+                        type="number"
+                        value={howManyPrimo}
+                        onChange={(e) => setHowManyPrimo(e.target.value)}
+                    />
                 </div>
             )}
             <div className="gachaPlanner-form-group">
-                <label>welkin Input Form</label>
+                <label>Do you have Welkin (Blessing of the Welkin Moon)?</label>
                     <input
                         type="checkbox"
                         checked={welkinShowForm}
@@ -134,18 +164,19 @@ function InputPlanner({ onClick }){
             </div>
             {welkinShowForm && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input:</label>
-                    <input type="text" />
+                    <label>How many days left?</label>
+                    <input type="number" />
+                    <label>days</label>
                 </div>
             )}
             {welkinShowForm && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input:</label>
-                    <input type="text" />
+                    <label>Number of Welkin planned to buy</label>
+                    <input type="number" />
                 </div>
             )}
             <div className="gachaPlanner-form-group">
-                <label>bp Input Form</label>
+                <label>Do you have BP (Battle Pass)?</label>
                     <input
                         type="checkbox"
                         checked={bpShowForm}
@@ -153,14 +184,14 @@ function InputPlanner({ onClick }){
             </div>
             {bpShowForm && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input:</label>
-                    <input type="text" />
+                    <label>Current patch BP level</label>
+                    <input type="number" />
                 </div>
             )}
             {bpShowForm && (
                 <div className="gachaPlanner-form-group">
-                    <label>Input:</label>
-                    <input type="text"/>
+                    <label>Number of BP planned to buy</label>
+                    <input type="number"/>
                 </div>
             )}
             <button 

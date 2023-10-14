@@ -28,6 +28,14 @@
     gap: 15px;
 }
 
+.gachaPlanner-form-group input[type="number"]{
+    width: 100px;
+}
+
+.gachaPlanner-form-group input[type="checkbox"]{
+    width: 25px;
+}
+
 .gachaPlanner-form-group label{
     display: inline-block;
     color:blueviolet;
