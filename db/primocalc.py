@@ -161,6 +161,7 @@ def bestcase(fivestars):
     for i in range(fivestars):
         primoneed += 90*160
     return primoneed
+
 """
 def accumulate recieves days until end of target patch half
 along with everything else that generates primos (welkin and bp and their current plans
@@ -292,6 +293,8 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
         worseplan = plan(days,primosmade,worseprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
         possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
+        bestreq -= primosmade
+        worsereq -= primosmade
         primoreq,planwelk,planbp,planextra = None,None,None,None
 
     elif fiveorprimos == 1:
@@ -299,6 +302,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
         primowant = primowant -  primos - crystals
         primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
+        primoreq -= primosmade
         bestreq,bestwelk,bestbp,bestextra = None,None,None,None
         worsereq,worsewelk,worsebp,worseextra = None,None,None,None
 
@@ -337,15 +341,15 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
             "fiveorprimos" : fiveorprimos,
             "primos4free": primos4free, 
             "possible": possible,
-            "bestreq": bestreq-primosmade,
+            "bestreq": bestreq,
             "bestwelk": bestwelk,
             "bestbp": bestbp,
             "bestextra": bestextra,
-            "worsereq": worsereq-primosmade,
+            "worsereq": worsereq,
             "worsewelk": worsewelk,
             "worsebp": worsebp,
             "worseextra": worseextra,
-            "primoreq": primoreq-primosmade,
+            "primoreq": primoreq,
             "planwelk": planwelk,
             "planbp": planbp,
             "planextra": planextra}
