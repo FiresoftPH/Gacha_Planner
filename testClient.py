@@ -127,7 +127,7 @@ def getAllCharacterData():
         print("Error: ", response.status_code)
     
 
-getAllCharacterData()
+# getAllCharacterData()
 # calculations()
 # validBanner()
 # currentpatch_data = db.banner.checkValidInputBanner()

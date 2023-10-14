@@ -26,6 +26,7 @@ import datetime
 
 app = Flask(__name__)
 
+app.json.sort_keys = False
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}}, supports_credentials=True)
 
 @app.route('/api/auth/signup', methods=["POST"])
