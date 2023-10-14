@@ -295,10 +295,11 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
         primoreq,planwelk,planbp,planextra = None,None,None,None
 
     elif fiveorprimos == 1:
-        primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkinplan,bpplan,target)
+        #def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,target):
+        primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
-        bestreq,bestwelk,bestbp = None,None,None
-        worsereq,worsewelk,worsebp = None,None,None
+        bestreq,bestwelk,bestbp,bestextra = None,None,None,None
+        worsereq,worsewelk,worsebp,worseextra = None,None,None,None
 
     """
     return values
@@ -433,8 +434,8 @@ I LOVE BEER
 """
 
 
-# def calculations(primos,crystals,fates,pity,havewelk,havebp,welkin,bp,welkinplan,bpplan,fiveorprimos,currentpatch,date,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-# print(calculations(11347,120,80,0,True,True,46,25,3,2,0,4.1,datetime.date(2023,10,17),False,4.2,1,2,0))
+#def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
+print(calculations(11347,120,80,0,True,True,3,2,1,4.1,datetime.date(2023,10,17),32,11,False,4.2,1,0,100000))
 #print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
 
 #def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
