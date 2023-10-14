@@ -16,8 +16,8 @@ import axios from 'axios'
 export default function BannerHistory(){
 
 
-    const [originalName, setName] = useState('Venti');
-    const [originalPatch, setPatch] = useState(3.1);
+    const [originalName, setName] = useState(0);
+    const [originalPatch, setPatch] = useState(0);
     const [originalElemental,setElemental] = useState(0);
     
 
