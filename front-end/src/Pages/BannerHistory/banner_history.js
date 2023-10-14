@@ -17,9 +17,7 @@ export default function BannerHistory(){
 
 
     const [index, setIndex] = useState(0);
-    const handleClick = (newState) => {
-        setIndex(newState);
-    };
+    
 
 
     axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
@@ -40,19 +38,27 @@ export default function BannerHistory(){
     
   });
  
-  
+  const handleClick = (newState) => {
+        setIndex(newState);
+        console.log({index});
+    };
   if (!post) return null;
     
 
-    const results = post.map(item => {
-        const keyValuePairs = Object.entries(item);
-        keyValuePairs.forEach(([key, value]) => {
-            console.log(`Key: ${key}, Value: ${value}`);
-          });
-        return keyValuePairs.map(([key, value]) => (<BannerChBoxElement handleClick={handleClick} chName={key} lastPatch={value}></BannerChBoxElement>
-        ));  
-    });
-      
+    // const results = post.map(item => {
+    //     const keyValuePairs = Object.entries(item);
+    //     keyValuePairs.forEach(([key, value]) => {
+    //         console.log(`Key: ${key}, Value: ${value}`);
+    //       });
+    //     return keyValuePairs.map(([key, value]) => (<BannerChBoxElement handleClick={handleClick} chName={key} lastPatch={value} data={post}></BannerChBoxElement>
+    //     ));  
+    // });
+    // Object.entries(post).map(([key, value]) => {
+    //     console.log('hi'); // You can include console.log statements here
+    //     const searchKey = key; // Remove curly braces around 'key'
+    //     const keys = Object.keys(data);
+    //     const indexValue = keys.indexOf(searchKey) + 1;
+    //   });
       
     return(
         
@@ -73,7 +79,22 @@ export default function BannerHistory(){
         
                         <div className="vertical-scrolling-box">
                             <div className='character-position'>
-                                {results}
+                            {Object.entries(post).map(([key, value]) => {
+                                console.log('hi'); // Include console.log within curly braces
+                                const searchKey = key; // Remove curly braces around 'key'
+                                const keys = Object.keys(post);
+                                const indexValue = keys.indexOf(searchKey) + 1;
+                                return (
+                                    <BannerChBoxElement
+                                    key={key}
+                                    handleClick={handleClick}
+                                    chName={key}
+                                    lastPatch={value}
+                                    data={post}
+                                    indexVal={indexValue}
+                                    />
+                                );
+                                })}
                         </div>
                         </div>
                     </div>

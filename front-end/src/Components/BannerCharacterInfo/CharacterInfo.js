@@ -2,7 +2,7 @@ import './CharacterInfo.css'
 import { characterList } from '../../Pages/BannerHistory/characters_info';
 export default function CharacterInfo({props_index}){
     let character = characterList[props_index];
-    
+
     return(
         
     <div className='character-info'>
@@ -21,3 +21,4 @@ export default function CharacterInfo({props_index}){
     );
 
 }
+
