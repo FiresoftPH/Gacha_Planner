@@ -16,7 +16,9 @@ import axios from 'axios'
 export default function BannerHistory(){
 
 
-    const [index, setIndex] = useState(0);
+    const [originalName, setName] = useState('Venti');
+    const [originalPatch, setPatch] = useState(3.1);
+    const [originalElemental,setElemental] = useState(0);
     
 
 
@@ -31,16 +33,21 @@ export default function BannerHistory(){
     
     setPost(response.data)
     
-    
         })
     .catch(error => {
     // Handle errors
     
   });
  
-  const handleClick = (newState) => {
-        setIndex(newState);
-        console.log({index});
+  const handleClick = (name, patch) => {
+        
+       
+        setPatch(patch)
+        console.log('lollllll')
+        
+        console.log({name});
+        setName(name)
+ 
     };
   if (!post) return null;
     
@@ -80,7 +87,7 @@ export default function BannerHistory(){
                         <div className="vertical-scrolling-box">
                             <div className='character-position'>
                             {Object.entries(post).map(([key, value]) => {
-                                console.log('hi'); // Include console.log within curly braces
+                               
                                 const searchKey = key; // Remove curly braces around 'key'
                                 const keys = Object.keys(post);
                                 const indexValue = keys.indexOf(searchKey) + 1;
@@ -89,7 +96,7 @@ export default function BannerHistory(){
                                     key={key}
                                     handleClick={handleClick}
                                     chName={key}
-                                    lastPatch={value}
+                                    lastPatch={value[0]}
                                     data={post}
                                     indexVal={indexValue}
                                     />
@@ -99,7 +106,9 @@ export default function BannerHistory(){
                         </div>
                     </div>
                 </div>
-                <CharacterInfo props_index={index}/>
+               
+                <CharacterInfo chName={originalName} patch={originalPatch} /> 
+  
             </div>
         </div>
         <Topbar/>
