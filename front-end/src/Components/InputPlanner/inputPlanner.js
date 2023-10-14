@@ -7,16 +7,17 @@ function InputPlanner({ onClick }){
     axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
     axios.defaults.withCredentials = true;
 
-    const [primogemInput, setPrimogem] = useState('');
-    const [genesisCrystalInput, setGenesysCrystal] = useState('');
-    const [interwinedFateInput, setInterwinedFate] = useState('');
+    const [primogemInput, setPrimogem] = useState('0');
+    const [genesisCrystalInput, setGenesysCrystal] = useState('0');
+    const [interwinedFateInput, setInterwinedFate] = useState('0');
     const [selectedCheckbox, setSelectedCheckbox] = useState('');
-    const [pityCount, setPityCount] = useState('');
+    const [pityCount, setPityCount] = useState('0');
     const [guaranteeCheck, setGuaranteeCheck] = useState(false);
-    const [howManyFive, setHowManyFive] = useState('');
-    const [howManyPrimo, setHowManyPrimo] = useState('');
-
+    const [howManyFive, setHowManyFive] = useState('1');
+    const [howManyPrimo, setHowManyPrimo] = useState('0');
     const [welkinShowForm, setwelkinShowForm] = useState(false);
+    const [howManyDay, setHowManyDay] = useState('');
+    const [welkinPlanTo, setWelkinPlanTo] = useState('0')
     const [bpShowForm, setbpShowForm] = useState(false); 
 
     const planCheckboxChange = (checkboxValue) => {
@@ -40,17 +41,17 @@ function InputPlanner({ onClick }){
         "targetpatch": 4.2,
         "half": 1,
         "fiveorprimos": parseInt(selectedCheckbox),
-        "havewelkin": true, 
+        "havewelkin": welkinShowForm, 
         "havebp": true,
-        "welkindays": 46,
+        "welkindays": parseInt(howManyDay),
         "bp": 25,
-        "welkinplan": 3,
+        "welkinplan": parseInt(welkinPlanTo),
         "bpplan": 2,
-        "fivestars": 2,
-        "primowant": 0
+        "fivestars": parseInt(howManyFive),
+        "primowant": parseInt(howManyPrimo)
         };
         console.log(userInput);
-        console.log(guaranteeCheck);
+        console.log(welkinShowForm);
         try {
             const response = await axios.post('/api/planner/calculate', userInput);
             console.log(response.data);
@@ -78,8 +79,7 @@ function InputPlanner({ onClick }){
                     value={primogemInput}
                     onChange={(e) => setPrimogem(e.target.value)}
                     required
-                />    
-                <label>{primogemInput}</label>        
+                />        
             </div>
             <div className="gachaPlanner-form-group">
                 <label>How many Genesis crystals you have?:</label>
@@ -160,19 +160,28 @@ function InputPlanner({ onClick }){
                     <input
                         type="checkbox"
                         checked={welkinShowForm}
-                        onChange={welkinCheckboxChange}/>
+                        onChange={(e) => welkinCheckboxChange(e.target.checked)}
+                        />
             </div>
             {welkinShowForm && (
                 <div className="gachaPlanner-form-group">
                     <label>How many days left?</label>
-                    <input type="number" />
+                    <input 
+                        type="number"
+                        value={howManyDay}
+                        onChange={(e) => setHowManyDay(e.target.value)}
+                     />
                     <label>days</label>
                 </div>
             )}
             {welkinShowForm && (
                 <div className="gachaPlanner-form-group">
                     <label>Number of Welkin planned to buy</label>
-                    <input type="number" />
+                    <input 
+                        type="number" 
+                        value={welkinPlanTo}
+                        onChange={(e) => setWelkinPlanTo(e.target.value)}
+                    />
                 </div>
             )}
             <div className="gachaPlanner-form-group">
