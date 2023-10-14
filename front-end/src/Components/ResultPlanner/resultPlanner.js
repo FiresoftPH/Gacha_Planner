@@ -9,8 +9,8 @@ function ResultPlanner( props ){
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [showSaveList, setShowSaveList] = useState(false);
     
-    const planData = props.userInput;
-    console.log( props.userInput );
+    const currentPlanData = props.userInput;
+    console.log( props.userInput ); 
 
     const suggestionClick = () => {
         setShowSuggestion(!showSuggestion);
@@ -22,52 +22,52 @@ function ResultPlanner( props ){
     };
 
     return(
-    <div className='gachaPlanner-result-container'>
-        <button 
-            className='save-button'
-            onClick={saveClick}
-            >Current Plan
-        </button> 
-        <SaveDropdown trigger={showSaveList}>
-        </SaveDropdown>
-        <div className='symbol-container'>
-            <div className='info'>
-                <div className="circle-container">
-                    <img src={targetPic}></img>
+        <div className='gachaPlanner-result-container'>
+            <button 
+                className='save-button'
+                onClick={saveClick}
+                >Current Plan
+            </button> 
+            <SaveDropdown trigger={showSaveList}>
+            </SaveDropdown>
+            <div className='symbol-container'>
+                <div className='info'>
+                    <div className="circle-container">
+                        <img src={targetPic}></img>
+                    </div>
+                    <div className='symbol-name'>Target Patch</div>
+                    <div className='symbol-info'>4.0</div>
+                    <div className='symbol-info'>First half</div>
                 </div>
-                <div className='symbol-name'>Target Patch</div>
-                <div className='symbol-info'>4.0</div>
-                <div className='symbol-info'>First half</div>
-            </div>
-            <div className='info'>
-                <div className="circle-container">
-                    <img src={primogmPic}></img>
+                <div className='info'>
+                    <div className="circle-container">
+                        <img src={primogmPic}></img>
+                    </div>
+                    <div className='symbol-name'>Target Patch</div>
+                    <div className='symbol-info'>4.0</div>
+                    <div className='symbol-info'>First half</div>
                 </div>
-                <div className='symbol-name'>Target Patch</div>
-                <div className='symbol-info'>4.0</div>
-                <div className='symbol-info'>First half</div>
-            </div>
-            <div className='info'>
-                <div className="circle-container">
-                    <img src={genesisPic}></img>
+                <div className='info'>
+                    <div className="circle-container">
+                        <img src={genesisPic}></img>
+                    </div>
+                    <div className='symbol-name'>Target Patch</div>
+                    <div className='symbol-info'>4.0</div>
+                    <div className='symbol-info'>First half</div>
                 </div>
-                <div className='symbol-name'>Target Patch</div>
-                <div className='symbol-info'>4.0</div>
-                <div className='symbol-info'>First half</div>
             </div>
+            <div className='informationText'>
+                <ul>
+                    <li>hi</li>
+                </ul>
+            </div>
+            <button 
+                className={`suggestion-button ${showSuggestion ? 'active' : 'inactive'}`} 
+                onClick={suggestionClick}>
+                {showSuggestion ? 'Hide Component' : 'Show Component'}
+            </button>
+                {showSuggestion && <div className='informationText'>suggestion</div>}    
         </div>
-        <div className='informationText'>
-            <ul>
-                <li>hi</li>
-            </ul>
-        </div>
-        <button 
-            className={`suggestion-button ${showSuggestion ? 'active' : 'inactive'}`} 
-            onClick={suggestionClick}>
-            {showSuggestion ? 'Hide Component' : 'Show Component'}
-        </button>
-            {showSuggestion && <div className='informationText'>suggestion</div>}    
-    </div>
     )
 };
 
