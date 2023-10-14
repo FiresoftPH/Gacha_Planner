@@ -154,3 +154,4 @@ def runRecalculationScript():
 # runRecalculationScript()
 
 # print(getRecentCharacterBanner())
+# print(checkValidInputBanner()[0][0])

@@ -103,15 +103,13 @@ def calculatePlannerData():
     fivestars = data["fivestars"]
     primowant = data["primowant"]
 
-    currentdate = datetime.date.today()
-
-    possible_banners = db.banner.checkValidInputBanner(currentdate)
-    currentpatch = float(possible_banners[0][0])
-    currentpatch_date = possible_banners[0][2]
+    currentpatch_data = db.banner.checkValidInputBanner()
+    currentpatch = float(currentpatch_data[0][0])
+    currentpatch_enddate = currentpatch_data[0][2]
     # print(currentpatch)
 
     calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkinplan, bpplan,
-                                                    fiveorprimos, currentpatch, currentpatch_date, welkin, bp, guarantee, targetpatch, 
+                                                    fiveorprimos, currentpatch, currentpatch_enddate, welkin, bp, guarantee, targetpatch, 
                                                     half, fivestars, primowant)
     
     # print("Lol: ", type(calculation_results))
