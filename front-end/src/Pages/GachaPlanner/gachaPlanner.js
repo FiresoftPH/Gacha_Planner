@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import React from 'react';
 import './gachaPlanner.css'
 import Topbar from '../../Components/TopBarComponent/Topbar';
 import ResultPlanner from '../../Components/ResultPlanner/resultPlanner';
@@ -6,18 +7,27 @@ import RankingBanner from '../../Components/RankingBanner/rankingBanner';
 import InputPlanner from '../../Components/InputPlanner/inputPlanner';
 
 function GachaPlanner() {
-    const [showResultCompo, setShowResultCompo] = useState(false);
+    const [showResultCompo, setShowResultCompo] = useState(false); 
+    const [userInput, setUserInput] = useState(null); 
+
+    const handleUserInput = (data) => {
+        // Handle userInput in the parent component
+        setUserInput(data);
+        // console.log('User input received:', data);
+        // Do something with the userInput, for example, update state in the parent component
+    };
 
     const handleConfirmClick = () => {
         setShowResultCompo(true);
     };
+
     return (
         <div className='gachaPlanner-page'>
             <Topbar></Topbar>
             <div className='gachaPlanner-contents-container'>
                 <div className='gachaPlanner-planner-container'>
-                    <InputPlanner onClick ={handleConfirmClick}></InputPlanner>
-                    {showResultCompo && <ResultPlanner></ResultPlanner>}
+                    <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput}></InputPlanner>
+                    {showResultCompo && <ResultPlanner userInput={userInput}></ResultPlanner>}
                 </div>
                 <div className='characterRanking-container'>
                     <RankingBanner></RankingBanner>

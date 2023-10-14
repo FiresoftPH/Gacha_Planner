@@ -1,6 +1,7 @@
 import requests
 import json
 import datetime
+import db.banner
 
 BASE_URL = "http://localhost:5000/api"
 
@@ -24,8 +25,8 @@ def getRecentRerunHistory():
     else:
         print("Error: ", response.status_code)
 
-def getCharacterRerunHistory():
-    response = requests.get(BASE_URL + "/get/rerun-history")
+def getRerunRanking():
+    response = requests.get(BASE_URL + "/get/rerun-ranking")
     if response.status_code == 200:
         print(response.json())
     else:
@@ -101,7 +102,35 @@ def validBanner():
         print(response.json())
     else:
         print("Error: ", response.status_code)
+
+"""
+OUTPUT FORMAT: 
+allCharacterDataFormat = {
+    'Venti': ['Anemo', 'Bow', [[['1.0', datetime.date(2020, 9, 28)], 1], [['1.4', datetime.date(2021, 3, 17)], 1], 
+    [['2.6', datetime.date(2022, 3, 20)], 1], [['3.1', datetime.date(2022, 9, 28)], 1]], [4, 9, 4, 8]],
+    
+    "Character Name": ['Element', 'Weapon', [["Version Name", "Start Date", 
+    Version Half], ["Version Name", "Start Date", Version Half]...], Rerun Range] <--- This is the format
+}
+
+Note:
+1. The "version" 2d array (From the outer array, it has the index 3) is sorted from earliest (First Debut/Rerun Banner) to latest.
+2. The Rerun Range is also sorted from the la
+
+Run the function below to see the format
+"""
+def getAllCharacterData():
+    response = requests.get(BASE_URL + "/get/all-banner-data")
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
     
 
+getAllCharacterData()
 # calculations()
-validBanner()
+# validBanner()
+# currentpatch_data = db.banner.checkValidInputBanner()
+# currentpatch = float(currentpatch_data[0][0])
+# currentpatch_enddate = currentpatch_data[0][2]
+# getRerunRanking()

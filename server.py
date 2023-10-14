@@ -62,11 +62,18 @@ def authentication():
 
 @app.route('/api/get/rerun-ranking')
 def getCharacterRerunHistory():
-    return jsonify(db.character.getCharacterRerunHistory())
+    return jsonify(db.banner.getRerunRanking())
 
 @app.route('/api/get/recent-rerun-history')
 def getRecentRerunHistory():
     return jsonify(db.banner.getRecentCharacterBanner())
+
+@app.route('/api/get/all-banner-data')
+def getAllCharacterBannerData():
+    character_names = db.character.getCharacterNames()
+    for name in character_names:
+        db.banner.calculateBannerEstimationData(name)
+    return jsonify(db.character.getAllCharacterData())
 
 # @app.route('/api/calculate/banner-history', methods=["GET"])
 # def recalculateBannerHistory():
@@ -140,17 +147,18 @@ def fetchPlannerData():
     else:
         return jsonify(user_data)
     
-@app.route('/api/planner/calculate-progress', methods=["POST"])
-def calculateProgress():
-    data = request.get_json()
-    # data = json.loads(data)
-    username = data["username"]
-    save_name = data["save_name"]
-    user_data = db.users.fetchUserData(username)
-    if user_data == False:
-        return jsonify({"error": "No saved data found"})
-    else:
-        return jsonify(user_data)
+# @app.route('/api/planner/calculate-progress', methods=["POST"])
+# def calculateProgress():
+#     data = request.get_json()
+#     # data = json.loads(data)
+#     username = data["username"]
+#     save_name = data["save_name"]
+#     user_data = db.users.fetchUserData(username)
+#     if user_data == False:
+#         return jsonify({"error": "No saved data found"})
+#     else:
+#         return jsonify(user_data)
+
 
 
 if __name__ == '__main__':

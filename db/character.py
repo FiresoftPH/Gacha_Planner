@@ -91,20 +91,18 @@ def getAllCharacterData():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    cursor.execute("SELECT b.featured_5_star, c.element, c.weapon, b.version, b.start_date, c.rerun_history FROM banner_data b, character_data c WHERE c.name = b.featured_5_star order by b.start_date")
+    cursor.execute("SELECT b.featured_5_star, c.element, c.weapon, b.version, b.start_date, b.version_half, c.rerun_history FROM banner_data b, character_data c WHERE c.name = b.featured_5_star AND c.permanent = 0 order by b.start_date")
     banner_history = cursor.fetchall()
-    banner_history = list(banner_history)
-    for index in range(len(banner_history)):
-        banner_history[index] = list(banner_history[index])
-        banner_history[index][5] = pickle.loads(banner_history[index][5])
-        banner_history[index][4] = date.isoformat(banner_history[index][4])
+    formatted_banner_history = {}
+    for data in banner_history:
+        if formatted_banner_history.get(data[0]) is None:
+            formatted_banner_history.update({data[0]: [data[1], data[2], [[[data[3], date.isoformat(data[4])], data[5]]], pickle.loads(data[6])]})
+        else:
+            all_data = formatted_banner_history.get(data[0])
+            all_data = all_data[2].append([[data[3], date.isoformat(data[4])], data[5]])
 
-    return banner_history
+    return formatted_banner_history
 
-temp = {
-    "Albedo": ['Geo', 'Sword', [['1.2', '2020-12-23'], ["2.3", "2021-06-17"]], [8, 7, 8]],
-    "Alhaitham": []
-}
 def cli():
     while True:
         showCharacterData()
@@ -129,5 +127,5 @@ def cli():
         else:
             print("abort")
 
-# print(getAllCharacterData())
+print(len(getAllCharacterData()))
 # print(getCharacterRerunHistory())

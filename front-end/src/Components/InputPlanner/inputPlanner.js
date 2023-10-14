@@ -3,7 +3,7 @@ import './inputPlanner.css'
 import axios from 'axios'
 
 
-function InputPlanner({ onClick }){
+function InputPlanner( props ){
     axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
     axios.defaults.withCredentials = true;
 
@@ -19,6 +19,8 @@ function InputPlanner({ onClick }){
     const [howManyDay, setHowManyDay] = useState('');
     const [welkinPlanTo, setWelkinPlanTo] = useState('0')
     const [bpShowForm, setbpShowForm] = useState(false); 
+    const [bpLevel, setBpLevel] = useState('');
+    const [bpPlanTo, setBpPlanTo] = useState('');
 
     const planCheckboxChange = (checkboxValue) => {
         if (selectedCheckbox === checkboxValue) {
@@ -42,11 +44,11 @@ function InputPlanner({ onClick }){
         // "half": 1,
         // "fiveorprimos": parseInt(selectedCheckbox),
         // "havewelkin": welkinShowForm, 
-        // "havebp": true,
+        // "havebp": bpShowForm,
         // "welkindays": parseInt(howManyDay),
-        // "bp": 25,
+        // "bp": parseInt(bpLevel),
         // "welkinplan": parseInt(welkinPlanTo),
-        // "bpplan": 2,
+        // "bpplan": parseInt(bpPlanTo),
         // "fivestars": parseInt(howManyFive),
         // "primowant": parseInt(howManyPrimo)
         
@@ -57,21 +59,22 @@ function InputPlanner({ onClick }){
         "pity": 0,
         "targetpatch": 4.2,
         "half": 1,
-        "fiveorprimos": 0,
+        "fiveorprimos": 1,
         "havewelkin": true, 
         "havebp": true,
         "welkindays": 46,
         "bp": 25,
         "welkinplan": 3,
         "bpplan": 2,
-        "fivestars": 2,
-        "primowant": 0
+        "fivestars": 0,
+        "primowant": 100
         };
         console.log(userInput);
-        console.log(welkinShowForm);
         try {
             const response = await axios.post('/api/planner/calculate', userInput);
-            console.log(response.data);
+            const currentPlanResult = response.data;
+            // const returnResult = currentPlanResult
+            props.onUserInput(currentPlanResult);
             // setPosts(allPosts);
             } catch (err) {
                 console.error('Error saving data:', err);
@@ -206,24 +209,32 @@ function InputPlanner({ onClick }){
                     <input
                         type="checkbox"
                         checked={bpShowForm}
-                        onChange={bpCheckboxChange}/>
+                        onChange={(e) => bpCheckboxChange(e.target.checked)}/>
             </div>
             {bpShowForm && (
                 <div className="gachaPlanner-form-group">
                     <label>Current patch BP level</label>
-                    <input type="number" />
+                    <input 
+                        type="number"
+                        value={bpLevel}
+                        onChange={(e) => setBpLevel(e.target.value)}
+                    />
                 </div>
             )}
             {bpShowForm && (
                 <div className="gachaPlanner-form-group">
                     <label>Number of BP planned to buy</label>
-                    <input type="number"/>
+                    <input 
+                        type="number"
+                        value={bpPlanTo}
+                        onChange={(e) => setBpPlanTo(e.target.value)}
+                    />
                 </div>
             )}
-            <button 
+            <button         
                 className='gachaPlanner-confirm-btn'
                 type='submit'
-                onClick={onClick}
+                onClick={props.onClick}
                 >Confirm
             </button>
         </form>
