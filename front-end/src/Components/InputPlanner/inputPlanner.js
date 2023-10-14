@@ -33,22 +33,39 @@ function InputPlanner({ onClick }){
     const handlSubmit = async (e) => {
         e.preventDefault();
         const userInput = {
-        "primogems": parseInt(primogemInput),
-        "crystals": parseInt(genesisCrystalInput),
-        "fates": parseInt(interwinedFateInput),
-        "guarantee": guaranteeCheck,
-        "pity": parseInt(pityCount),
+        // "primogems": parseInt(primogemInput),
+        // "crystals": parseInt(genesisCrystalInput),
+        // "fates": parseInt(interwinedFateInput),
+        // "guarantee": guaranteeCheck,
+        // "pity": parseInt(pityCount),
+        // "targetpatch": 4.2,
+        // "half": 1,
+        // "fiveorprimos": parseInt(selectedCheckbox),
+        // "havewelkin": welkinShowForm, 
+        // "havebp": true,
+        // "welkindays": parseInt(howManyDay),
+        // "bp": 25,
+        // "welkinplan": parseInt(welkinPlanTo),
+        // "bpplan": 2,
+        // "fivestars": parseInt(howManyFive),
+        // "primowant": parseInt(howManyPrimo)
+        
+        "primogems": 11347,
+        "crystals": 120,
+        "fates": 80,
+        "guarantee": false,
+        "pity": 0,
         "targetpatch": 4.2,
         "half": 1,
-        "fiveorprimos": parseInt(selectedCheckbox),
-        "havewelkin": welkinShowForm, 
+        "fiveorprimos": 0,
+        "havewelkin": true, 
         "havebp": true,
-        "welkindays": parseInt(howManyDay),
+        "welkindays": 46,
         "bp": 25,
-        "welkinplan": parseInt(welkinPlanTo),
+        "welkinplan": 3,
         "bpplan": 2,
-        "fivestars": parseInt(howManyFive),
-        "primowant": parseInt(howManyPrimo)
+        "fivestars": 2,
+        "primowant": 0
         };
         console.log(userInput);
         console.log(welkinShowForm);
