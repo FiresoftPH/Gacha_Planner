@@ -1,7 +1,7 @@
 import pickle
 import pymysql
 from dotenv import dotenv_values
-from datetime import date
+from datetime import date, timedelta
 from math import floor
 
 def addBannerData(versionNumber, ssr, sr_1, sr_2, sr_3, start_date, end_date):
@@ -110,6 +110,22 @@ def checkValidInputBanner():
     )
     cursor = connection.cursor()
     current_date = date.today()
+    cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
+    data = cursor.fetchall()
+    connection.close()
+    return data
+
+def getPreviousPatch():
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    current_date = date.today() - timedelta(days=21)
     cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
     data = cursor.fetchall()
     connection.close()

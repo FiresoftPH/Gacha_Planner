@@ -125,9 +125,15 @@ def getAllCharacterData():
         print(response.json())
     else:
         print("Error: ", response.status_code)
-    
 
-getAllCharacterData()
+def checkTargetPatch():
+    response = requests.get(BASE_URL + "/get/all-banner-data")
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
+    
+# getAllCharacterData()
 # calculations()
 # validBanner()
 # currentpatch_data = db.banner.checkValidInputBanner()
