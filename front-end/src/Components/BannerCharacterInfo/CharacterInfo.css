@@ -10,18 +10,27 @@
     height:31%;
     padding-top: 5%;
 }
-
+.each-ch-text{
+    margin-top: 0px;
+}
 .banner-info-pictext{
     margin-left: 5%;
 }
-
+.info-section-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
 .banner-info-pic{
     background-color: #D8D8D8;
     border-radius: 10px;
     margin-right: 2.3%;
+    top:0px;
 }
 
 
 .banner-character-info-text{
+    top:0px;
     display: inline-block;
+    padding: 0%;
     }

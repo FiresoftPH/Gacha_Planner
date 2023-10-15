@@ -10,10 +10,10 @@ export default function CharacterInfo({ chName, patch, date, element, weapon,pat
       <div className='banner-info-container'>
         <div className='banner-info-pictext'>
           {typeof chName === 'string' ? (
-            <div>
+            <div className='info-section-container'>
                 <img className='banner-info-pic' src={imagePath} alt='h' />
                 <div className='banner-character-info-text'>
-                    <p>Name: {chName}</p>
+                    <p className='each-ch-text'>Name: {chName}</p>
                     <p>Elemental: {element}</p>
                     <p>Last Patch Rerun: {patch}</p>
                     <p>Patch Half: {patchHalf}</p>
