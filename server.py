@@ -86,9 +86,7 @@ def getAllCharacterBannerData():
 
 @app.route('/api/planner/checkvalidpatch', methods=["POST"])
 def checkValidInputBanner():
-    data = request.get_json()
-    currentdate = data["currentdate"]
-    possible_banners = db.banner.checkValidInputBanner(currentdate)
+    possible_banners = db.banner.checkValidInputBanner()
     return jsonify(possible_banners)
 
 @app.route('/api/planner/calculate', methods=["POST"])
@@ -112,13 +110,13 @@ def calculatePlannerData():
     fivestars = data["fivestars"]
     primowant = data["primowant"]
 
-    currentpatch_data = db.banner.checkValidInputBanner()
-    currentpatch = float(currentpatch_data[0][0])
-    currentpatch_enddate = currentpatch_data[0][2]
+    previous_patch_data = db.banner.getPreviousPatch()
+    previous_currentpatch = float(previous_patch_data[0][0])
+    previous_currentpatch_date = previous_patch_data[0][2]
     # print(currentpatch)
 
     calculation_results = db.primocalc.calculations(primos, crystals, fates, pity, havewelk, havebp, welkinplan, bpplan,
-                                                    fiveorprimos, currentpatch, currentpatch_enddate, welkin, bp, guarantee, targetpatch, 
+                                                    fiveorprimos, previous_currentpatch, previous_currentpatch_date, welkin, bp, guarantee, targetpatch, 
                                                     half, fivestars, primowant)
     
     # print("Lol: ", type(calculation_results))
