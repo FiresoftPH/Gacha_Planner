@@ -3,6 +3,12 @@ import { characterList } from '../../Pages/BannerHistory/characters_info';
 
 export default function CharacterInfo({ chName, patch, date, element, weapon,patchHalf }) {
   const imagePath = getImagePathForCharacter(chName);
+  let word_patch;
+  if (patchHalf === 1) {
+    word_patch =  "First Half";
+  } else if (patchHalf === 2) {
+    word_patch =  "Second Half";
+  }
 
   return (
     <div className='character-info'>
@@ -15,8 +21,8 @@ export default function CharacterInfo({ chName, patch, date, element, weapon,pat
                 <div className='banner-character-info-text'>
                     <p className='each-ch-text'>Name: {chName}</p>
                     <p>Elemental: {element}</p>
-                    <p>Last Patch Rerun: {patch}</p>
-                    <p>Patch Half: {patchHalf}</p>
+                    <p>Last Patch Rerun: {patch} {word_patch}</p>
+  
                     <p>Date: {date}</p>
                 </div>
           </div>
