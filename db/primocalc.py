@@ -272,6 +272,9 @@ primowant = integer for how many primos the user wants to have, defaults to 0 if
 def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
     currenttime = datetime.date.today()
     patchdates = calendar(currentpatch,date)
+    currentpatch = round(currentpatch+0.1,2)
+    if str(currentpatch)[-1] == "9":
+        currentpatch = float(math.floor(currentpatch+1)) 
     #print(patchdates)
     #calculates requirements for 5 star planning
     #print(patchdates[str(targetpatch)][str(half)])
@@ -454,8 +457,8 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-#print(calculations(11347,120,80,0,True,True,3,2,1,4.1,datetime.date(2023,10,17),32,11,False,4.2,1,0,100000))
+print(calculations(11347,120,80,0,True,True,3,2,0,4.1,datetime.date(2023,10,17),46,25,False,4.2,1,2,0))
 #print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
 
 #def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
-print(progress(1500,0,5,3000,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
+#print(progress(1500,0,5,3000,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
