@@ -9,12 +9,13 @@ import InputPlanner from '../../Components/InputPlanner/inputPlanner';
 function GachaPlanner() {
     const [showResultCompo, setShowResultCompo] = useState(false); 
     const [userInput, setUserInput] = useState(null); 
-
+    const [userResult, setUserResult] = useState(null); 
+    
     const handleUserInput = (data) => {
-        // Handle userInput in the parent component
         setUserInput(data);
-        // console.log('User input received:', data);
-        // Do something with the userInput, for example, update state in the parent component
+    };
+    const handleUserResult = (data) => {
+        setUserResult(data);
     };
 
     const handleConfirmClick = () => {
@@ -26,12 +27,13 @@ function GachaPlanner() {
             <Topbar></Topbar>
             <div className='gachaPlanner-contents-container'>
                 <div className='gachaPlanner-planner-container'>
-                    <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput}></InputPlanner>
-                    {showResultCompo && <ResultPlanner userInput={userInput}></ResultPlanner>}
+                    <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput} onUserResult={handleUserResult}></InputPlanner>
+                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>}
+                    {/* {!showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>} */}
                 </div>
                 <div className='characterRanking-container'>
                     <RankingBanner></RankingBanner>
-                    <div className='keyword-description'>
+                    <div className='keyword-container'>
                         <h1>Keyword</h1>
                         <ul>
                             <li>Pity count: guarantees that players will eventually obtain a 5-star character or weapon highlighted in the game.</li>

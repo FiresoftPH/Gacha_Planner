@@ -125,7 +125,7 @@ def getPreviousPatch():
     database = config["DATABASE"]
     )
     cursor = connection.cursor()
-    current_date = date.today() - timedelta(days=21)
+    current_date = date.today() - timedelta(days=42)
     cursor.execute("SELECT DISTINCT version, start_date, end_date FROM banner_data WHERE end_date > %s ORDER BY start_date", current_date)
     data = cursor.fetchall()
     connection.close()

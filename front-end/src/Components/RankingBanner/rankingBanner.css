@@ -1,11 +1,17 @@
 th {
-    border-bottom: 1px solid;
+    border-bottom: 5px solid;
     border-left: 1px solid;
     padding: 10px;
     max-width: 100px;
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;
+    background-color: #444A6C;
+    color: white;
+}
+
+th.ranking-label-text{
+    border-left: none;
 }
 
 .image-ranking-container{
@@ -23,10 +29,16 @@ th {
 .text-ranking{
     text-align: center;
     border-left: 1px solid;
+    border-color: #0c0f1d;
+    color: white;
+    font-size: 1.5rem;
 }
 
-tr:nth-child(even) {
-    background-color: #eee;
+.char-name{
+    text-align: center;
+    z-index: 3;
+    color: white;
+    margin: 10px;
 }
 
 caption {
@@ -36,6 +48,7 @@ caption {
 
 table {
     border-collapse: collapse;
+    background: linear-gradient(#444A6C, #171A2C);
     /* border: 2px solid rgb(200, 200, 200); */
     letter-spacing: 1px;
     font-family: sans-serif;
@@ -45,7 +58,7 @@ table {
 }
 
 .characterProfile-container{
-    background-color: #0c0f1d;
+    background-color: white;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -61,13 +74,17 @@ table {
 }
 
 .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 30px; 
     height: 30px;
-    background-color: rgb(148, 47, 47); 
+    background-color: white; 
     border-radius: 50%; 
     position: absolute; 
     /* transform: translate(-0%, 150%); */
     bottom: 10px; 
+    font: 1.2rem bold;
 }
 
 .circle.first-item{

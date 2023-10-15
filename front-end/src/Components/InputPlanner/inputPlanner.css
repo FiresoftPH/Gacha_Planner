@@ -1,6 +1,6 @@
 .gachaPlanner-form-container{
     display: flex;
-    background-color: blue;
+    background-color: #444A6C;
     width: 800px;
     /* align-self: flex-start;
     align-content: start;
@@ -10,22 +10,48 @@
 }
 
 .gachaPlanner-header{
-    height: 50px;
+    color: white;
     display: flex;
-    background-color: brown;
+    flex-direction: row;
+    background-color: #444A6C;
     border-radius: 25px 25px 0px 0px;
-    border-color: #0c0f1d;
-    padding: 15px;
+    padding: 10px 10px 10px 20px;
     align-items: center;
-    border-block-end: solid;
-    box-sizing: border-box;
+    border-block-end: solid #0c0f1d;
+    gap: 10px;
+    /* box-sizing: border-box; */
+}
+
+.gachaPlanner-header h1{
+    font-size: 25px;
+    margin: 0;
+}
+
+.gachaPlanner-header img{
+    height: 40px;
+    width: auto;
+}
+
+.gachaPlanner-input-section{
+    padding: 25px 50px 25px 50px;
 }
 
 .gachaPlanner-form-group{
     display: flex;
-    background-color: antiquewhite;
-    padding: 15px;
+    background-color: #444A6C;
+    padding: 10px;
     gap: 15px;
+}
+
+.icon{
+    height: 30px;
+    width: auto;
+}
+
+.gachaPlanner-form-group input{
+    align-self: center;
+    height: 20px;
+    border-radius: 5px;
 }
 
 .gachaPlanner-form-group input[type="number"]{
@@ -36,14 +62,26 @@
     width: 25px;
 }
 
+.gachaPlanner-form-group select{
+    border-radius: 5px;
+    align-self: center;
+    height: 25px;
+}
+
 .gachaPlanner-form-group label{
     display: inline-block;
-    color:blueviolet;
+    font-weight: normal;
+    color:white;
 }
 
 .gachaPlanner-confirm-btn{  
-    height: 10;
-    width: 30;
+    padding: 10px 10px 10px 10px;
+    background-color: #516CC4;
     margin: 15px;
     align-self: center;
+    border-radius: 10px;
 }
+
+/* .patchDropDown{
+    width: 100px;
+} */

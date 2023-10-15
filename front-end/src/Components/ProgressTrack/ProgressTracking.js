@@ -1,6 +1,6 @@
-import pic1 from '../../Pictures/progresspic1.png'
-import pic2 from '../../Pictures/progresspic2.png'
-import pic3 from '../../Pictures/progresspic3.png'
+import pic1 from '../../Pictures/primogem.png'
+import pic2 from '../../Pictures/genesis.png'
+import pic3 from '../../Pictures/interwinedFate.png'
 import './ProgressTrack.css'
 
 export default function ProgressTracking({primo,genesis,interwined,handlePrimosChange,handleGenesisChange,handleInterwinedChange,handleSubmit}){
