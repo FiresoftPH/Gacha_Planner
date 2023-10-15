@@ -1,7 +1,7 @@
 import './CharacterInfo.css';
 import { characterList } from '../../Pages/BannerHistory/characters_info';
 
-export default function CharacterInfo({ chName, patch }) {
+export default function CharacterInfo({ chName, patch, date, element, weapon,patchHalf }) {
   const imagePath = getImagePathForCharacter(chName);
 
   return (
@@ -14,8 +14,10 @@ export default function CharacterInfo({ chName, patch }) {
                 <img className='banner-info-pic' src={imagePath} alt='h' />
                 <div className='banner-character-info-text'>
                     <p>Name: {chName}</p>
-                    <p>Elemental: </p>
-                    <p>Patch: {patch}</p>
+                    <p>Elemental: {element}</p>
+                    <p>Last Patch Rerun: {patch}</p>
+                    <p>Patch Half: {patchHalf}</p>
+                    <p>Date: {date}</p>
                 </div>
           </div>
           ) : (

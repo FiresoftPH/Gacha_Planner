@@ -18,7 +18,10 @@ export default function BannerHistory(){
 
     const [originalName, setName] = useState(0);
     const [originalPatch, setPatch] = useState(0);
-    const [originalElemental,setElemental] = useState(0);
+    const [dateInfo,setDateInfo] = useState(0);
+    const [elementInfo,setElementInfo] = useState(0);
+    const [weaponInfo,setWeaponInfo] = useState(0);
+    const [patchHalfInfo,setPatchHalfInfo] = useState(0);
     
 
 
@@ -27,7 +30,7 @@ export default function BannerHistory(){
 
 
     const [post,setPost] = useState(null);
-    axios.get('/api/get/recent-rerun-history')
+    axios.get('/api/get/all-banner-data')
     .then(response => {
     // Handle the response
     
@@ -36,10 +39,11 @@ export default function BannerHistory(){
         })
     .catch(error => {
     // Handle errors
+    console.log(error);
     
   });
  
-  const handleClick = (name, patch) => {
+  const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo) => {
         
        
         setPatch(patch)
@@ -47,6 +51,10 @@ export default function BannerHistory(){
         
         console.log({name});
         setName(name)
+        setDateInfo(dateInfo)
+        setElementInfo(elementInfo)
+        setWeaponInfo(weaponInfo)
+        setPatchHalfInfo(patchHalfInfo)
  
     };
   if (!post) return null;
@@ -86,19 +94,28 @@ export default function BannerHistory(){
         
                         <div className="vertical-scrolling-box">
                             <div className='character-position'>
-                            {Object.entries(post).map(([key, value]) => {
-                               
-                                const searchKey = key; // Remove curly braces around 'key'
+                            {Object.entries(post).map(([characterName, [element, weapon, dataArray]]) => {
+                                
+                                const greatestDateArray = dataArray.reduce((max, item) => {
+                                    return item[0][1] > max[0][1] ? item : max;
+                                  }, dataArray[0]);
+
+
+                                const searchKey = characterName; // Remove curly braces around 'key'
                                 const keys = Object.keys(post);
                                 const indexValue = keys.indexOf(searchKey) + 1;
                                 return (
                                     <BannerChBoxElement
-                                    key={key}
+                                    key={characterName}
                                     handleClick={handleClick}
-                                    chName={key}
-                                    lastPatch={value[0]}
+                                    chName={characterName}
+                                    lastPatch={greatestDateArray[0][0]}
                                     data={post}
                                     indexVal={indexValue}
+                                    date={greatestDateArray[0][1]}
+                                    element={element}
+                                    weapon={weapon}
+                                    patchHalf = {greatestDateArray[1]}
                                     />
                                 );
                                 })}
@@ -107,7 +124,7 @@ export default function BannerHistory(){
                     </div>
                 </div>
                
-                <CharacterInfo chName={originalName} patch={originalPatch} /> 
+                <CharacterInfo chName={originalName} patch={originalPatch} date={dateInfo} element={elementInfo} weapon={weaponInfo} patchHalf={patchHalfInfo}/> 
   
             </div>
         </div>

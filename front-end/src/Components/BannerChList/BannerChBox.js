@@ -1,11 +1,11 @@
-export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal }) {
+export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal,date,element,weapon,patchHalf }) {
   // Find the image path based on chName
   const imagePath = getImagePathForCharacter(chName);
 
 
   return (
     <div className="banner-ch-container">
-      <button className="banner-character-button" onClick={() => handleClick(chName,lastPatch)}>
+      <button className="banner-character-button" onClick={() => handleClick(chName,lastPatch,date,element,weapon,patchHalf)}>
         <ImageGallery imagePath={imagePath} />
       </button>
       <div className="banner-character-detail">
