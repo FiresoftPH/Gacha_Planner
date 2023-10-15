@@ -1,6 +1,14 @@
-export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal,date,element,weapon,patchHalf }) {
-  // Find the image path based on chName
+export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal,date,element,weapon,patchHalf,stats }) {
+  const statsArray = stats;
+  const lastElement = statsArray[statsArray.length - 1];
   const imagePath = getImagePathForCharacter(chName);
+  let word_patch;
+ 
+  if (patchHalf === 1) {
+    word_patch =  "First Half";
+  } else if (patchHalf === 2) {
+    word_patch =  "Second Half";
+  }
 
 
   return (
@@ -9,8 +17,8 @@ export default function BannerChBoxElement({ handleClick, chName, lastPatch, dat
         <ImageGallery imagePath={imagePath} />
       </button>
       <div className="banner-character-detail">
-        <p className="banner-character-detail-text">{lastPatch}</p>
-        <p className="banner-character-detail-text1">yo</p>
+        <p className="banner-character-detail-text">{lastPatch} {word_patch}</p>
+        <p className="banner-character-detail-text1">{lastElement}</p>
       </div>
       <p className="banner-ch-name">{chName}</p>
     </div>

@@ -94,13 +94,13 @@ export default function BannerHistory(){
         
                         <div className="vertical-scrolling-box">
                             <div className='character-position'>
-                            {Object.entries(post).map(([characterName, [element, weapon, dataArray]]) => {
+                            {Object.entries(post).map(([characterName, [element, weapon, dataArray,statsArray]]) => {
                                 
                                 const greatestDateArray = dataArray.reduce((max, item) => {
                                     return item[0][1] > max[0][1] ? item : max;
                                   }, dataArray[0]);
 
-
+                                console.log({statsArray})
                                 const searchKey = characterName; // Remove curly braces around 'key'
                                 const keys = Object.keys(post);
                                 const indexValue = keys.indexOf(searchKey) + 1;
@@ -116,6 +116,7 @@ export default function BannerHistory(){
                                     element={element}
                                     weapon={weapon}
                                     patchHalf = {greatestDateArray[1]}
+                                    stats={statsArray}
                                     />
                                 );
                                 })}
