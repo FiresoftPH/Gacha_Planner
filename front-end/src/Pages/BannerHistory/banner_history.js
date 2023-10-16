@@ -23,33 +23,13 @@ export default function BannerHistory(){
     const [weaponInfo,setWeaponInfo] = useState(0);
     const [patchHalfInfo,setPatchHalfInfo] = useState(0);
     
-
-
-    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
-
-
-    const [post,setPost] = useState(null);
-    axios.get('/api/get/all-banner-data')
-    .then(response => {
-    // Handle the response
-    
-    setPost(response.data)
-    
-        })
-    .catch(error => {
-    // Handle errors
-    console.log(error);
-    
-  });
- 
-  const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo) => {
+    const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo) => {
         
        
         setPatch(patch)
-        console.log('lollllll')
+        //console.log('lollllll')
         
-        console.log({name});
+        //console.log({name});
         setName(name)
         setDateInfo(dateInfo)
         setElementInfo(elementInfo)
@@ -57,7 +37,87 @@ export default function BannerHistory(){
         setPatchHalfInfo(patchHalfInfo)
  
     };
-  if (!post) return null;
+
+
+    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
+    axios.defaults.withCredentials = true;
+
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    // Perform the GET request when the component is mounted
+    axios.get('/api/get/all-banner-data')
+      .then(response => {
+        // Handle the response
+        setPost(response.data);
+      })
+      .catch(error => {
+        // Handle errors
+        console.log(error);
+      });
+  }, []); // The empty dependency array ensures this effect runs only once
+
+  return (
+    // Your component's rendering logic here
+    <div className='banner-page'>
+        
+    <div className='banner-body'>
+        <div className='banner-timeline'>
+            <div className='banner-body-header'>
+                <p className='banner-body-header-text'>Timeline Banner History</p>
+                
+                <Timeline></Timeline>
+            </div>
+        </div>
+        <div className='banner-characters-section'>
+            <div className='character-list'>
+                <p>Genshin Impact Character List</p>
+                <div className='banner-character-list-container'>
+    
+                    <div className="vertical-scrolling-box">
+                        <div className='character-position'>
+                        {Object.entries(post).map(([characterName, [element, weapon, dataArray,statsArray]]) => {
+                            
+                            const greatestDateArray = dataArray.reduce((max, item) => {
+                                return item[0][1] > max[0][1] ? item : max;
+                              }, dataArray[0]);
+
+                            //console.log({statsArray})
+                            const searchKey = characterName; // Remove curly braces around 'key'
+                            const keys = Object.keys(post);
+                            const indexValue = keys.indexOf(searchKey) + 1;
+                            return (
+                                <BannerChBoxElement
+                                key={characterName}
+                                handleClick={handleClick}
+                                chName={characterName}
+                                lastPatch={greatestDateArray[0][0]}
+                                data={post}
+                                indexVal={indexValue}
+                                date={greatestDateArray[0][1]}
+                                element={element}
+                                weapon={weapon}
+                                patchHalf = {greatestDateArray[1]}
+                                stats={statsArray}
+                                />
+                            );
+                            })}
+                    </div>
+                    </div>
+                </div>
+            </div>
+           
+            <CharacterInfo chName={originalName} patch={originalPatch} date={dateInfo} element={elementInfo} weapon={weaponInfo} patchHalf={patchHalfInfo}/> 
+
+        </div>
+    </div>
+    <Topbar/>
+</div>
+  );
+}
+ 
+
+  
     
 
     // const results = post.map(item => {
@@ -75,64 +135,8 @@ export default function BannerHistory(){
     //     const indexValue = keys.indexOf(searchKey) + 1;
     //   });
       
-    return(
-        
-    <div className='banner-page'>
-        
-        <div className='banner-body'>
-            <div className='banner-timeline'>
-                <div className='banner-body-header'>
-                    <p className='banner-body-header-text'>Timeline Banner History</p>
-                    
-                    <Timeline></Timeline>
-                </div>
-            </div>
-            <div className='banner-characters-section'>
-                <div className='character-list'>
-                    <p>Genshin Impact Character List</p>
-                    <div className='banner-character-list-container'>
-        
-                        <div className="vertical-scrolling-box">
-                            <div className='character-position'>
-                            {Object.entries(post).map(([characterName, [element, weapon, dataArray,statsArray]]) => {
-                                
-                                const greatestDateArray = dataArray.reduce((max, item) => {
-                                    return item[0][1] > max[0][1] ? item : max;
-                                  }, dataArray[0]);
 
-                                console.log({statsArray})
-                                const searchKey = characterName; // Remove curly braces around 'key'
-                                const keys = Object.keys(post);
-                                const indexValue = keys.indexOf(searchKey) + 1;
-                                return (
-                                    <BannerChBoxElement
-                                    key={characterName}
-                                    handleClick={handleClick}
-                                    chName={characterName}
-                                    lastPatch={greatestDateArray[0][0]}
-                                    data={post}
-                                    indexVal={indexValue}
-                                    date={greatestDateArray[0][1]}
-                                    element={element}
-                                    weapon={weapon}
-                                    patchHalf = {greatestDateArray[1]}
-                                    stats={statsArray}
-                                    />
-                                );
-                                })}
-                        </div>
-                        </div>
-                    </div>
-                </div>
-               
-                <CharacterInfo chName={originalName} patch={originalPatch} date={dateInfo} element={elementInfo} weapon={weaponInfo} patchHalf={patchHalfInfo}/> 
-  
-            </div>
-        </div>
-        <Topbar/>
-    </div>
-    );
-}
+
 
 
 
