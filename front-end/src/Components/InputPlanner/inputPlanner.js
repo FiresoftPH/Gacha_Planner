@@ -70,7 +70,8 @@ function InputPlanner(props) {
         return patchList
     };
 
-    const list = generateRandomNumbers(data)
+    // const list = generateRandomNumbers(data);
+    const list = generateRandomNumbers(['4.7',2]);
     // console.log(list);
 
     // useEffect(() => {
@@ -85,8 +86,8 @@ function InputPlanner(props) {
         // console.log(patchNum[1]);
         setTargetPatch(patchNum[0]);
         setTargetHalf(patchNum[1]);
-        // console.log(targetpatch);
-        // console.log(targetHalf)
+        console.log(targetpatch);
+        console.log(targetHalf)
         // setTargetHalf(event.target.value[1]);
     };
 
@@ -103,43 +104,43 @@ function InputPlanner(props) {
     const handlSubmit = async (e) => {
         e.preventDefault();
         const userInput = {
-            // "primogems": parseInt(primogemInput),
-            // "crystals": parseInt(genesisCrystalInput),
-            // "fates": parseInt(interwinedFateInput),
-            // "guarantee": guaranteeCheck,
-            // "pity": parseInt(pityCount),
-            // "targetpatch": 4.2,
-            // "half": 2,
-            // "fiveorprimos": parseInt(selectedCheckbox),
-            // "havewelkin": welkinShowForm, 
-            // "havebp": bpShowForm,
-            // "welkindays": parseInt(howManyDay),
-            // "bp": parseInt(bpLevel),
-            // "welkinplan": parseInt(welkinPlanTo),
-            // "bpplan": parseInt(bpPlanTo),
-            // "fivestars": parseInt(howManyFive),
-            // "primowant": parseInt(howManyPrimo)
+            "primogems": parseInt(primogemInput),
+            "crystals": parseInt(genesisCrystalInput),
+            "fates": parseInt(interwinedFateInput),
+            "guarantee": guaranteeCheck,
+            "pity": parseInt(pityCount),
+            "targetpatch": targetpatch,
+            "half": parseInt(targetHalf),
+            "fiveorprimos": parseInt(selectedCheckbox),
+            "havewelkin": welkinShowForm, 
+            "havebp": bpShowForm,
+            "welkindays": parseInt(howManyDay),
+            "bp": parseInt(bpLevel),
+            "welkinplan": parseInt(welkinPlanTo),
+            "bpplan": parseInt(bpPlanTo),
+            "fivestars": parseInt(howManyFive),
+            "primowant": parseInt(howManyPrimo)
 
-            "primogems": 11347,
-            "crystals": 120,
-            "fates": 80,
-            "guarantee": false,
-            "pity": 0,
+            // "primogems": 11347,
+            // "crystals": 120,
+            // "fates": 80,
+            // "guarantee": false,
+            // "pity": 0,
             // "targetpatch": targetpatch,
-            "targetpatch": 4.2,
+            // // "targetpatch": '4.2',
             // "half": parseInt(targetHalf),
-            "half": 2,
-            "fiveorprimos": 0,
-            "havewelkin": true,
-            "havebp": true,
-            "welkindays": 46,
-            "bp": 25,
-            "welkinplan": 3,
-            "bpplan": 2,
-            "fivestars": 2,
-            "primowant": 0
+            // // "half": 2,
+            // "fiveorprimos": 0,
+            // "havewelkin": true,
+            // "havebp": true,
+            // "welkindays": 46,
+            // "bp": 25,
+            // "welkinplan": 3,
+            // "bpplan": 2,
+            // "fivestars": 2,
+            // "primowant": 0
         };
-        // console.log(userInput);
+        console.log(userInput);
         try {
             const response = await axios.post('/api/planner/calculate', userInput);
             const currentPlanResult = response.data;

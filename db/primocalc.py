@@ -62,7 +62,7 @@ def calendar(currentpatch,date):
     nextpatchdate = date + datetime.timedelta(days=21)
     patchdates = {}
     for i in range(70):
-        if str(p)[-1] == "8":
+        if str(p)[-1] == "9":
             p = float(math.floor(p+1))
         if half == 1:
             patchdates[str(p)] = {"1": nextpatchdate}
@@ -75,7 +75,7 @@ def calendar(currentpatch,date):
             p = round(p,2)
             half = 1
         nextpatchdate = nextpatchdate + datetime.timedelta(days=21)
-    #print(patchdates)
+    # print(patchdates)
     return patchdates
 
 print(calendar)
@@ -278,7 +278,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
     #print(patchdates)
     #calculates requirements for 5 star planning
     #print(patchdates[str(targetpatch)][str(half)])
-    patchend = patchdates[str(targetpatch)][str(half)]
+    patchend = patchdates[str(float(targetpatch))][str(half)]
     timeremaining = patchend - currenttime
     days = timeremaining.days
     target = [float(targetpatch),int(half)]
@@ -288,21 +288,23 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
     fates4free = primos4free//160
 
     if fiveorprimos == 0:
-        worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
-        bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
+        # worseprimos = worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)
+        # bestprimos = bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)
+        worseprimos = int(max(0,worsecase(fivestars,guarantee) - primos - crystals - (fates*160) - (pity*160)))
+        bestprimos = int(max(0,bestcase(fivestars) - primos - crystals - (fates*160) - (pity*160)))
         #print("best case primos needed", bestprimos)
         bestplan = plan(days,primosmade,bestprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         #print("worse case primos needed", worseprimos)
         worseplan = plan(days,primosmade,worseprimos,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,bestreq,bestwelk,bestbp,bestextra = bestplan[0],bestplan[1],bestplan[2],bestplan[3],bestplan[4]
         possible,worsereq,worsewelk,worsebp,worseextra = worseplan[0],worseplan[1],worseplan[2],worseplan[3],worseplan[4]
-        bestreq -= primosmade
-        worsereq -= primosmade
+        # bestreq -= primosmade
+        # worsereq -= primosmade
         primoreq,planwelk,planbp,planextra = None,None,None,None
 
     elif fiveorprimos == 1:
         #def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,target):
-        primowant = primowant -  primos - crystals
+        primowant = primowant - primos - crystals
         primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
         primoreq -= primosmade
@@ -457,7 +459,7 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-print(calculations(11347,120,80,0,True,True,3,2,0,4.1,datetime.date(2023,10,17),46,25,False,4.2,1,2,0))
+print(calculations(11347,120,80,0,True,True,3,2,0,4.1,datetime.date(2023,10,17),46,25,False,4.8,1,2,0))
 #print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
 
 #def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
