@@ -44,8 +44,8 @@ function InputPlanner(props) {
     const [bpLevel, setBpLevel] = useState('');
     const [bpPlanTo, setBpPlanTo] = useState('');
     // const [targetpatch, setTargetPatch] = useState(parseFloat(data[0]));
-    const [targetpatch, setTargetPatch] = useState('2.3');
-    const [targetHalf, setTargetHalf] = useState(data[1]);
+    const [targetpatch, setTargetPatch] = useState('4.1');
+    const [targetHalf, setTargetHalf] = useState(1);
 
     const generateRandomNumbers = (currentPatch) => {
         let patchInt = parseInt(currentPatch[0]);
@@ -104,41 +104,41 @@ function InputPlanner(props) {
     const handlSubmit = async (e) => {
         e.preventDefault();
         const userInput = {
-            "primogems": parseInt(primogemInput),
-            "crystals": parseInt(genesisCrystalInput),
-            "fates": parseInt(interwinedFateInput),
-            "guarantee": guaranteeCheck,
-            "pity": parseInt(pityCount),
-            "targetpatch": targetpatch,
-            "half": parseInt(targetHalf),
-            "fiveorprimos": parseInt(selectedCheckbox),
-            "havewelkin": welkinShowForm, 
-            "havebp": bpShowForm,
-            "welkindays": parseInt(howManyDay),
-            "bp": parseInt(bpLevel),
-            "welkinplan": parseInt(welkinPlanTo),
-            "bpplan": parseInt(bpPlanTo),
-            "fivestars": parseInt(howManyFive),
-            "primowant": parseInt(howManyPrimo)
-
-            // "primogems": 11347,
-            // "crystals": 120,
-            // "fates": 80,
-            // "guarantee": false,
-            // "pity": 0,
+            // "primogems": parseInt(primogemInput),
+            // "crystals": parseInt(genesisCrystalInput),
+            // "fates": parseInt(interwinedFateInput),
+            // "guarantee": guaranteeCheck,
+            // "pity": parseInt(pityCount),
             // "targetpatch": targetpatch,
-            // // "targetpatch": '4.2',
             // "half": parseInt(targetHalf),
-            // // "half": 2,
-            // "fiveorprimos": 0,
-            // "havewelkin": true,
-            // "havebp": true,
-            // "welkindays": 46,
-            // "bp": 25,
-            // "welkinplan": 3,
-            // "bpplan": 2,
-            // "fivestars": 2,
-            // "primowant": 0
+            // "fiveorprimos": parseInt(selectedCheckbox),
+            // "havewelkin": welkinShowForm, 
+            // "havebp": bpShowForm,
+            // "welkindays": parseInt(howManyDay),
+            // "bp": parseInt(bpLevel),
+            // "welkinplan": parseInt(welkinPlanTo),
+            // "bpplan": parseInt(bpPlanTo),
+            // "fivestars": parseInt(howManyFive),
+            // "primowant": parseInt(howManyPrimo)
+
+            "primogems": 11347,
+            "crystals": 120,
+            "fates": 80,
+            "guarantee": false,
+            "pity": 0,
+            // "targetpatch": targetpatch,
+            "targetpatch": '4.2',
+            // "half": parseInt(targetHalf),
+            "half": 2,
+            "fiveorprimos": 0,
+            "havewelkin": true,
+            "havebp": true,
+            "welkindays": 46,
+            "bp": 25,
+            "welkinplan": 3,
+            "bpplan": 2,
+            "fivestars": 2,
+            "primowant": 0
         };
         console.log(userInput);
         try {
