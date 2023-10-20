@@ -52,14 +52,12 @@ function TimelineComponent({version,characterArray,characterArray2,half,ch}) {
   console.log('hihihihi')
 
   if (characterArray2){
+    console.log('22222222222222222222222222')
   console.log(characterArray2)
   
-  if (characterArray2[1]) {
+  if (characterArray2[0]) {
     ch_src3 = getImagePathForCharacter(characterArray2[0].toString());
   }
-  
-
-  
   if (characterArray2[1]) {
     ch_src4 = getImagePathForCharacter(characterArray2[1].toString());
     console.log(ch_src4)
