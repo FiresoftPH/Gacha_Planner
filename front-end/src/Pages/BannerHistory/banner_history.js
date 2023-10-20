@@ -14,7 +14,11 @@ import axios from 'axios'
 
 
 export default function BannerHistory(){
+  const url = process.env.PUBLIC_URL + '/character-img/'+'venti'+'-icon.png';
+  const url2 = process.env.PUBLIC_URL + '/character-img/'+'zhongli'+'-icon.png';
+  const img_url = [url,url2]
 
+  const characterGroups = [];
 
     const [originalName, setName] = useState(0);
     const [originalPatch, setPatch] = useState(0);
@@ -23,7 +27,8 @@ export default function BannerHistory(){
     const [weaponInfo,setWeaponInfo] = useState(0);
     const [patchHalfInfo,setPatchHalfInfo] = useState(0);
     
-    const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo) => {
+    
+    const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo,patchGroup) => {
         
        
         setPatch(patch)
@@ -35,7 +40,7 @@ export default function BannerHistory(){
         setElementInfo(elementInfo)
         setWeaponInfo(weaponInfo)
         setPatchHalfInfo(patchHalfInfo)
- 
+        
     };
 
 
@@ -50,13 +55,14 @@ export default function BannerHistory(){
       .then(response => {
         // Handle the response
         setPost(response.data);
+
       })
       .catch(error => {
         // Handle errors
         console.log(error);
       });
   }, []); // The empty dependency array ensures this effect runs only once
-
+  console.log(post)
   return (
     // Your component's rendering logic here
     <div className='banner-page'>
@@ -65,8 +71,7 @@ export default function BannerHistory(){
         <div className='banner-timeline'>
             <div className='banner-body-header'>
                 <p className='banner-body-header-text'>Timeline Banner History</p>
-                
-                <Timeline></Timeline>
+                <Timeline data={characterGroups}></Timeline>
             </div>
         </div>
         <div className='banner-characters-section'>
@@ -81,11 +86,28 @@ export default function BannerHistory(){
                             const greatestDateArray = dataArray.reduce((max, item) => {
                                 return item[0][1] > max[0][1] ? item : max;
                               }, dataArray[0]);
-
+                              const lastIndexOfArray = greatestDateArray[1];
+                              // Get the version number from the data array
+                              const currentPatch = greatestDateArray[0][0];
+                            
+                              // Create the version key if it doesn't exist
+                              if (!characterGroups[currentPatch]) {
+                                characterGroups[currentPatch] = {};
+                              }
+                            
+                              // Create the half key if it doesn't exist
+                              if (!characterGroups[currentPatch][lastIndexOfArray]) {
+                                characterGroups[currentPatch][lastIndexOfArray] = [];
+                              }
+                            
+                              // Add the character to the version and half
+                              characterGroups[currentPatch][lastIndexOfArray].push(characterName);
+                      
                             //console.log({statsArray})
                             const searchKey = characterName; // Remove curly braces around 'key'
                             const keys = Object.keys(post);
                             const indexValue = keys.indexOf(searchKey) + 1;
+                            console.log(characterGroups)
                             return (
                                 <BannerChBoxElement
                                 key={characterName}
@@ -99,6 +121,7 @@ export default function BannerHistory(){
                                 weapon={weapon}
                                 patchHalf = {greatestDateArray[1]}
                                 stats={statsArray}
+                                patchGroup={characterGroups}
                                 />
                             );
                             })}

@@ -1,4 +1,4 @@
-export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal,date,element,weapon,patchHalf,stats }) {
+export default function BannerChBoxElement({ handleClick, chName, lastPatch, data, indexVal,date,element,weapon,patchHalf,stats,patchGroup }) {
   const statsArray = stats;
   const lastElement = statsArray[statsArray.length - 1];
   const imagePath = getImagePathForCharacter(chName);
@@ -13,7 +13,7 @@ export default function BannerChBoxElement({ handleClick, chName, lastPatch, dat
 
   return (
     <div className="banner-ch-container">
-      <button className="banner-character-button" onClick={() => handleClick(chName,lastPatch,date,element,weapon,patchHalf)}>
+      <button className="banner-character-button" onClick={() => handleClick(chName,lastPatch,date,element,weapon,patchHalf,patchGroup)}>
         <ImageGallery imagePath={imagePath} />
       </button>
       <div className="banner-character-detail">

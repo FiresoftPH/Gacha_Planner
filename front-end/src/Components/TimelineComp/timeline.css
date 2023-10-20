@@ -4,8 +4,9 @@
   height: 300px; 
 }
 .timeline-component {
+
     position: relative;
-    width: 180px;
+    width: 360px;
     height: 399px;
     left:50px;
     display: inline-block;
@@ -25,7 +26,7 @@
   }
   .line-horizontal {
     position: absolute;
-    width: 170px;
+    width: 350px;
     height: 0px;
     left: 70px;
     top: 40px;
@@ -141,3 +142,31 @@
     height: 250px;
     width: 150px;
   }
+  .horizontal-scrolling-box {
+    width: 2700px; /* Set the desired width for your scrolling box */
+    height: 530px; /* Set the desired height for your scrolling box */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent content from wrapping to the next line */
+    border: 1px none #ccc; /* Add a border for styling */
+    padding: 10px; /* Add padding as needed */
+   
+  }
+  
+  
+  /* Optional: Customize the scrollbar appearance */
+  .horizontal-scrolling-box::-webkit-scrollbar {
+    height: 8px; /* Set the scrollbar height for horizontal scrolling */
+  }
+  
+  .horizontal-scrolling-box::-webkit-scrollbar-thumb {
+    background-color: #888; /* Set the thumb color */
+  }
+  
+  .horizontal-scrolling-box::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Set the thumb color on hover */
+  }
+
+
+.timelineComp-cont{
+  display: inline-block;
+}
