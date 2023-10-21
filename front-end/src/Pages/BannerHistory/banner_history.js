@@ -29,8 +29,6 @@ export default function BannerHistory(){
     
     
     const handleClick = (name, patch,dateInfo,elementInfo,weaponInfo,patchHalfInfo,patchGroup) => {
-        
-       
         setPatch(patch)
         //console.log('lollllll')
         
@@ -48,6 +46,7 @@ export default function BannerHistory(){
     axios.defaults.withCredentials = true;
 
   const [post, setPost] = useState([]);
+  const [characterGroups2, setCharacterGroups] = useState({});
 
   useEffect(() => {
     // Perform the GET request when the component is mounted
@@ -55,13 +54,31 @@ export default function BannerHistory(){
       .then(response => {
         // Handle the response
         setPost(response.data);
+        const newCharacterGroups = {};
 
+        Object.entries(response.data).forEach(([characterName, [element, weapon, dataArray, statsArray]]) => {
+          dataArray.forEach(([[patchVersion, date], patchHalf]) => {
+            if (!newCharacterGroups[patchVersion]) {
+              newCharacterGroups[patchVersion] = {};
+            }
+  
+            if (!newCharacterGroups[patchVersion][patchHalf]) {
+              newCharacterGroups[patchVersion][patchHalf] = [];
+            }
+  
+            newCharacterGroups[patchVersion][patchHalf].push(characterName);
+          });
+        });
+  
+        setCharacterGroups(newCharacterGroups);
       })
       .catch(error => {
         // Handle errors
         console.log(error);
       });
   }, []); // The empty dependency array ensures this effect runs only once
+  console.log('ggggggggggggggggggggggggg')
+  console.log(characterGroups2)
   console.log(post)
   return (
     // Your component's rendering logic here
@@ -71,7 +88,7 @@ export default function BannerHistory(){
         <div className='banner-timeline'>
             <div className='banner-body-header'>
                 <p className='banner-body-header-text'>Timeline Banner History</p>
-                <Timeline data={characterGroups}></Timeline>
+                <Timeline data={characterGroups2}></Timeline>
             </div>
         </div>
         <div className='banner-characters-section'>
@@ -107,6 +124,9 @@ export default function BannerHistory(){
                             const searchKey = characterName; // Remove curly braces around 'key'
                             const keys = Object.keys(post);
                             const indexValue = keys.indexOf(searchKey) + 1;
+                            console.log('dataarray')
+                            console.log(dataArray)
+                            console.log('histor')
                             console.log(characterGroups)
                             return (
                                 <BannerChBoxElement
