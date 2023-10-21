@@ -44,17 +44,18 @@ function TimelineComponent({version,characterArray,characterArray2,half,ch}) {
   let ch_src2;
   let ch_src3;
   let ch_src4;
+  let display_second_vertical_line;
   if (characterArray[1]) {
     ch_src2 = getImagePathForCharacter(characterArray[1].toString());
     console.log(ch_src2)
   }
   console.log(ch_src2)
-  console.log(version)
+  console.log(version[2])
   
   console.log('hihihihi')
 
   if (characterArray2){
-    
+    display_second_vertical_line = 'vertical-line';
   
   if (characterArray2[0]) {
     ch_src3 = getImagePathForCharacter(characterArray2[0].toString());
@@ -63,26 +64,44 @@ function TimelineComponent({version,characterArray,characterArray2,half,ch}) {
     ch_src4 = getImagePathForCharacter(characterArray2[1].toString());
     
   }
+
   
+}else{
+  display_second_vertical_line=''
 }
+let shape;
+let pointOh;
+let shapeText;
+let even_version;
+
+if (even_version = parseInt(version[0],10)%2 === 0) {
+pointOh = version[2] === '0';
+shape = pointOh ? 'rectangle-58-org' : 'ellipse-8-org';
+shapeText = pointOh ? 'rectangle-text' : 'ellipse-text';
+}else{
+  pointOh = version[2] === '0';
+  shape = pointOh ? 'rectangle-58' : 'ellipse-8';
+  shapeText = pointOh ? 'rectangle-text' : 'ellipse-text';
+}
+
   return (
     <div>
         <div className="timeline-component">
           <div className='element1'>
-              <div className="vertical-line"></div>
+              <div className={display_second_vertical_line}></div>
               <div className='img-test-container1'>
                 <img className='img-test' src={ch_src} alt="Character Image" />
                 <img className='img-test' src={ch_src2}/>
                 
               </div>
-              <div className="vertical-line2"></div>
+              <div className='vertical-line2'></div>
               <div className='img-test-container2'>
                 <img className='img-test' src={ch_src3}/>
                 <img className='img-test' src={ch_src4} />
               </div>
               <div className="line-horizontal"></div>
-              <div className="ellipse-8">
-              <div className="ellipse-text">{version}</div>
+              <div className={shape}>
+                <div className={shapeText}>{version}</div>
               </div>
           </div>
           

@@ -103,23 +103,7 @@ export default function BannerHistory(){
                             const greatestDateArray = dataArray.reduce((max, item) => {
                                 return item[0][1] > max[0][1] ? item : max;
                               }, dataArray[0]);
-                              const lastIndexOfArray = greatestDateArray[1];
-                              // Get the version number from the data array
-                              const currentPatch = greatestDateArray[0][0];
-                            
-                              // Create the version key if it doesn't exist
-                              if (!characterGroups[currentPatch]) {
-                                characterGroups[currentPatch] = {};
-                              }
-                            
-                              // Create the half key if it doesn't exist
-                              if (!characterGroups[currentPatch][lastIndexOfArray]) {
-                                characterGroups[currentPatch][lastIndexOfArray] = [];
-                              }
-                            
-                              // Add the character to the version and half
-                              characterGroups[currentPatch][lastIndexOfArray].push(characterName);
-                      
+
                             //console.log({statsArray})
                             const searchKey = characterName; // Remove curly braces around 'key'
                             const keys = Object.keys(post);
@@ -141,7 +125,7 @@ export default function BannerHistory(){
                                 weapon={weapon}
                                 patchHalf = {greatestDateArray[1]}
                                 stats={statsArray}
-                                patchGroup={characterGroups}
+                                
                                 />
                             );
                             })}
