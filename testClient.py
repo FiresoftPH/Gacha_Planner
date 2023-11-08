@@ -133,9 +133,9 @@ def checkTargetPatch():
     else:
         print("Error: ", response.status_code)
     
-getAllCharacterData()
+# getAllCharacterData()
 # calculations()
-# validBanner()
+validBanner()
 # currentpatch_data = db.banner.checkValidInputBanner()
 # currentpatch = float(currentpatch_data[0][0])
 # currentpatch_enddate = currentpatch_data[0][2]

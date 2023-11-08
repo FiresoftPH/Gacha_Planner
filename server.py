@@ -44,8 +44,12 @@ def register():
 
 @app.route('/api/planner/check-valid-banner')
 def checkValidBanner():
-    version = db.banner.checkValidInputBanner()
-    full_version = db.primocalc.getcurrent(version[0][0], version[0][2])
+    # version = db.banner.checkValidInputBanner()
+    # print(version)
+    VERSION = '4.2'
+    END_DATE = datetime.date(2023, 11, 28)
+    full_version = db.primocalc.getcurrent(VERSION, END_DATE)
+    # full_version = db.primocalc.getcurrent(version[0][0], version[0][2])
     full_version[0] = str(full_version[0])
     return jsonify({"load": full_version})
     
@@ -158,8 +162,6 @@ def fetchPlannerData():
 #         return jsonify({"error": "No saved data found"})
 #     else:
 #         return jsonify(user_data)
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)

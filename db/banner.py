@@ -199,7 +199,7 @@ def runRecalculationScript():
 # runRecalculationScript()
 
 # print(getRecentCharacterBanner())
-# print(checkValidInputBanner()[0][0])
+# print(checkValidInputBanner())
 # print(getRerunRanking())
 
 # addingNewColumn()
