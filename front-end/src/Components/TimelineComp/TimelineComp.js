@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Timeline({data}) {
-  console.log('nnnnnnnn')
-  console.log(data)
+
   const dataArray = Object.entries(data);
 
   // Sort the array based on keys (accounting for decimal keys)
@@ -10,8 +9,7 @@ export default function Timeline({data}) {
   
   // Convert the sorted array back to an object
   const sortedObject = Object.fromEntries(dataArray);
-  console.log('yoyoyoyo')
-  console.log(sortedObject);
+
   return(
     <div className="horizontal-scrolling-box">
       <div className="content">
@@ -47,12 +45,10 @@ function TimelineComponent({version,characterArray,characterArray2,half,ch}) {
   let display_second_vertical_line;
   if (characterArray[1]) {
     ch_src2 = getImagePathForCharacter(characterArray[1].toString());
-    console.log(ch_src2)
+ 
   }
-  console.log(ch_src2)
-  console.log(version[2])
-  
-  console.log('hihihihi')
+ 
+
 
   if (characterArray2){
     display_second_vertical_line = 'vertical-line';

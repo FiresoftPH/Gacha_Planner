@@ -77,9 +77,7 @@ export default function BannerHistory(){
         console.log(error);
       });
   }, []); // The empty dependency array ensures this effect runs only once
-  console.log('ggggggggggggggggggggggggg')
-  console.log(characterGroups2)
-  console.log(post)
+
   return (
     // Your component's rendering logic here
     <div className='banner-page'>
@@ -108,10 +106,7 @@ export default function BannerHistory(){
                             const searchKey = characterName; // Remove curly braces around 'key'
                             const keys = Object.keys(post);
                             const indexValue = keys.indexOf(searchKey) + 1;
-                            console.log('dataarray')
-                            console.log(dataArray)
-                            console.log('histor')
-                            console.log(characterGroups)
+  
                             return (
                                 <BannerChBoxElement
                                 key={characterName}

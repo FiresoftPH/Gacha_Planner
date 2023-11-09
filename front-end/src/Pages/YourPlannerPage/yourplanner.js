@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import './yourplanner.css'
+import axios from 'axios'
+
 
 import Topbar from '../../Components/TopBarComponent/Topbar';
 import ProgressTracking from '../../Components/ProgressTrack/ProgressTracking';
@@ -9,7 +11,20 @@ export default function YourPlanner(){
     const [Genesis, setGenesis] = useState('');
     const [Interwined, setInterwined] = useState('');
 
-
+    useEffect(() => {
+      // Perform the GET request when the component is mounted
+      axios.get('/api/planner/fetch-data')
+        .then(response => {
+          // Handle the response
+          console.log('URPLANNERRRRR')
+          console.log(response.data);
+        })
+        .catch(error => {
+          // Handle errors
+          console.log('ERR')
+          console.log(error);
+        });
+    }, []); 
 
     const handleSubmit = () => {
         // Handle the form submission, e.g., send data to a server or perform an action
