@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
 import "./LoginForm.css"
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom';
+
 export default function LoginForm() {
     const [formData, setFormData] = useState({
       username: "",
@@ -15,19 +17,29 @@ export default function LoginForm() {
       });
     };
     const [post, setPost] = useState([]);
-  
+    const [errorMessage, setErrorMessage] = useState('');
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
       e.preventDefault();
 
       const userInput = {
-        username: 'user@boby',
-        password: '1234',
+        username: formData.username,
+        password: formData.password,
       };
       console.log(userInput);
       try {
           const response = await axios.post('/api/auth/users', userInput);
           const post_msg = response.data;
           console.log(post_msg)
+                    if (response.data.error) {
+            // If there's an error, update the state with the error message
+            setErrorMessage(response.data.error);
+          } else {
+            // If successful login, you can handle it accordingly
+            console.log(response.data.message);
+            console.log('login SUCCEss')
+            navigate('/');
+          }
       } catch (err) {
           console.error('Error: ', err);
       }
@@ -65,6 +77,7 @@ export default function LoginForm() {
           </div>
           <div>
             <button className="log-in-button" type="submit">Login</button>
+            <div>{errorMessage}</div>
           </div>
         
         </form>
