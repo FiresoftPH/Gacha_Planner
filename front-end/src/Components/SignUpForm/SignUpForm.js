@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import './SignUpForm.css'
 import axios from 'axios'; // Import Axios
+import { useNavigate } from 'react-router-dom';
 export default function SignUpForm() {
     const [formData, setFormData] = useState({
       name: '',
@@ -18,30 +19,39 @@ export default function SignUpForm() {
         [name]: value,
       });
     };
-    const [username, setUsername] = useState(0);
-    const [password, setPassword] = useState(0);
+  
 
   
     const togglePasswordVisibility = () => {
       setShowPassword(!showPassword);
     };
-  
+    
+    const navigate = useNavigate();
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      setUsername(formData.username);
-      setPassword(formData.password)
       const userInput = {
          
-        name:'LLOR',
-        username: ':L',
-        password: '1234',
+        name:formData.name,
+        username: formData.username,
+        password: formData.password,
       };
       console.log(userInput);
       try {
           const response = await axios.post('/api/auth/signup', userInput);
           const post_msg = response.data;
           console.log(post_msg)
+          if (response.data.error) {
+            // If there's an error, update the state with the error message
+            setErrorMessage(response.data.error);
+          } else {
+            // If successful login, you can handle it accordingly
+            console.log(response.data.message);
+            console.log('signup SUCCEss')
+            navigate('/');
+          }
       } catch (err) {
           console.error('Error: ', err);
       }
@@ -98,6 +108,7 @@ export default function SignUpForm() {
           <button onClick={handleSubmit} type="submit" className="submit-button">
             Sign Up
           </button>
+          <div>{errorMessage}</div>
         </form>
       </div>
     );

@@ -102,6 +102,22 @@ def savePlannerData(username, input_data, output_data, save_name):
             connection.close()
             return True
         
+def deleteUserData(username, save_name):
+    config = dotenv_values("db/.env")
+    connection = pymysql.connect(
+    host = config["HOST"],
+    port = int(config["PORT"]),
+    user = config["USERNAME"],
+    password = config["PASSWORD"],
+    database = config["DATABASE"]
+    )
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM user_data WHERE username = %s AND saved_data_name = %s", (username, save_name))
+    connection.commit()
+    connection.close()
+    return True
+
+
 def fetchUserData(username):
     config = dotenv_values("db/.env")
     connection = pymysql.connect(

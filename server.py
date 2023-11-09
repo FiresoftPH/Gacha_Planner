@@ -136,7 +136,7 @@ def savePlannerData():
     save_name = data["save_name"]
     check_operation = db.users.savePlannerData(username, input_data, output_data, save_name)
     if check_operation == False:
-        return jsonify({"error": "Data limit reached or user doesn't exists"})
+        return jsonify({"error": "Data limit reached, user doesn't exists or invalid save name"})
     else:
         return jsonify({"message": "Saved Successfully"})
 
@@ -150,6 +150,14 @@ def fetchPlannerData():
         return jsonify({"error": "No saved data found"})
     else:
         return jsonify(user_data)
+
+@app.route('/api/user/delete-data', methods=["POST"])
+def deletePlannerData():
+    data = request.get_json()
+    username = data["username"]
+    save_name = data["save_name"]
+    db.users.deleteUserData(username, save_name)
+    return jsonify({"message": "Deleted successfully"})
     
 # @app.route('/api/planner/calculate-progress', methods=["POST"])
 # def calculateProgress():
