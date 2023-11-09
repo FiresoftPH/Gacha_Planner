@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./LoginForm.css"
+import axios from 'axios'; // Import Axios
 export default function LoginForm() {
     const [formData, setFormData] = useState({
       username: "",
@@ -13,12 +14,25 @@ export default function LoginForm() {
         [name]: value,
       });
     };
+    const [post, setPost] = useState([]);
   
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log("Form data submitted:", formData);
-      // You can add your authentication logic here
-    };
+
+      const userInput = {
+        username: 'user@boby',
+        password: '1234',
+      };
+      console.log(userInput);
+      try {
+          const response = await axios.post('/api/auth/users', userInput);
+          const post_msg = response.data;
+          console.log(post_msg)
+      } catch (err) {
+          console.error('Error: ', err);
+      }
+  }
+ 
   
     return (
       <div className="login-form">
