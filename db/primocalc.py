@@ -225,7 +225,7 @@ def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,tar
         bpneed = 0
         if havewelk == False or days-(welkin+(welkinplan*30)) > 0:
             while primos4free < reqprimos and (welkneed*30) <= days-welkin:
-                primos4free += welk*30
+                primos4free += (welk*30) + 300
                 welkneed += 1
 
         if havebp == False or bpplan < patch2targ:
@@ -281,6 +281,7 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
     patchend = patchdates[str(float(targetpatch))][str(half)]
     timeremaining = patchend - currenttime
     days = timeremaining.days
+    print("eeeeeeeeee", days)
     target = [float(targetpatch),int(half)]
     currenttotal = primos+crystals
     primosmade = accumulate(days,havewelk,havebp,welkin,welkinplan,bp,bpplan,target,currentpatch)
@@ -304,10 +305,12 @@ def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fi
 
     elif fiveorprimos == 1:
         #def plan(days,primos4free,reqprimos,havewelk,havebp,welkin,welkinplan,bpplan,target):
-        primowant = primowant - primos - crystals
+        primowant -= primos - crystals
         primoplan = plan(days,primosmade,primowant,havewelk,havebp,welkin,welkinplan,bpplan,target)
         possible,primoreq,planwelk,planbp,planextra = primoplan[0],primoplan[1],primoplan[2],primoplan[3],primoplan[4]
         primoreq -= primosmade
+        if primoreq < 0:
+            primoreq = 0
         bestreq,bestwelk,bestbp,bestextra = None,None,None,None
         worsereq,worsewelk,worsebp,worseextra = None,None,None,None
 
@@ -459,8 +462,8 @@ I LOVE BEER
 
 
 #def calculations(primos,crystals,fates,pity,havewelk,havebp,welkinplan,bpplan,fiveorprimos,currentpatch,date,welkin=0,bp=0,guarantee=None,targetpatch=None,half=None,fivestars=None,primowant=0):
-print(calculations(11347,120,80,0,True,True,3,2,0,4.1,datetime.date(2023,10,17),46,25,False,4.8,1,2,0))
-#print(calendar(4.1,datetime.datetime(2023,9,27,3) + datetime.timedelta(days=42)))
+print(calendar(4.1,datetime.date(2023,11,8)))
+print(calculations(0,0,0,0,False,False,0,0,1,4.1,datetime.date(2023,11,8),0,0,False,4.2,2,1,3000))
 
 #def progress(primos,crystals,fates,prevaccumulate,fiveorprimos,havewelk,havebp,currentpatch,target,patchend,bestprimos=0,worseprimos=0,primosneed=0,welkdays=0,bplvl=0,welkinplan=0,bpplan=0):
 #print(progress(1500,0,5,3000,0,True,True,4.1,[4.2,1],datetime.date(2023,9,27) + datetime.timedelta(days=21),10000,10000+(90*160),0,10,10,1,1))
