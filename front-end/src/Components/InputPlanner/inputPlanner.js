@@ -13,21 +13,30 @@ import dropArrow from '../../Pictures/dropArrow.png'
 function InputPlanner(props) {
     axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
     axios.defaults.withCredentials = true;
-    const [data, setData] = useState([]);
+    const [recentPatchData, setData] = useState([]);
+    const [patchList, setPatchList] = useState([]);
+    const [isDataLoaded, setIsDataLoaded] = useState(false); // Prevent infinite loop
 
     useEffect(() => {
-        axios.get('/api/planner/check-valid-banner')
+        if (!isDataLoaded) {axios.get('/api/planner/check-valid-banner')
             .then((response) => {
                 // Handle the successful response here
+                console.log('ho');
+                console.log(response.data.load);
                 setData(response.data.load);
-                // console.log(parseFloat(response.data.load[0]))
-                // console.log('hi')
+                const patchList = generateRandomNumbers(response.data.load); // Pass response.data.load directly
+                console.log(patchList);
+                setPatchList(patchList);
+                setTargetPatch(response.data.load[0]);
+                setTargetHalf(response.data.load[1]);
+                setIsDataLoaded(true);
             })
             .catch((error) => {
                 // Handle errors here
                 console.error("Error fetching data: ", error);
             });
-    }, []);
+        }    
+    }, [recentPatchData]);
 
     const [primogemInput, setPrimogem] = useState('0');
     const [genesisCrystalInput, setGenesysCrystal] = useState('0');
@@ -38,14 +47,14 @@ function InputPlanner(props) {
     const [howManyFive, setHowManyFive] = useState('1');
     const [howManyPrimo, setHowManyPrimo] = useState('0');
     const [welkinShowForm, setwelkinShowForm] = useState(false);
-    const [howManyDay, setHowManyDay] = useState('');
+    const [howManyDay, setHowManyDay] = useState('0');
     const [welkinPlanTo, setWelkinPlanTo] = useState('0')
     const [bpShowForm, setbpShowForm] = useState(false);
-    const [bpLevel, setBpLevel] = useState('');
-    const [bpPlanTo, setBpPlanTo] = useState('');
+    const [bpLevel, setBpLevel] = useState('0');
+    const [bpPlanTo, setBpPlanTo] = useState('0');
     // const [targetpatch, setTargetPatch] = useState(parseFloat(data[0]));
-    const [targetpatch, setTargetPatch] = useState('4.1');
-    const [targetHalf, setTargetHalf] = useState(1);
+    const [targetpatch, setTargetPatch] = useState('');
+    const [targetHalf, setTargetHalf] = useState();
 
     const generateRandomNumbers = (currentPatch) => {
         let patchInt = parseInt(currentPatch[0]);
@@ -70,15 +79,6 @@ function InputPlanner(props) {
         return patchList
     };
 
-    // const list = generateRandomNumbers(data);
-    const list = generateRandomNumbers(['4.7',2]);
-    // console.log(list);
-
-    // useEffect(() => {
-    //     // console.log(typeof targetpatch);
-    //     console.log(parseFloat(targetpatch));
-    // }, [targetpatch]);
-
     const handleSelectChange = (event) => {
         let patchString = event.target.value;
         // console.log(patchString);
@@ -86,8 +86,6 @@ function InputPlanner(props) {
         // console.log(patchNum[1]);
         setTargetPatch(patchNum[0]);
         setTargetHalf(patchNum[1]);
-        console.log(targetpatch);
-        console.log(targetHalf)
         // setTargetHalf(event.target.value[1]);
     };
 
@@ -102,43 +100,50 @@ function InputPlanner(props) {
     };
 
     const handlSubmit = async (e) => {
-        e.preventDefault();
-        const userInput = {
-            // "primogems": parseInt(primogemInput),
-            // "crystals": parseInt(genesisCrystalInput),
-            // "fates": parseInt(interwinedFateInput),
-            // "guarantee": guaranteeCheck,
-            // "pity": parseInt(pityCount),
-            // "targetpatch": targetpatch,
-            // "half": parseInt(targetHalf),
-            // "fiveorprimos": parseInt(selectedCheckbox),
-            // "havewelkin": welkinShowForm, 
-            // "havebp": bpShowForm,
-            // "welkindays": parseInt(howManyDay),
-            // "bp": parseInt(bpLevel),
-            // "welkinplan": parseInt(welkinPlanTo),
-            // "bpplan": parseInt(bpPlanTo),
-            // "fivestars": parseInt(howManyFive),
-            // "primowant": parseInt(howManyPrimo)
 
-            "primogems": 11347,
-            "crystals": 120,
-            "fates": 80,
-            "guarantee": false,
-            "pity": 0,
-            // "targetpatch": targetpatch,
-            "targetpatch": '4.2',
-            // "half": parseInt(targetHalf),
-            "half": 2,
-            "fiveorprimos": 0,
-            "havewelkin": true,
-            "havebp": true,
-            "welkindays": 46,
-            "bp": 25,
-            "welkinplan": 3,
-            "bpplan": 2,
-            "fivestars": 2,
-            "primowant": 0
+        e.preventDefault();
+
+        if (selectedCheckbox !== '0' && selectedCheckbox !== '1') {
+            alert('Please select 5 Star characters or Primogems before submitting the form.');
+            return; // Prevent form submission if validation fails
+        }
+        
+        const userInput = {
+            "primogems": parseInt(primogemInput),
+            "crystals": parseInt(genesisCrystalInput),
+            "fates": parseInt(interwinedFateInput),
+            "guarantee": guaranteeCheck,
+            "pity": parseInt(pityCount),
+            "targetpatch": targetpatch,
+            "half": parseInt(targetHalf),
+            "fiveorprimos": parseInt(selectedCheckbox),
+            "havewelkin": welkinShowForm, 
+            "havebp": bpShowForm,
+            "welkindays": parseInt(howManyDay),
+            "bp": parseInt(bpLevel),
+            "welkinplan": parseInt(welkinPlanTo),
+            "bpplan": parseInt(bpPlanTo),
+            "fivestars": parseInt(howManyFive),
+            "primowant": parseInt(howManyPrimo)
+
+            // "primogems": 11347,
+            // "crystals": 120,
+            // "fates": 80,
+            // "guarantee": false,
+            // "pity": 0,
+            // // "targetpatch": targetpatch,
+            // "targetpatch": '4.2',
+            // // "half": parseInt(targetHalf),
+            // "half": 2,
+            // "fiveorprimos": 0,
+            // "havewelkin": true,
+            // "havebp": true,
+            // "welkindays": 46,
+            // "bp": 25,
+            // "welkinplan": 3,
+            // "bpplan": 2,
+            // "fivestars": 2,
+            // "primowant": 0
         };
         console.log(userInput);
         try {
@@ -175,7 +180,6 @@ function InputPlanner(props) {
                         type='number'
                         value={primogemInput}
                         onChange={(e) => setPrimogem(e.target.value)}
-                        required
                     />
                 </div>
                 <div className="gachaPlanner-form-group">
@@ -185,7 +189,6 @@ function InputPlanner(props) {
                         value={genesisCrystalInput}
                         onChange={(e) => setGenesysCrystal(e.target.value)}
                         type='number'
-                        required
                     />
                 </div>
                 <div className="gachaPlanner-form-group">
@@ -194,17 +197,16 @@ function InputPlanner(props) {
                     <input
                         value={interwinedFateInput}
                         onChange={(e) => setInterwinedFate(e.target.value)}
-                        type='number'
-                        required />
+                        type='number'/>
                 </div>
                 <div className="gachaPlanner-form-group">
                     <img className='icon' src={patchIcon} />
                     <label>Which patch do you planned to use your savings?</label>
-                    <select className='patchDropDown' onChange={handleSelectChange}>
-                        {list.map((item, index) => (
+                    { isDataLoaded === true && <select className='patchDropDown' onChange={handleSelectChange}>
+                        {patchList.map((item, index) => (
                             <option key={index} value={item}>{item[0] + " " + (item[1] === 1 ? 'First half' : 'Second half')}</option>
                         ))}
-                    </select>
+                    </select>}
                 </div>
                 <div className="gachaPlanner-form-group">
                     <img className='icon' src={wishIcon} />

@@ -11,10 +11,10 @@ import arrow from '../../Pictures/arrow.png'
 function ResultPlanner( props ){
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [showSaveList, setShowSaveList] = useState(false);
-    
+
     const inputData = props.userInputData;
     const calData = props.userResultData;
-    console.log( inputData ); 
+    console.log( inputData );
     console.log( calData ); 
     // console.log( calData.bestreq ); 
     // console.log( String(calData.bestreq) );  
@@ -35,7 +35,7 @@ function ResultPlanner( props ){
                 <h1>Current Plan</h1>
                 <img className="save-icon" src={saveIcon}></img>
             </button> 
-            <SaveDropdown trigger={showSaveList}>
+            <SaveDropdown trigger={showSaveList} inputData={inputData} calData={calData}>
             </SaveDropdown>
             <div className='symbol-container'>
                 <div className='info'>
