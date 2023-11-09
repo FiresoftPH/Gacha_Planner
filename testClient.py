@@ -40,7 +40,7 @@ def auth():
         print("Error: ", response.status_code)
 
 def register():
-    response = requests.post(BASE_URL + "/auth/signup", json={"name": "", "username": "", "password": ""})
+    response = requests.post(BASE_URL + "/auth/signup", json={"name": "Most", "username": "most", "password": "123"})
     if response.status_code == 200:
         print(response.json())
     else:
@@ -75,12 +75,12 @@ def calculations():
 
 def saveData(user_input, program_output):
     load = {
-        "username": "Hu Tao",
+        "username": "most",
         "input": user_input,
         "output": program_output,
         "save_name": "save_name"
     }
-    response = requests.post(BASE_URL + "/planner/save-data", json=json.dumps(load))
+    response = requests.post(BASE_URL + "/planner/save-data", json=load)
     if response.status_code == 200:
         print(response.json())
     else:
@@ -88,9 +88,9 @@ def saveData(user_input, program_output):
 
 def loadData():
     load = {
-        "username":"furina"
+        "username":"most"
     }
-    response = requests.post(BASE_URL + "/planner/fetch-data", json=json.dumps(load))
+    response = requests.post(BASE_URL + "/user/fetch-data", json=load)
     if response.status_code == 200:
         print(response.json())
     else:
@@ -103,6 +103,16 @@ def validBanner():
     else:
         print("Error: ", response.status_code)
 
+def deleteData():
+    load = {
+        "username":"most",
+        "save_name": "save_name2"
+    }
+    response = requests.post(BASE_URL + "/user/delete-data", json=load)
+    if response.status_code == 200:
+        print(response.json())
+    else:
+        print("Error: ", response.status_code)
 """
 OUTPUT FORMAT: 
 allCharacterDataFormat = {
@@ -135,9 +145,13 @@ def checkTargetPatch():
     
 # getAllCharacterData()
 # calculations()
-validBanner()
+# validBanner()
 # currentpatch_data = db.banner.checkValidInputBanner()
 # currentpatch = float(currentpatch_data[0][0])
 # currentpatch_enddate = currentpatch_data[0][2]
 # getRerunRanking()
-#getRecentRerunHistory()
+# getRecentRerunHistory()
+# register()
+# saveData({"input": "ehe"}, {"output": "ehe"})
+# loadData()
+deleteData()
