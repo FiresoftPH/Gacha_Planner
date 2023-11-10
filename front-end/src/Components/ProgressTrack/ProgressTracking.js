@@ -7,7 +7,7 @@ export default function ProgressTracking({primo,genesis,interwined,handlePrimosC
     return(
             <div className='yourplanner-progress-tracking'>
                 <div className='yourplanner-body-header'>
-                    <p className='yourplanner-body-header-text'>Progress Tracking</p>
+                    <h1 className='yourplanner-body-header-text'>Progress Tracking</h1>
                 </div>
                 <div className='yourplanner-body-input'>
                     <div className='yourplanner-input-container'>

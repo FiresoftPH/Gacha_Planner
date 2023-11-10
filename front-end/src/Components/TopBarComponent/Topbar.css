@@ -12,17 +12,19 @@
 }
 
 .topbar-header-pic-container{
+    display: grid;
     color: #516CC4;
     font-size: 40px;
     font-weight: bold;
-    width:1200px;
+    align-content: center;
+    /* width:1200px; */
     
 }
 .topbar-header-pic{
-    margin-top: 8px;
-    margin-left: 10px;
-    width: 250px;
+    height: 50px;
+    width: auto;
 }
+
 .topbar-button{
     background-color: #292C43;
     font-size: 22px;
@@ -31,38 +33,13 @@
     color: white;
     width: 15%;
     border-style: none;
+    justify-self: right;
 
 }
 .topbar-button:hover{
     opacity: 0.8;
 }
 
-.topbar-button{
-    margin-top: 0px;
-    background-color: #292C43;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-    border-style: none;
-    width: 15%;
-
-}
-
-.topbar-button:hover{
-    opacity: 0.8;
-}
-
-.topbar-button{
-    margin-top: 0px;
-    background-color: #292C43;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    color: white;
-    border-style: none;
-    width: 15%;
-}
 .topbar-button-clicked{
     margin-top: 0px;
     background-color: #292C43;
@@ -87,6 +64,7 @@
 .topbar-navigate-to-login{
     border-radius: 100px;
     background-color: #292C43;
+    justify-self: right;
     border-style: none;
     cursor: pointer;
 }

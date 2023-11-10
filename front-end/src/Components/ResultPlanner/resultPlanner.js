@@ -19,7 +19,7 @@ function ResultPlanner( props ){
     axios.defaults.withCredentials = true;
     const [showSuggestion, setShowSuggestion] = useState(false);
     // const [showSaveList, setShowSaveList] = useState(false);
-
+    
     const [currPlanName, setCurrPlanName] = useState("Current plan");
     const [originalName, setOriginalName] = useState("Current plan");
     const [isEditing, setEditing] = useState(false);
@@ -28,6 +28,7 @@ function ResultPlanner( props ){
     const calData = props.userResultData;
     const isTracking = props.isTracking;
     const planName = props.planName;
+    const username = props.username;
     console.log( inputData );
     console.log( calData ); 
     console.log( planName )
@@ -55,7 +56,7 @@ function ResultPlanner( props ){
 
     const handleSaveClick = (name) => {
         const load = {
-            "username": "hutao",
+            "username": username,
             "input": inputData,
             "output": calData,
             "save_name": name
@@ -65,6 +66,7 @@ function ResultPlanner( props ){
         .catch(err => console.error('Error: ', err))
         setOriginalName(name)
         setCurrPlanName(name)
+        console.log(username);
         setEditing(false);
     };
 
@@ -75,7 +77,7 @@ function ResultPlanner( props ){
 
     const handle_delete = async (name) => {
         const del = {
-            "username": "hutao",
+            "username": username,
             "save_name": name
         };
 
@@ -129,7 +131,7 @@ function ResultPlanner( props ){
                     
                 )}
             </div> 
-            {isEditing && <SaveDropdown saveClickFunc={saveClick} inputData={inputData} calData={calData} planName={selectName} currPlanName={currPlanName}>
+            {isEditing && <SaveDropdown saveClickFunc={saveClick} inputData={inputData} calData={calData} planName={selectName} currPlanName={currPlanName} username={username}>
             </SaveDropdown>}
             <div className='symbol-container'>
                 <div className='info'>

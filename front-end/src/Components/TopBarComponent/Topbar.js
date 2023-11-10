@@ -36,9 +36,7 @@ return(
     <button onClick={navigateToGachaPlanner}  className={buttonGachaPlanner}>Gacha Planner</button>
     <button onClick={navigateToBannerHistory}  className={buttonBannerHistory}>Banner History</button>
     <button onClick={navigateToYourPlanner} className={buttonYourplanner}>Your Planner</button>
-    <div className='topbar-user-profile-container'>
-        <button className='topbar-navigate-to-login' onClick={navigateToLogin}><img className="topbar-user-profile" src={headerIcon} alt="Wisher" /></button>
-    </div>
+    <button className='topbar-navigate-to-login' onClick={navigateToLogin}><img className="topbar-user-profile" src={headerIcon} alt="Wisher" /></button>
 </div>);
 
 }

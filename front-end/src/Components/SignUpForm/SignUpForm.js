@@ -53,7 +53,7 @@ export default function SignUpForm() {
       };
       console.log(userInput);
       try {
-          const response = await axios.post('/api/auth/signup', userInput);
+          const response = await axios.post('/auth/signup', userInput);
           const post_msg = response.data;
           console.log(post_msg)
           if (response.data.error) {

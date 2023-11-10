@@ -10,6 +10,8 @@ function GachaPlanner() {
     const [showResultCompo, setShowResultCompo] = useState(false); 
     const [userInput, setUserInput] = useState(null); 
     const [userResult, setUserResult] = useState(null); 
+    const username =  localStorage.getItem('username'); 
+
     
     const handleUserInput = (data) => {
         setUserInput(data);
@@ -19,6 +21,7 @@ function GachaPlanner() {
     };
 
     const handleConfirmClick = () => {
+            
         setShowResultCompo(true);
     };
 
@@ -27,8 +30,8 @@ function GachaPlanner() {
             <Topbar></Topbar>
             <div className='gachaPlanner-contents-container'>
                 <div className='gachaPlanner-planner-container'>
-                    <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput} onUserResult={handleUserResult}></InputPlanner>
-                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult} isTracking={true} planName={'save_name1'}></ResultPlanner>}
+                    <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput} onUserResult={handleUserResult} username={username}></InputPlanner>
+                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult} isTracking={false} planName={'save_name1'} username={username}></ResultPlanner>}
                     {/* {!showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>} */}
                 </div>
                 <div className='characterRanking-container'>

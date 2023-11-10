@@ -1,21 +1,23 @@
 .yourplanner-progress-tracking{
-    position: relative;
+    /* position: relative; */
     border-style: none;
     border-radius: 10px;
     background-color: #444A6C;
     border-color: red;
-    margin-left: 12.5%;
-    width: 1000px;
+    /* margin-left: 12.5%; */
+    width: 800px;
     margin-bottom: 20px;
 
 
 }
     .yourplanner-body-header{
+        border-radius: 25px 25px 0px 0px;
+        /* padding: 10px 10px 10px 20px; */
         border-bottom: solid;
-        border-color: #0C0F1D;
+        border-color: #0c0f1d;
         color:white;
-        font-size: 35px;
-        font-weight: bold;
+        /* font-size: 35px; */
+        /* font-weight: bold; */
         height: 80px;
         
     }
@@ -48,7 +50,6 @@
     }
 
     .planner-progress-button{
-        position: absolute;
         color:white;
         margin-top: 0.5%;
         font-size: 24px;

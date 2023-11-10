@@ -8,9 +8,8 @@ function SaveDropdown(props) {
     axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
     axios.defaults.withCredentials = true;
     const numberOfButtons = 5;
-    const username = {
-        "username": "hutao"    
-    }
+    const username = props.username;
+    const jsonUsername = {"username" : username};
     const [savePlannerList, setSavePlannerList] = useState([]);
     const [selectedButton, setSelectedButton] = useState(null);
     const [selectedBtnName, setSeletedBtnName] = useState(null);
@@ -20,7 +19,7 @@ function SaveDropdown(props) {
     // Move fetchSaveList inside the component as an asynchronous function
     const fetchSaveList = async () => {
         try {
-            const res = await axios.post('/user/fetch-data', username);
+            const res = await axios.post('/user/fetch-data', jsonUsername);
 
             if (Array.isArray(res.data)) {
                 setSavePlannerList(res.data);
@@ -48,7 +47,7 @@ function SaveDropdown(props) {
         const user_input = props.inputData;
         const program_output = props.calData;
         const load = {
-            "username": "hutao",
+            "username": username,
             "input": user_input,
             "output": program_output,
             "save_name": saveName
@@ -63,7 +62,7 @@ function SaveDropdown(props) {
 
     const handle_delete = async (name) => {
         const del = {
-            "username": "hutao",
+            "username": username,
             "save_name": name
         };
 
