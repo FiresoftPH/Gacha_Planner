@@ -7,6 +7,7 @@ export default function SignUpForm() {
       name: '',
       username: '',
       password: '',
+      confirm_password:'',
       
     });
   
@@ -32,6 +33,14 @@ export default function SignUpForm() {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
+      if (!formData.name || !formData.username || !formData.password) {
+        setErrorMessage('Please fill in all the fields');
+        return;
+      }
+      if (formData.password !== formData.confirm_password) {
+        setErrorMessage('Make sure confirm password is the same as password');
+      }
+      if (formData.password === formData.confirm_password) {
       const userInput = {
          
         name:formData.name,
@@ -54,7 +63,7 @@ export default function SignUpForm() {
           }
       } catch (err) {
           console.error('Error: ', err);
-      }
+      }}
   }
     
     return (
@@ -103,6 +112,18 @@ export default function SignUpForm() {
             >
               {showPassword ? 'Hide' : 'Show'} Password
             </button>
+          </div>
+          <div className="form-group">
+            <input
+              className="signup-input"
+              placeholder="confirm password"
+              type={showPassword ? 'text' : 'password'}
+              id="confirm-password"
+              name="confirm_password"
+              value={formData.confirm_password}
+              onChange={handleInputChange}
+              required
+            />
           </div>
 
           <button onClick={handleSubmit} type="submit" className="submit-button">

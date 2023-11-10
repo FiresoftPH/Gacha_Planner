@@ -1,0 +1,18 @@
+
+
+import pic3 from '../../Pictures/emoji.jpg'
+
+import './errorMsg.css'
+
+export default function ErrorMessage(){
+    return(
+            <div className='error-container'>
+                <div>
+                    <img className='emoji-face' src={pic3}></img>
+                </div>
+                <div className='error-text'>No save data found</div>
+
+            </div>
+    );
+
+}

@@ -1,0 +1,19 @@
+.error-container{
+    display:grid;
+    grid-template-columns: 30% 50%;
+    background-color: #444A6C;
+    margin-left: 12.5%;
+    width: 1000px;
+    border-radius: 10px;
+    height: 350px;
+}
+.error-text{
+    margin-top: 70px;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+}
+
+.emoji-face{
+    border-radius: 150px;
+}
