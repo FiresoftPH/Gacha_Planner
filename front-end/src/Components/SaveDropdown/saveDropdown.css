@@ -7,11 +7,18 @@
     /* align-items: center; */
 }
 
+.save-container{
+    display: flex;
+    height: 50px;
+    width: 100%;
+}
+
 .button-conatiner{
     display: flex;
     height: 25px;
     justify-content: right;
     padding: 5px;
+    background-color: aquamarine;
 }
 
 .saved-list{
@@ -20,29 +27,30 @@
     align-items: center;
 }
 
-.save-list-button.inactive{
+.save-list-button{
     display: flex;
     width: 100%;
-    height: 40px;
-    border: none;
-    background-color: aliceblue;
+    height: 100%;
     align-items: center;
-    justify-items: left;
+    justify-content: space-between;
+    /* background-color: blue; */
+}
+
+.save-list-button.inactive{
+    border: none;
 }
 
 .save-list-button.active{
-    display: flex;
     border: none;
     border-left: solid 20px;
     border-color: chartreuse;
-    width: 100%;
-    height: 40px;
-    background-color: aliceblue;
-    align-items: center;
-    justify-items: left;
 }
 
 .overlay .btn{
     width: 50px;
     align-self: end;
+}
+
+.delete-icon{
+    background-color: aqua;
 }
