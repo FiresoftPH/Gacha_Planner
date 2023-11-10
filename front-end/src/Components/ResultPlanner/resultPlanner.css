@@ -76,8 +76,7 @@
             color: white;
         }
 
-        .save-button{
-            height: 63px;
+        .plan-header{
             display: flex;
             flex-direction: row;
             background-color: #444A6C;
@@ -88,21 +87,64 @@
             gap: 10px;
         }
 
-        .save-button img{
+        .plan-header img{
+            display: flex;
             height: 40px;
             width: auto;
         }
 
-        .save-button h1{
+        .name-n-icon{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .name-n-icon input{
+            height: 30px;
+            font-size: 20px;
+            color: white;
+            background-color: #444A6C;
+        }
+
+        .name-n-icon h1{
+            margin: 0px;
             font-size: 25px;
-            margin: 0;
             color: white;
         }
 
-        .save-button img.save-icon{
+        .name-n-icon button{
+            height: 100%;
+            background-color: #444A6C;
+            border: none;
+        }
+
+        .save-icon img{
+            margin: 0px;
+            height: 25px;
+            width: auto;
+            font-size: 25px;
+            color: white;
+        }
+
+        .yesNno-icon-container{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .yesNno-icon-subcontainer{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .yesNno-icon-subcontainer img{
             height: 30px;
-            justify-self: end;
-            margin-left: auto;
+            width: auto;
         }
 
         .suggestion-button{

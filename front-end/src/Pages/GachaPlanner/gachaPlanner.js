@@ -28,7 +28,7 @@ function GachaPlanner() {
             <div className='gachaPlanner-contents-container'>
                 <div className='gachaPlanner-planner-container'>
                     <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput} onUserResult={handleUserResult}></InputPlanner>
-                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>}
+                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult} isTracking={true} planName={'save_name1'}></ResultPlanner>}
                     {/* {!showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>} */}
                 </div>
                 <div className='characterRanking-container'>

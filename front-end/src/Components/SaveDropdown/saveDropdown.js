@@ -13,6 +13,7 @@ function SaveDropdown(props) {
     }
     const [savePlannerList, setSavePlannerList] = useState([]);
     const [selectedButton, setSelectedButton] = useState(null);
+    const [selectedBtnName, setSeletedBtnName] = useState(null);
     const [saveName, setSaveName] = useState('');
     const [addSaveName, setAddSaveName] = useState('');
 
@@ -37,6 +38,11 @@ function SaveDropdown(props) {
 
     useEffect(() => { fetchSaveList();
     }, [])
+
+    useEffect(() => {
+        // Watch for changes in currPlanName
+        console.log('CurrPlanName has changed:', props.currPlanName);
+      }, [props.currPlanName]);
 
     const handle_save = (event) => {
         const user_input = props.inputData;
@@ -73,8 +79,9 @@ function SaveDropdown(props) {
     const saveClick = (index, name) => {
         // setSelectedButton(index === selectedButton ? null : index);
         setSelectedButton(index);
+        setSeletedBtnName(name);
         console.log(selectedButton);
-        {name && setSaveName(name)};
+        {name && props.planName(name)};
     };
 
     const addingSaveName = (event) => {
@@ -89,7 +96,7 @@ function SaveDropdown(props) {
                     <div className='save-container'>
                         <button
                             key={index} 
-                            className={`save-list-button ${index === selectedButton ? 'active' : 'inactive'}`}
+                            className={`save-list-button ${index === selectedButton && item[0] ===selectedBtnName ? 'active' : 'inactive'}`}
                             onClick={() => saveClick(index, item[0])}
                         >{item[0]}
                         </button>
@@ -99,7 +106,7 @@ function SaveDropdown(props) {
                         
                     </div>
                 )))}
-                {savePlannerList.length + 1 <= 5 && (
+                {/* {savePlannerList.length + 1 <= 5 && (
                     <div className='save-container'>
                         <button
                             className={`save-list-button ${savePlannerList.length + 1 === selectedButton ? 'active' : 'inactive'}`}
@@ -111,16 +118,11 @@ function SaveDropdown(props) {
                                     onChange={(e) => addingSaveName(e.target.value)}/>
                                     ) : (addSaveName !== '' ? addSaveName : '+')}
                         </button>
-                    </div>)}
-                    {/* {savePlannerList.length + 1 <= 5 && 
-                    <div className='save-container'>
-                        <button>
-                           hi
-                        </button>
-                    </div>} */}
-            </div>
-            <div className='button-conatiner'>
-                <button className='btn' onClick={handle_save}>Save</button>
+                    </div>)} */}
+                {savePlannerList.length === 0 && (
+                <div className='save-container'>
+                    empty
+                </div>)}
             </div>
         </div>
     );
