@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "axios": "^1.5.1"
+    "axios": "^1.5.1",
+    "react-hooks-global-state": "^2.1.0"
   }
 }
