@@ -1,64 +1,70 @@
 .yourplanner-progress-tracking{
     /* position: relative; */
     border-style: none;
-    border-radius: 10px;
+    border-radius: 25px;
     background-color: #444A6C;
     border-color: red;
     /* margin-left: 12.5%; */
     width: 800px;
+    height: fit-content;
     margin-bottom: 20px;
 
 
 }
     .yourplanner-body-header{
-        border-radius: 25px 25px 0px 0px;
+        display: flex;
         /* padding: 10px 10px 10px 20px; */
         border-bottom: solid;
         border-color: #0c0f1d;
         color:white;
+        height: 50px;
         /* font-size: 35px; */
         /* font-weight: bold; */
         height: 80px;
-        
-    }
-    .yourplanner-body-header-text{
-        margin-top: 25px;
-        margin-left: 30px;
+        align-items: center;
+        margin: 0;
+        font-size: 30px;
+        padding-left: 20px;
     }
 
     .yourplanner-input-container{
+        display: flex;
         margin-bottom: 20px;
+        align-items: center;
+        gap: 10px;
     }
     .yourplanner-body-input{
-        margin-top: 12px;
-        margin-left: 32px;
+        display: grid;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left: 20px;
     }
     .yourplanner-input-text{
         color: white;
-        font-size: 32px;
-        margin-left: 10px;
+        font-size: 25px;
+        margin: 0;
         display: inline;
     }
 
     .planner-input-boxes{
         display: inline;
         border-radius: 10px;
-        height: 35px;
+        height: 25px;
         width:120px;
-        font-size: 32px;
-        margin-left: 1.5%;
+        font-size: 20px;
     }
 
     .planner-progress-button{
         color:white;
         margin-top: 0.5%;
-        font-size: 24px;
+        font-size: 20px;
         left:50%;
-        height: 55px;
-        width: 141px;
+        height: 40px;
+        width: 100px;
         border-style: none;
         border-radius: 15px;
         background-color: #516CC4;
+        justify-self: center;
     }
 
     .yourplanner-pic{

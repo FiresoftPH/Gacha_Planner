@@ -23,7 +23,7 @@ function SaveDropdown(props) {
 
             if (Array.isArray(res.data)) {
                 setSavePlannerList(res.data);
-                console.log('Data has been fetched:', res.data);
+                console.log('Data has been fetched in saveDropdown:', res.data);
             } else {
                 console.log('Error: Received non-array data:', res.data);
                 setSavePlannerList([]); // Set an empty array in case of an error
@@ -38,10 +38,10 @@ function SaveDropdown(props) {
     useEffect(() => { fetchSaveList();
     }, [])
 
-    useEffect(() => {
-        // Watch for changes in currPlanName
-        console.log('CurrPlanName has changed:', props.currPlanName);
-      }, [props.currPlanName]);
+    // useEffect(() => {
+    //     // Watch for changes in currPlanName
+    //     console.log('CurrPlanName has changed:', props.currPlanName);
+    //   }, [props.currPlanName]);
 
     const handle_save = (event) => {
         const user_input = props.inputData;

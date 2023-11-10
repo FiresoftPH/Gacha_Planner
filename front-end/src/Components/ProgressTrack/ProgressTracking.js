@@ -6,16 +6,14 @@ import './ProgressTrack.css'
 export default function ProgressTracking({primo,genesis,interwined,handlePrimosChange,handleGenesisChange,handleInterwinedChange,handleSubmit}){
     return(
             <div className='yourplanner-progress-tracking'>
-                <div className='yourplanner-body-header'>
-                    <h1 className='yourplanner-body-header-text'>Progress Tracking</h1>
-                </div>
+                <h1 className='yourplanner-body-header'>Progress Tracking</h1>
                 <div className='yourplanner-body-input'>
                     <div className='yourplanner-input-container'>
                         <img className='yourplanner-pic' src={pic1}></img>
                         <p className='yourplanner-input-text'>How many primogem you have?</p>
                         <input
                             className='planner-input-boxes'
-                            type="text"
+                            type="number"
                             id="primogems"
                             value={primo}
                             onChange={handlePrimosChange}
@@ -27,7 +25,7 @@ export default function ProgressTracking({primo,genesis,interwined,handlePrimosC
                     <p className='yourplanner-input-text'>How many Genesis crystals you have?</p>
                     <input
                             className='planner-input-boxes'
-                            type="text"
+                            type="number"
                             id="Genesis"
                             value={genesis}
                             onChange={handleGenesisChange}
@@ -39,7 +37,7 @@ export default function ProgressTracking({primo,genesis,interwined,handlePrimosC
                     <p className='yourplanner-input-text'>How many Interwined crystals you have?</p>
                     <input
                             className='planner-input-boxes'
-                            type="text"
+                            type="number"
                             id="Interwined"
                             value={interwined}
                             onChange={handleInterwinedChange}

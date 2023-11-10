@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: row;
     z-index: 2;
+    justify-content: space-between;
 }
 
 .topbar-header-pic-container{
@@ -31,7 +32,7 @@
     font-weight: bold;
     cursor: pointer;
     color: white;
-    width: 15%;
+    width: 200px;
     border-style: none;
     justify-self: right;
 
@@ -50,7 +51,7 @@
     border-style: none;
     border-bottom: solid;
     border-bottom-width: 5px;
-    width: 15%;
+    width: 200px;
 }
 .topbar-user-profile-container{
     margin-top: 0.5%;
@@ -67,4 +68,9 @@
     justify-self: right;
     border-style: none;
     cursor: pointer;
+}
+
+.button-topbar-container{
+    display: flex;
+    justify-content: right;
 }

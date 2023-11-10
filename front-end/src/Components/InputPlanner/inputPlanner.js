@@ -11,21 +11,21 @@ import bpIcon from '../../Pictures/bpIcon.png'
 import dropArrow from '../../Pictures/dropArrow.png'
 
 function InputPlanner(props) {
-    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
+    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
     axios.defaults.withCredentials = true;
     const [recentPatchData, setData] = useState([]);
     const [patchList, setPatchList] = useState([]);
     const [isDataLoaded, setIsDataLoaded] = useState(false); // Prevent infinite loop
 
     useEffect(() => {
-        if (!isDataLoaded) {axios.get('/api/planner/check-valid-banner')
+        if (!isDataLoaded) {axios.get('/planner/check-valid-banner')
             .then((response) => {
                 // Handle the successful response here
-                console.log('ho');
-                console.log(response.data.load);
+                // console.log('ho');
+                // console.log(response.data.load);
                 setData(response.data.load);
                 const patchList = generateRandomNumbers(response.data.load); // Pass response.data.load directly
-                console.log(patchList);
+                // console.log(patchList);
                 setPatchList(patchList);
                 setTargetPatch(response.data.load[0]);
                 setTargetHalf(response.data.load[1]);
@@ -145,17 +145,16 @@ function InputPlanner(props) {
             // "fivestars": 2,
             // "primowant": 0
         };
-        console.log(userInput);
-        try {
-            const response = await axios.post('/api/planner/calculate', userInput);
-            const currentPlanResult = response.data;
-            // const returnResult = currentPlanResult
-            props.onUserInput(userInput);
-            props.onUserResult(currentPlanResult);
-            // setPosts(allPosts);
-        } catch (err) {
-            console.error('Error: ', err);
-        }
+        console.log("input from inputPlanner", userInput);
+        props.onUserInput(userInput);
+        // try {
+        //     const response = await axios.post('/planner/calculate', userInput);
+        //     const currentPlanResult = response.data;
+        //     props.onUserInput(userInput);
+        //     props.onUserResult(currentPlanResult);
+        // } catch (err) {
+        //     console.error('Error: ', err);
+        // }
     }
 
     const welkinCheckboxChange = () => {
@@ -328,7 +327,7 @@ function InputPlanner(props) {
             <button
                 className='gachaPlanner-confirm-btn'
                 type='submit'
-                onClick={props.onClick}
+                // onClick={props.onClick}
             >Generate Planner
             </button>
         </form>

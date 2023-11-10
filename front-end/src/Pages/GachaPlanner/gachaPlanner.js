@@ -5,13 +5,26 @@ import Topbar from '../../Components/TopBarComponent/Topbar';
 import ResultPlanner from '../../Components/ResultPlanner/resultPlanner';
 import RankingBanner from '../../Components/RankingBanner/rankingBanner';
 import InputPlanner from '../../Components/InputPlanner/inputPlanner';
+import { useEffect } from 'react';
 
 function GachaPlanner() {
     const [showResultCompo, setShowResultCompo] = useState(false); 
     const [userInput, setUserInput] = useState(null); 
     const [userResult, setUserResult] = useState(null); 
+    const [fetchTrigger, setFetchTrigger] = useState(false);
     const username =  localStorage.getItem('username'); 
 
+    useEffect(() => {
+        if (userInput !== null) {
+            // Perform the action you want to take when userInput is updated
+            console.log('User input has been updated:', userInput);
+
+            // For example, trigger the calculation here
+            setShowResultCompo(true);
+            setFetchTrigger((prev) => !prev);
+            console.log("ur username", username);
+        }
+    }, [userInput]);
     
     const handleUserInput = (data) => {
         setUserInput(data);
@@ -21,8 +34,9 @@ function GachaPlanner() {
     };
 
     const handleConfirmClick = () => {
-            
-        setShowResultCompo(true);
+        // setShowResultCompo(true);
+        // setFetchTrigger((prev) => !prev);
+        console.log("ur username", username)
     };
 
     return (
@@ -31,7 +45,7 @@ function GachaPlanner() {
             <div className='gachaPlanner-contents-container'>
                 <div className='gachaPlanner-planner-container'>
                     <InputPlanner onClick={handleConfirmClick} onUserInput={handleUserInput} onUserResult={handleUserResult} username={username}></InputPlanner>
-                    {showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult} isTracking={false} planName={'save_name1'} username={username}></ResultPlanner>}
+                    {showResultCompo && userInput != null &&<ResultPlanner fetchTrigger={fetchTrigger} userInputData={userInput} isTracking={false} planName={'save_name1'} username={username} ></ResultPlanner>}
                     {/* {!showResultCompo && userInput != null && userResult != null &&<ResultPlanner userInputData={userInput} userResultData={userResult}></ResultPlanner>} */}
                 </div>
                 <div className='characterRanking-container'>

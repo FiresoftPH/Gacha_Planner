@@ -18,6 +18,7 @@ function ResultPlanner( props ){
     axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
     axios.defaults.withCredentials = true;
     const [showSuggestion, setShowSuggestion] = useState(false);
+    const [calData, setOutputResult] = useState(null);
     // const [showSaveList, setShowSaveList] = useState(false);
     
     const [currPlanName, setCurrPlanName] = useState("Current plan");
@@ -25,17 +26,33 @@ function ResultPlanner( props ){
     const [isEditing, setEditing] = useState(false);
     const [shouldUnmount, setShouldUnmount] = useState(false);
     const inputData = props.userInputData;
-    const calData = props.userResultData;
+    // const calData = props.userResultData;
     const isTracking = props.isTracking;
     const planName = props.planName;
     const username = props.username;
-    console.log( inputData );
-    console.log( calData ); 
-    console.log( planName )
+    console.log( "input in resultPlanner", inputData );
+    console.log( "output in resultPlanner",calData ); 
+    console.log( "name of this plan",planName )
     // console.log( calData.bestreq ); 
     // console.log( String(calData.bestreq) );  
     // console.log(typeof calData.target[1] );
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.post('/planner/calculate', inputData);
+                setOutputResult(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        fetchData();
+        console.log("ahuhihuhi", props.userInputData);
+        console.log("haiyaa", calData);
+    }, [props.fetchTrigger, props.inputData]);
+    
+    
     const suggestionClick = () => {
         setShowSuggestion(!showSuggestion);
     };
@@ -47,7 +64,7 @@ function ResultPlanner( props ){
     const saveClick = () => {   
         // setShowSaveList(true);
         setEditing(true);
-        console.log("result planner", isEditing);
+        // console.log("result planner", isEditing);
     };
 
     const handleInputChange = (e) => {
@@ -66,7 +83,7 @@ function ResultPlanner( props ){
         .catch(err => console.error('Error: ', err))
         setOriginalName(name)
         setCurrPlanName(name)
-        console.log(username);
+        // console.log(username);
         setEditing(false);
     };
 
@@ -95,7 +112,7 @@ function ResultPlanner( props ){
         return null;
       }
 
-    return(
+    return calData && (
         <div className='gachaPlanner-result-container'>
             <div className='plan-header' >
                 <img src={charIcon}></img>

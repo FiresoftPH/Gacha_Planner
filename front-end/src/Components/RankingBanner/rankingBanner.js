@@ -5,13 +5,13 @@ import axios from 'axios';
 // import { response } from 'express';
 
 function RankingBanner() {
-    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
+    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
     axios.defaults.withCredentials = true;
 
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('/api/get/rerun-ranking')
+        axios.get('/get/rerun-ranking')
         .then((response) => {
             // Handle the successful response here
             setData(response.data);

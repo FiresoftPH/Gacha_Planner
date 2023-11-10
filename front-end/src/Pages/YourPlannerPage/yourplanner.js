@@ -10,13 +10,13 @@ import ErrorMessage from './errorMessage';
 export default function YourPlanner(){
     axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
     axios.defaults.withCredentials = true;
-    const [primogems, setPrimogems] = useState('');
-    const [Genesis, setGenesis] = useState('');
-    const [Interwined, setInterwined] = useState('');
+    const [primogems, setPrimogems] = useState('0');
+    const [Genesis, setGenesis] = useState('0');
+    const [Interwined, setInterwined] = useState('0');
     const [savePlannerList, setSavePlannerList] = useState([]);
     const username = localStorage.getItem('username'); //Get data from cach
     const jsonUsername = {username: username,};
-    
+    const [fetchTrigger, setFetchTrigger] = useState(false);
 
   //   const userName = {
   //     username: 'most',
@@ -55,6 +55,7 @@ export default function YourPlanner(){
         console.log('error here arai');
         setSavePlannerList([]); // Set an empty array in case of an error
     }
+    
 };
 
   useEffect(() => { fetchSaveList();
@@ -107,12 +108,12 @@ export default function YourPlanner(){
         // Clone the item to avoid modifying the original object
         const newItem = { ...item };
         // Update the input property to 100
-        newItem[1].input.primogems = primogems;
-        newItem[1].input.crystals = Genesis;
-        newItem[1].input.fates = Interwined;
+        newItem[1].input.primogems = parseInt(primogems);
+        newItem[1].input.crystals = parseInt(Genesis);
+        newItem[1].input.fates = parseInt(Interwined);
         return newItem;
       });
-    
+      setFetchTrigger((prev) => !prev);
       // Update the state with the new array
       setSavePlannerList(updatedSavePlannerList);
     };
@@ -125,7 +126,7 @@ export default function YourPlanner(){
             {errorMessage !== "" && (
                     <ErrorMessage></ErrorMessage>
                 )}
-            {savePlannerList.length > 0 && (savePlannerList.map((item, index) => (<ResultPlanner key={index} userInputData={item[1].input} userResultData={item[1].output} isTracking={true} planName={item[0]} username={username}></ResultPlanner>)))}
+            {savePlannerList.length > 0 && (savePlannerList.map((item, index) => (<ResultPlanner key={index} fetchTrigger={fetchTrigger} userInputData={item[1].input} userResultData={item[1].output} isTracking={true} planName={item[0]} username={username}></ResultPlanner>)))}
         </div>
     </div>
     );
