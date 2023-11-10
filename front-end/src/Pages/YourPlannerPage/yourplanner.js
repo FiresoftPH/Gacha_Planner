@@ -46,16 +46,19 @@ export default function YourPlanner(){
   };
 
     const [errorMessage, setErrorMessage] = useState('');
+    const username = localStorage.getItem('username'); //Get data from cach
+    
     const handleSubmit  = async (e) =>{
       
         // Handle the form submission, e.g., send data to a server or perform an action
         console.log(`Primogems: ${primogems}, GenesisCrystals: ${Genesis},InterwinedCrystals: ${Interwined}`);
       
       const userName = {
-        username: 'Bob',
+        username: username,
       };
       try {
         const response = await axios.post('/api/user/fetch-data', userName);
+        console.log(userName)
         const post_msg = response.data;
         console.log(post_msg)
         if (response.data.error) {

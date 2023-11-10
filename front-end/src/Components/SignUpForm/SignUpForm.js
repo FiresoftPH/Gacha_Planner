@@ -2,7 +2,11 @@ import React, { useState,useEffect } from "react";
 import './SignUpForm.css'
 import axios from 'axios'; // Import Axios
 import { useNavigate } from 'react-router-dom';
+
 export default function SignUpForm() {
+
+  
+
     const [formData, setFormData] = useState({
       name: '',
       username: '',
@@ -57,6 +61,8 @@ export default function SignUpForm() {
             setErrorMessage(response.data.error);
           } else {
             // If successful login, you can handle it accordingly
+            localStorage.setItem('username', formData.username);
+            localStorage.setItem('password', formData.password);
             console.log(response.data.message);
             console.log('signup SUCCEss')
             navigate('/');

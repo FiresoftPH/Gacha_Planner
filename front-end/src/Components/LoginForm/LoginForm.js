@@ -36,6 +36,10 @@ export default function LoginForm() {
             setErrorMessage(response.data.error);
           } else {
             // If successful login, you can handle it accordingly
+
+            localStorage.setItem('username', formData.username); //caching
+            localStorage.setItem('password', formData.password); //caching
+            
             console.log(response.data.message);
             console.log('login SUCCEss')
             navigate('/');
