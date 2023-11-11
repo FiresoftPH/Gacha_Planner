@@ -121,9 +121,31 @@
             border: none;
         }
 
+        .only-icon{
+            display: flex;
+            gap: 10px;
+        }
+        
+        .save-icon img{
+            margin-left: 20px;
+        }
+
         .save-icon img{
             margin: 0px;
-            height: 25px;
+            height: 30px;
+            width: auto;
+            /* font-size: 25px; */
+            color: white;
+        }
+
+        .delete-icon{
+            margin-left: 20px;
+
+        }
+
+        .delete-icon img{
+            margin: 0px;
+            height: 30px;
             width: auto;
             font-size: 25px;
             color: white;
@@ -142,8 +164,12 @@
             align-items: center;
         }
 
+        .yesNo-text{
+            font-size: 15px;
+        }
+
         .yesNno-icon-subcontainer img{
-            height: 30px;
+            height: 25px;
             width: auto;
         }
 
@@ -183,6 +209,11 @@
         .suggestion-button img.arrow-icon.active{
             transform: rotate(180deg);
         }
+.fiveorprimos-header{
+    font-size: 1.3rem;
+    color: white;
+}
+
 .input-text{
     color: #B4D8FF;
 }

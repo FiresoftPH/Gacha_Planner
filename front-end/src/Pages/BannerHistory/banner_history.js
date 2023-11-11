@@ -84,15 +84,13 @@ export default function BannerHistory(){
         
     <div className='banner-body'>
         <div className='banner-timeline'>
-            <div className='banner-body-header'>
-                <p className='banner-body-header-text'>Timeline Banner History</p>
+                <h1 className='banner-body-header-text'>Timeline Banner History</h1>
                 <Timeline data={characterGroups2}></Timeline>
-            </div>
         </div>
         <div className='banner-characters-section'>
             <div className='character-list'>
                 <p>Genshin Impact Character List</p>
-                <div className='banner-character-list-container'>
+                {/* <div className='banner-character-list-container'> */}
     
                     <div className="vertical-scrolling-box">
                         <div className='character-position'>
@@ -126,7 +124,7 @@ export default function BannerHistory(){
                             })}
                     </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
            
             <CharacterInfo chName={originalName} patch={originalPatch} date={dateInfo} element={elementInfo} weapon={weaponInfo} patchHalf={patchHalfInfo}/> 

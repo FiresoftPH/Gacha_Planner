@@ -13,6 +13,8 @@ import editIcon from '../../Pictures/editIcon.png'
 import yesIcon from '../../Pictures/yesIcon.png'
 import noIcon from '../../Pictures/noIcon.png'
 import deleteIcon from '../../Pictures/deleteIcon.png'
+import questIcon from '../../Pictures/questIcon.png'
+import charBigIcon from '../../Pictures/charBigIcon.png'
 
 function ResultPlanner( props ){
     axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
@@ -20,14 +22,17 @@ function ResultPlanner( props ){
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [calData, setOutputResult] = useState(null);
     // const [showSaveList, setShowSaveList] = useState(false);
-    
-    const [currPlanName, setCurrPlanName] = useState("Current plan");
-    const [originalName, setOriginalName] = useState("Current plan");
     const [isEditing, setEditing] = useState(false);
     const [shouldUnmount, setShouldUnmount] = useState(false);
     const inputData = props.userInputData;
-    // const calData = props.userResultData;
     const isTracking = props.isTracking;
+    const [currPlanName, setCurrPlanName] = useState(
+        isTracking ? props.planName : "Current plan"
+      );
+      const [originalName, setOriginalName] = useState(
+        isTracking ? props.planName : "Current plan"
+      );
+    // const calData = props.userResultData;
     const planName = props.planName;
     const username = props.username;
     console.log( "input in resultPlanner", inputData );
@@ -115,7 +120,7 @@ function ResultPlanner( props ){
     return calData && (
         <div className='gachaPlanner-result-container'>
             <div className='plan-header' >
-                <img src={charIcon}></img>
+                <img src={questIcon}></img>
                 {isEditing ? (
                     <div className='name-n-icon'>
                         <input
@@ -126,29 +131,29 @@ function ResultPlanner( props ){
                         <div className='yesNno-icon-container'>
                             <div className='yesNno-icon-subcontainer'>
                                 <button onClick={(e) => handleSaveClick(currPlanName)}><img src={yesIcon}></img></button>
-                                <div>save</div>
+                                <div className='yesNo-text'>save</div>
                             </div>
                             <div className='yesNno-icon-subcontainer'>
                                 <button onClick={handleCancelClick}><img src={noIcon}></img></button>
-                                <div>cancel</div>
+                                <div className='yesNo-text'>cancel</div>
                             </div>
                         </div>
                     </div>
-                    ) : ( isTracking ? (<div className='name-n-icon'> 
-                        <h1>{currPlanName}</h1>
-                        <button className='save-icon' onClick={() => handle_delete(planName)}>
-                            <img src={deleteIcon}></img>
-                        </button>
-                        </div>) : (<div className='name-n-icon'> 
+                    ) : (<div className='name-n-icon'> 
                             <h1>{currPlanName}</h1>
-                            <button className='save-icon' onClick={saveClick}>
-                                <img src={saveIcon}></img>
-                            </button>
-                        </div>)
+                            <div className='only-icon'> 
+                                <button className='save-icon' onClick={saveClick}>
+                                    <img src={saveIcon}></img>
+                                </button>
+                                {isTracking && (<button className='delete-icon' onClick={() => handle_delete(planName)}>
+                                    <img src={deleteIcon}></img>
+                                </button>)}
+                            </div>
+                        </div>
                     
                 )}
             </div> 
-            {isEditing && <SaveDropdown saveClickFunc={saveClick} inputData={inputData} calData={calData} planName={selectName} currPlanName={currPlanName} username={username}>
+            {!isTracking && isEditing && <SaveDropdown saveClickFunc={saveClick} inputData={inputData} calData={calData} planName={selectName} currPlanName={currPlanName} username={username}>
             </SaveDropdown>}
             <div className='symbol-container'>
                 <div className='info'>
@@ -162,10 +167,17 @@ function ResultPlanner( props ){
                 </div>
                 <div className='info'>
                     <div className="circle-container">
-                        <img src={primogmPic}></img>
+                        <img src={ inputData.fiveorprimos === 0 ? (charBigIcon) : (primogmPic) }></img>
                     </div>
                     <div className='symbol-name-container'>Primogems</div>
-                    <div className='symbol-info'>0/{ inputData.fiveorprimos === 0 ? String(calData.bestreq) : String(calData.primoreq) }</div>
+                    { inputData.fiveorprimos === 0 ? 
+                        ( <div className='symbol-info'>
+                            <div>{String(calData.bestreq)}</div>
+                            <div>{String(calData.worsereq)}</div>
+                        </div>
+                        ) : ( 
+                            <div className='symbol-info'>{String(calData.primoreq)}</div>
+                    )}
                     {/* {inputData.fivorprimos === 0 && <div className='symbol-info'>{String(calData.worsereq)}</div>}   */}
                     {/* <div className='symbol-info'>First half</div> */}
                 </div>
@@ -192,25 +204,25 @@ function ResultPlanner( props ){
                 <img className={`arrow-icon ${showSuggestion ? 'active' : 'inactive'}`} src={arrow}></img>
             </button>
                 {showSuggestion && inputData.fiveorprimos === 0 && <div className='informationText'>
-                    <div>5 star best case</div>
+                    <h1 className='fiveorprimos-header'>5 star best case</h1>
                     <ul>
                         {calData.bestreq > calData.primos4free && <li>If you purchase <span className='input-text'>{calData.bestwelk}</span> Blessing of the Welkin Moon, and <span className='input-text'>{calData.bestbp}</span> Battle pass you can earn more <span className='input-text'>{calData.possible}</span> Primogems</li>}
                         {calData.bestreq > calData.primos4free && calData.bestextra !== 0 && <li>Or you can purchase <span className='input-text'>{calData.bestextra}</span> Primogems instead</li>}
-                        {calData.bestreq <= calData.primos4free && <div>good job, happy gambling</div>}
+                        {calData.bestreq <= calData.primos4free && <li>good job, happy gambling</li>}
                     </ul>
-                    <div>5 star worse case</div>
+                    <h1 className='fiveorprimos-header'>5 star worse case</h1>
                     <ul>
                         {calData.worsereq > calData.primos4free && <li>If you purchase <span className='input-text'>{calData.worsewelk}</span> Blessing of the Welkin Moon, and <span className='input-text'>{calData.worsebp}</span> Battle pass you can earn more <span className='input-text'>{calData.possible}</span> Primogems</li>}
                         {calData.worsereq > calData.primos4free && calData.worseextra !== 0 && <li>Or you can purchase <span className='input-text'>{calData.worseextra}</span> Primogems instead</li>}
-                        {calData.worsereq <= calData.primos4free && <div>good job, happy gambling</div>}
+                        {calData.worsereq <= calData.primos4free && <li>good job, happy gambling</li>}
                     </ul>
                 </div>}    
                 {showSuggestion && inputData.fiveorprimos === 1 && <div className='informationText'>
-                    <div>Primogems as a goal</div>
+                    <h1 className='fiveorprimos-header'>Primogems as a goal</h1>
                     <ul>
                         {calData.primoreq > calData.primos4free && <li>If you purchase <span className='input-text'>{calData.planwelk}</span> Blessing of the Welkin Moon, and <span className='input-text'>{calData.planbp}</span>  Battle pass you can earn more <span className='input-text'>{calData.possible}</span> Primogems</li>}
                         {calData.primoreq > calData.primos4free && calData.planextra !== 0 && <li>Or you can purchase <span className='input-text'>{calData.planextra}</span> Primogems instead</li>}
-                        {calData.primoreq <= calData.primos4free && <div>good job, happy gambling</div>}
+                        {calData.primoreq <= calData.primos4free && <li>good job, happy gambling</li>}
                     </ul>
                 </div>}
         </div>

@@ -1,14 +1,18 @@
 .character-info{
+    display: flex;
+    flex-direction: column;
     color: white;
     font-size: 30px;
-    
+    height:100%;
+    align-content: center;
 }
 .banner-info-container{
     border-radius: 20px;
     background-color: #444A6C;
-    width:80%;
-    height:31%;
+    width:800px;
+    height:300px;
     padding-top: 5%;
+    align-self: center;
 }
 .each-ch-text{
     margin-top: 0px;

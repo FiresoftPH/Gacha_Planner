@@ -126,7 +126,10 @@ export default function YourPlanner(){
             {errorMessage !== "" && (
                     <ErrorMessage></ErrorMessage>
                 )}
-            {savePlannerList.length > 0 && (savePlannerList.map((item, index) => (<ResultPlanner key={index} fetchTrigger={fetchTrigger} userInputData={item[1].input} userResultData={item[1].output} isTracking={true} planName={item[0]} username={username}></ResultPlanner>)))}
+            {savePlannerList.length > 0 ? (savePlannerList.map((item, index) => (<ResultPlanner key={index} fetchTrigger={fetchTrigger} userInputData={item[1].input} userResultData={item[1].output} isTracking={true} planName={item[0]} username={username}></ResultPlanner>))
+            ) : (
+              <ErrorMessage></ErrorMessage>
+            )}
         </div>
     </div>
     );

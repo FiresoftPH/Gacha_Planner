@@ -1,8 +1,9 @@
 .banner-page{
-    
+    display: flex;
     background-color: #0C0F1D;
-    padding-top: 160px;
-    padding-bottom: 0px;
+    padding-top: 120px;
+    padding-bottom: 100px;
+    align-content: start;
     height:100vh;
     overflow-y: auto;
 }
@@ -95,11 +96,12 @@
     display:grid;
     grid-template-rows: 700px 900px;
     width: 100%;
-    height: 100vh;
+    height: fit-content;
     border-style: none;
     left:0%;
     border-color: aqua;
     margin-top: 0px;
+    gap: 30px;
 }
 
     .banner-body-header{
@@ -112,23 +114,33 @@
         
     }
     .banner-body-header-text{
-        margin-top: 25px;
-        margin-left: 30px;
+        /* margin-top: 25px;
+        margin-left: 30px; */
+        margin: 0;
+        padding-left: 100px;
+        color: white;
+    }
+
+    .banner-timeline{
+        display: flex;
+        flex-direction: column;
+        
     }
 
     .banner-characters-section{
-        display:grid;
-        grid-template-columns: 50% 50% 1fr;
+        display:flex;
+        flex-direction: row;
+        height: 700px;
+        width: fit-content;
+        /* grid-template-columns: 50% 50% 1fr; */
         background-color: #292C43;
-        margin-left: 0.5%;
-        border-radius: 20px
+        border-radius: 25px;
+        justify-self: center;
+        justify-content: center;
+        gap: 50px;
+        padding-left: 50px;
+        padding-right: 50px;
     }
-
-
-
-
-
-
 
 .timeline-pic{
     width:1900px;
@@ -138,21 +150,17 @@
 .character-list{
     color: white;
     font-size: 30px;
-    margin-left: 8%;
+    height: 100%;
 }
 .banner-character-list-container{
-    margin-top: 9%;
     margin-left: 0;
-    margin-right: 5%;
-    height:60%;
+    height:100%;
 }
 
 .vertical-scrolling-box{
-
-    height: 50%;
+    height: 500px;
     width: 100%;  
     overflow-y: auto;
-
 }
 
 .character-position{

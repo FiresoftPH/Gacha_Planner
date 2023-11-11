@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from 'axios'
 import './saveDropdown.css';
-import deleteIcon from '../../Pictures/deleteIcon.png'
+import deleteIconSmall from '../../Pictures/deleteIconSmall.png'
 
 function SaveDropdown(props) {
     axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
@@ -99,8 +99,11 @@ function SaveDropdown(props) {
                             onClick={() => saveClick(index, item[0])}
                         >{item[0]}
                         </button>
-                        <button className='delete-icon' onClick={() => handle_delete(item[0])}>
-                            <img src={deleteIcon}/>
+                        <button 
+                            key={index} 
+                            className='delete-icon' 
+                            onClick={() => handle_delete(item[0])}>
+                            <img src={deleteIconSmall}/>
                         </button>
                         
                     </div>

@@ -163,13 +163,14 @@
     width: 150px;
   }
   .horizontal-scrolling-box {
-    width: 2500px; /* Set the desired width for your scrolling box */
-    height: 530px; /* Set the desired height for your scrolling box */
+    width: 100%; /* Set the desired width for your scrolling box */
+    height: 600px; /* Set the desired height for your scrolling box */
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevent content from wrapping to the next line */
     border: 1px none #ccc; /* Add a border for styling */
-    padding: 10px; /* Add padding as needed */
-   
+    padding-left: 100px; /* Add padding as needed */
+    padding-right: 100px;
+    box-sizing: border-box;
   }
   
   
