@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from 'axios'
+import axios from '../../axiosConfig'
 import './resultPlanner.css'
 import targetPic from '../../Pictures/targetSymbol.png'
 import primogmPic from '../../Pictures/primogemSymbol.png'
@@ -17,8 +17,6 @@ import questIcon from '../../Pictures/questIcon.png'
 import charBigIcon from '../../Pictures/charBigIcon.png'
 
 function ResultPlanner( props ){
-    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
     const [showSuggestion, setShowSuggestion] = useState(false);
     const [calData, setOutputResult] = useState(null);
     // const [showSaveList, setShowSaveList] = useState(false);

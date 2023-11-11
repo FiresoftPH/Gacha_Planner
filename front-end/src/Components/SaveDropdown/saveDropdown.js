@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from 'axios'
+import axios from '../../axiosConfig'
 import './saveDropdown.css';
 import deleteIconSmall from '../../Pictures/deleteIconSmall.png'
 
 function SaveDropdown(props) {
-    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
     const numberOfButtons = 5;
     const username = props.username;
     const jsonUsername = {"username" : username};

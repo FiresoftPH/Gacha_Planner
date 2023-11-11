@@ -8,10 +8,7 @@ import '../../Components/TimelineComp/timeline.css'
 import CharacterInfo from '../../Components/BannerCharacterInfo/CharacterInfo';
 import CharacterList from '../../Components/BannerChList/CharacterList';
 import BannerChBoxElement from '../../Components/BannerChList/BannerChBox';
-import axios from 'axios'
-
-
-
+import axios from '../../axiosConfig'
 
 export default function BannerHistory(){
   const url = process.env.PUBLIC_URL + '/character-img/'+'venti'+'-icon.png';
@@ -41,16 +38,12 @@ export default function BannerHistory(){
         
     };
 
-
-    axios.defaults.baseURL = 'http://localhost:5000'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
-
   const [post, setPost] = useState([]);
   const [characterGroups2, setCharacterGroups] = useState({});
 
   useEffect(() => {
     // Perform the GET request when the component is mounted
-    axios.get('/api/get/all-banner-data')
+    axios.get('/get/all-banner-data')
       .then(response => {
         // Handle the response
         setPost(response.data);

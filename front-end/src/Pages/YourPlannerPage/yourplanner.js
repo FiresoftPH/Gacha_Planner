@@ -1,15 +1,12 @@
 import { useState,useEffect } from 'react';
 import './yourplanner.css'
-import axios from 'axios'
-
+import axios from '../../axiosConfig'
 import ResultPlanner from '../../Components/ResultPlanner/resultPlanner';
 import Topbar from '../../Components/TopBarComponent/Topbar';
 import ProgressTracking from '../../Components/ProgressTrack/ProgressTracking';
 import ErrorMessage from './errorMessage';
 
 export default function YourPlanner(){
-    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
     const [primogems, setPrimogems] = useState('0');
     const [Genesis, setGenesis] = useState('0');
     const [Interwined, setInterwined] = useState('0');

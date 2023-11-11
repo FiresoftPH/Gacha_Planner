@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './inputPlanner.css'
-import axios from 'axios'
 import primogemPic from '../../Pictures/primogem.png'
 import genesisPic from '../../Pictures/genesis.png'
 import interwinedFatePic from '../../Pictures/interwinedFate.png'
@@ -9,10 +8,9 @@ import wishIcon from '../../Pictures/wishIcon.png'
 import welkinIcon from '../../Pictures/welkinIcon.png'
 import bpIcon from '../../Pictures/bpIcon.png'
 import dropArrow from '../../Pictures/dropArrow.png'
+import axios from '../../axiosConfig'
 
 function InputPlanner(props) {
-    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
     const [recentPatchData, setData] = useState([]);
     const [patchList, setPatchList] = useState([]);
     const [isDataLoaded, setIsDataLoaded] = useState(false); // Prevent infinite loop

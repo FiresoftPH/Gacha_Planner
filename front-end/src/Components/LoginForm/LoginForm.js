@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "./LoginForm.css"
-import axios from 'axios'; // Import Axios
+import axios from '../../axiosConfig'; // Import Axios
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './rankingBanner.css'
 import CharacterImg from '../../Pictures/EulaInfo.png'
-import axios from 'axios';
+import axios from '../../axiosConfig'
 // import { response } from 'express';
 
 function RankingBanner() {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./signup.css";
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
 import myImage from '../../Pictures/wisher_header.png';
 import SignUpForm from '../../Components/SignUpForm/SignUpForm';
 
