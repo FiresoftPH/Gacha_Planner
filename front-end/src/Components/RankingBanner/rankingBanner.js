@@ -5,9 +5,6 @@ import axios from '../../axiosConfig'
 // import { response } from 'express';
 
 function RankingBanner() {
-    axios.defaults.baseURL = 'http://localhost:5000/api'; // Replace with your API URL
-    axios.defaults.withCredentials = true;
-
     const [data, setData] = useState([]);
 
     useEffect(() => {

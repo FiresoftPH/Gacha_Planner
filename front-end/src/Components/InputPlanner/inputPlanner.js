@@ -8,7 +8,7 @@ import wishIcon from '../../Pictures/wishIcon.png'
 import welkinIcon from '../../Pictures/welkinIcon.png'
 import bpIcon from '../../Pictures/bpIcon.png'
 import dropArrow from '../../Pictures/dropArrow.png'
-import axios from '../../axiosConfig'
+import axiosInstance from '../../axiosConfig'
 
 function InputPlanner(props) {
     const [recentPatchData, setData] = useState([]);
@@ -16,7 +16,7 @@ function InputPlanner(props) {
     const [isDataLoaded, setIsDataLoaded] = useState(false); // Prevent infinite loop
 
     useEffect(() => {
-        if (!isDataLoaded) {axios.get('/planner/check-valid-banner')
+        if (!isDataLoaded) {axiosInstance.get('/planner/check-valid-banner')
             .then((response) => {
                 // Handle the successful response here
                 // console.log('ho');
@@ -35,6 +35,8 @@ function InputPlanner(props) {
             });
         }    
     }, [recentPatchData]);
+
+    console.log('Configured baseURL in inputPLanner', axiosInstance.defaults.baseURL);
 
     const [primogemInput, setPrimogem] = useState('0');
     const [genesisCrystalInput, setGenesysCrystal] = useState('0');

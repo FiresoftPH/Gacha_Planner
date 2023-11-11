@@ -6,4 +6,6 @@ const instance = axios.create({
   withCredentials: true,
 });
 
+console.log('Configured baseURL:', instance.defaults.baseURL);
+
 export default instance;
