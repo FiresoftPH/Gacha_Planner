@@ -90,15 +90,13 @@ function SaveDropdown(props) {
         <div className='overlay'>
             <div className='saved-list'>
                 {(savePlannerList.length > 0 || Array.isArray(savePlannerList)) && (savePlannerList.map((item, index) => (
-                    <div className='save-container'>
+                    <div key={index} className='save-container'>
                         <button
-                            key={index} 
                             className={`save-list-button ${index === selectedButton && item[0] ===selectedBtnName ? 'active' : 'inactive'}`}
                             onClick={() => saveClick(index, item[0])}
                         >{item[0]}
                         </button>
                         <button 
-                            key={index} 
                             className='delete-icon' 
                             onClick={() => handle_delete(item[0])}>
                             <img src={deleteIconSmall}/>
