@@ -28,7 +28,7 @@ export default function LoginForm() {
       };
       console.log(userInput);
       try {
-          const response = await axios.post('/api/auth/users', userInput);
+          const response = await axios.post('/auth/users', userInput);
           const post_msg = response.data;
           console.log(post_msg)
                     if (response.data.error) {
